@@ -1,0 +1,44 @@
+@font-face
+{
+font-family: Ampersand;
+src: url('/img/Ampersand.ttf');
+}
+
+
+
+#post-title { 
+	font-weight: bold; 
+	text-align:	center;
+	vertical-align: middle;
+	font-size: 25pt;
+	height: 30pt;
+	width: 4in;
+	color: #6c4bee;
+	text-align:	center;
+	padding-top:5px;
+	font-family: Ampersand;
+}
+
+
+
+body {
+
+//	background-image: url('/img/grass2.jpg');
+//	background-repeat:repeat;
+
+}
+
+.span1 {
+	text-align: center
+}
+
+.control-label {
+	font-size: 14pt;
+	color: #000000;
+//	font-weight: bolder;
+
+
+}
+
+
+// #stuff is for id and .stuff is for class
