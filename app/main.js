@@ -25,9 +25,9 @@ console.log(StackMob.isLoggedIn()); //evaluates to false
 StackMob.isUserLoggedIn('chucknorris'); //evalutes to false
  
 //Now let's login "chucknorris"
-var user = new StackMob.User({ username: 'chucknorris', password: 'myfists' });
+var user = new StackMob.User({ username: 'jens', password: 'jens' });
 user.login();
-user.isLoggedIn(); //evaluates to true (because this user instance is 'chucknorris'
+console.log(user.isLoggedIn()) //evaluates to true (because this user instance is 'chucknorris'
 
 
 	},
