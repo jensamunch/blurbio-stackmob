@@ -19,6 +19,17 @@ App.Router = Backbone.Router.extend({
 
 	initialize: function() {
 		console.log('Router Init')
+		
+//Let's start with no user logged in.
+console.log(StackMob.isLoggedIn()); //evaluates to false
+StackMob.isUserLoggedIn('chucknorris'); //evalutes to false
+ 
+//Now let's login "chucknorris"
+var user = new StackMob.User({ username: 'chucknorris', password: 'myfists' });
+user.login();
+user.isLoggedIn(); //evaluates to true (because this user instance is 'chucknorris'
+
+
 	},
 
 	home: function () {
