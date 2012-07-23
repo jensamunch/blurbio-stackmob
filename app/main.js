@@ -30,6 +30,20 @@ user.login();
 console.log(user.isLoggedIn()) //evaluates to true (because this user instance is 'chucknorris'
 
 
+var user = new StackMob.User({ username: 'Bill Watterson', password: 'weirdosfromanotherplanet', profession: 'cartoonist'  });
+  user.create({
+    //After StackMob successfully saves "Bill Watterson", print out the result
+    success: function(model) {
+      //Print out "Bill Watterson: cartoonist"
+      console.debug(model.get('username') + ': ' + model.get('profession'));
+    },
+    error: function(model, response) {
+      console.debug("curses! we have failed, Hobbes!");
+    }
+  });
+
+
+
 	},
 
 	home: function () {
