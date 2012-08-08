@@ -1,8 +1,10 @@
+var App = App || {};
+"use strict";
+
 App.HomeView = Backbone.View.extend({
 	el: '#main',
 	
 	initialize: function () {
-		this.template = _.template(tpl.get('home'))
 		this.render()	
 	},
 	
@@ -21,7 +23,6 @@ App.PostView = Backbone.View.extend({
 	el: '#main',
 	
 	initialize: function () {
-		this.template = _.template(tpl.get('postview'))
 		this.render();
 
 	},
@@ -47,7 +48,6 @@ App.BlurbView = Backbone.View.extend({
 
 	
 	initialize: function () {
-		this.template = _.template(tpl.get('blurbview'))
 		this.render()
 	},
 

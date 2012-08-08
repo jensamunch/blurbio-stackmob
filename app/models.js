@@ -1,3 +1,6 @@
+var App = App || {};
+"use strict";
+
 App.BlurbModel = Backbone.Model.extend({
 	defaults: {
 		id: null,
