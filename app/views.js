@@ -1,30 +1,42 @@
 var App = App || {};
 "use strict";
 
-App.HomeView = Backbone.View.extend({
+//JSON.stringify
+//toJSON
+//console.log(this.template());
+
+App.Homeview = Backbone.View.extend({
+	
 	el: '#main',
+	
+	template: _.template($("#homeviewtpl").html()),
 	
 	initialize: function () {
 		this.render()	
 	},
 	
 	render: function () {
-		console.log('HomeView - Render')
-        $(this.el).html(this.template(this.model.toJSON()))
-        return this;
+		console.log('homeView - Render')
+		
+        $(this.el).html(this.template())
     }
 	
 })
 
 
 
-
-App.PostView = Backbone.View.extend({
+App.Newview = Backbone.View.extend({
+	
 	el: '#main',
 	
+	
+	template: _.template($("#newviewtpl").html()),
+	
+	
 	initialize: function () {
+		console.log('init');
+		_.bindAll(this, 'render');
 		this.render();
-
 	},
 	
 	events: function() {
@@ -32,9 +44,10 @@ App.PostView = Backbone.View.extend({
 	},
 	
 	render: function () {
-		console.log('PostView - Render')
-		$(this.el).html(this.template(this.model.toJSON()))		
+		console.log('newview - Render')		
+		$(this.el).html(this.template())		
     },
+    
     
     ShowBlurb: function() {
     console.log('Ready to create and show Blurb')
@@ -43,22 +56,31 @@ App.PostView = Backbone.View.extend({
 
 })
 
-App.BlurbView = Backbone.View.extend({
+
+
+
+App.Blurbview = Backbone.View.extend({
+
 	el: '#main',	
 
 	
+	template: _.template($("#blurbviewtpl").html()),
+		
 	initialize: function () {
 		this.render()
 	},
 
 	
 	render: function () {
-		console.log('BlurbView - Render');
-		$(this.el).html(this.template(this.model.toJSON()))
-		return this
+		console.log('blurbview - Render')
+		$(this.el).html(this.template())
     }
 	
 })
+
+
+
+
 
 
 

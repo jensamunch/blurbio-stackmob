@@ -1,12 +1,17 @@
 var App = App || {};
 "use strict";
 
-App.BlurbModel = Backbone.Model.extend({
+App.Blurbmodel = StackMob.Model.extend({
+	
+	schemaName	:	'blurbschema',
+	
 	defaults: {
-		id: null,
-		title: "Default Title",
-		description: "Default Description",
-		expiry: "Default Expiry",
+		uid: 'string',
+		title : 'title',
+		description: 'string',
+		expirydate: "string",
+		images : 'array[string]',
+		background : 'string',
 	}
 })
 

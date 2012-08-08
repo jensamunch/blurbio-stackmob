@@ -21,27 +21,151 @@
 
 
 <body>
+<header>
 <div class="container">   
 	<div class="navbar navbar-inner span8">           
 		<a class="brand" href="/">Blurb.io</a>
 	        <ul class="nav">
+	          <li><a href="./#/new/">New Blurb</a></li>
 	          <li><a href="./#Jj7ToN">View Jj7ToN</a></li>
-	          <li><a href="./#/new">New Blurb</a></li>
+	          
 	        </ul>
 	    </div>
 	</div>
 </div>
-
+</header>
 
 <!-- BODY ID WHERE TEMPLATES WILL BE INSERTED -->
 <div class="container">
-<div id="main"/>
+	<div id="main">
+	</div>
 </div>
 
 
 
 <!-- TEMPLATES -->
 
+<!-- NEWVIEWTPL -->
+
+<script type="text/template" id="newviewtpl">
+<div class="row">
+<div class="span5 offset1">
+      <form class="form-horizontal">
+        <fieldset>
+          <div class="control-group">
+            <label class="control-label" for="title">Title</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="title">
+              
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="description">Description</label>
+            <div class="controls">
+              <textarea class="input-xlarge" id="description" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="showtweets">Show Tweets</label>
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox" id="optionsCheckbox" value="showtweets">
+                Show Tweets on Blurb-page
+              </label>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="select01">Blurb life-span</label>
+            <div class="controls">
+              <select id="select01">
+                <option>1 hour</option>
+                <option>24 hours</option>
+                <option>7 days</option>
+                <option>4 weeks</option>
+                
+              </select>
+            </div>
+          </div>
+             <div class="control-group">
+            <label class="control-label" for="fileInput">File input</label>
+            <div class="controls">
+              <input class="input-file" id="fileInput" type="file">
+            </div>
+          </div>
+
+        </fieldset>
+      </form>
+</div>
+</div>
+
+<div class="row"><p></p><p></p></div>
+<div class="row"><p></p><p></p></div>
+
+<div class="row">
+
+<div class="row"></div><div class="offset3">
+<button type="submit" class="btn btn-primary btn-large">Post Blurb</button>
+</div>
+</div>
+</script>
+
+
+
+
+
+
+
+
+
+<!-- HOMEVIEWTPL -->
+
+<script type="text/template" id="homeviewtpl">
+<div class="row" align="center">
+    <div class="span1">1</div>
+    <div class="span1">1</div>
+    <div class="span1">1</div>
+    <div class="span1">1</div>
+    <div class="span1">1</div>
+    <div class="span1">1</div>
+    <div class="span1">1</div>
+    <div class="span1">1</div>
+    <div class="span1">1</div>
+
+  </div>
+  <div class="row"><p></p><p></p></div>
+  
+<div class="row">
+<div class="span7 offset1">
+      <div class="hero-unit">
+        <h1>Welcome!!!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p><a class="btn btn-large btn-primary">Learn more &raquo;</a></p>
+      </div>
+</script>
+
+
+
+<!-- BLURBVIEWTPL -->
+
+<script type="text/template" id="blurbviewtpl">
+<div class="row" align="center">
+<div class="span5 offset1">
+<h1>Blurbview Placeholder</h1>
+</div>
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- TEMPLATES END -->
 
 
 <!-- Load StackMob libs - Jquery only modification-->

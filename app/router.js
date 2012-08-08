@@ -3,10 +3,11 @@ var App = App || {};
 
 App.Router = Backbone.Router.extend({
 	routes: {
-		''					: 'home',
-		'edit/:blurbid'		: 'editview',
-		'post/'				: 'postview',
-		':blurbid'			: 'blurbview',
+
+		''						: 'home',
+		'new/'					: 'newview',
+		':blurbid'				: 'blurbview',
+		
 
 	},
 
@@ -17,27 +18,25 @@ App.Router = Backbone.Router.extend({
 	},
 
 	home: function () {
+		console.log('-------')
 		console.log('home')
-		var blurb = new App.BlurbModel
-		new App.HomeView({model : blurb})
+		var homeview = new App.Homeview()
 	},
 	
-	postview: function() {
-		console.log('postview')
-		var blurbmodel = new App.BlurbModel
-		new App.PostView({model : blurbmodel})
-	},
 	
-	editview: function(blurbid) {
-		console.log('editview')
-		var blurbmodel = new App.BlurbModel
-		new App.PostView({model : blurbmodel, blurbid : blurbid})
+	newview: function() {
+		console.log('-------')
+		console.log('newview')
+		var blurbmodel = new App.Blurbmodel()
+		var newview = new App.Newview()
+
 	},
 	
 	blurbview: function(blurbid) {
-		console.log('blurbview')
-		var blurbmodel = new App.BlurbModel
-		var blurbview = new App.BlurbView({model : blurbmodel, blurbid : blurbid});
+		console.log('-------')
+		console.log('blurbview for - ' + blurbid)
+		var blurbmodel = new App.Blurbmodel()
+		var blurbview = new App.Blurbview({model : blurbmodel, blurbid : blurbid});
 	}
 	
 })
