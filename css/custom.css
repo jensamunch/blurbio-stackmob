@@ -1,0 +1,10 @@
+textarea {
+	resize: none;
+}
+
+
+  .thumb {
+    height: 300px;
+    border: 0px solid #000;
+    margin: 10px 5px 0 0;
+  }

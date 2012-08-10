@@ -9,9 +9,8 @@ App.Blurbmodel = StackMob.Model.extend({
 		uid: 'string',
 		title : 'title',
 		description: 'string',
-		expirydate: "string",
-		images : 'array[string]',
-		background : 'string',
-	}
+
+		}	
 })
 
+var blurbmodel = new App.Blurbmodel();

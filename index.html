@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <titleBlurb.io</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+<meta charset="utf-8">
+<titleBlurb.io</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 0px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-    </style>
+<!-- Bootsrap CSS -->
+<link href="css/bootstrap.css" rel="stylesheet">
+    
 
+<!-- Custom CSS -->    
+<link href="css/custom.css" rel="stylesheet">
 
-
-  </head>
+    
+<style>
+body {
+padding-top: 0px; /* 60px to make the container go all the way to the bottom of the topbar */
+}
+</style>
+</head>
 
 
 <body>
@@ -62,16 +65,7 @@
           <div class="control-group">
             <label class="control-label" for="description">Description</label>
             <div class="controls">
-              <textarea class="input-xlarge" id="description" rows="3"></textarea>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="showtweets">Show Tweets</label>
-            <div class="controls">
-              <label class="checkbox">
-                <input type="checkbox" id="optionsCheckbox" value="showtweets">
-                Show Tweets on Blurb-page
-              </label>
+              <textarea class="input-xlarge span5" id="description" rows="5"></textarea>
             </div>
           </div>
           <div class="control-group">
@@ -85,19 +79,21 @@
                 
               </select>
             </div>
-          </div>
+         
+           </div>
              <div class="control-group">
             <label class="control-label" for="fileInput">File input</label>
             <div class="controls">
-              <input class="input-file" id="fileInput" type="file">
+              <input class="input-file" type="file" id="files" name="files[]" multiple />
+              
             </div>
           </div>
-
         </fieldset>
       </form>
-</div>
-</div>
 
+</div>
+</div>
+<output id="list"></output>
 <div class="row"><p></p><p></p></div>
 <div class="row"><p></p><p></p></div>
 
@@ -180,6 +176,7 @@
 
 <!-- Twitter Bootstrap -->
 <script src="js/bootstrap.min.js"></script>
+
 
 <script type="text/javascript">
 StackMob.init({

@@ -25,10 +25,9 @@ App.Router = Backbone.Router.extend({
 	
 	
 	newview: function() {
-		console.log('-------')
-		console.log('newview')
-		var blurbmodel = new App.Blurbmodel()
-		var newview = new App.Newview()
+		console.log('-------');
+		console.log('newview');
+		var newview = new App.Newview({model : blurbmodel});
 
 	},
 	
