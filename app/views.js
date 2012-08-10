@@ -90,8 +90,7 @@ App.Newview = Backbone.View.extend({
           var fileName = theFile.name;
           var fileType = theFile.type;
           blurbmodel.setBinaryFile('photo', fileName, fileType, base64Content);
-          var out = blurbmodel.save();
-          console.log(out)
+          blurbmodel.save();
  
         };
       })(f);
