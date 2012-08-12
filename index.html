@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<titleBlurb.io</title>
+<title>Blurb.io</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -93,24 +93,49 @@ padding-top: 0px; /* 60px to make the container go all the way to the bottom of 
 
 </div>
 </div>
-<output id="list"></output>
+
 <div class="row"><p></p><p></p></div>
 <div class="row"><p></p><p></p></div>
+
+
 
 <div class="row">
-
-<div class="row"></div><div class="offset3">
+<div class="offset3">
 <button type="submit" class="btn btn-primary btn-large">Post Blurb</button>
 </div>
 </div>
+
+<div class="row">
+<div id="myCarousel" class="carousel slide">
+
+<!-- Carousel items -->
+<div class="carousel-inner">
+
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  
+  <!-- INSERT ITEMS -->
+
+</div>
+
+</div>
+
+
+  <div id="carouselitem"></div>
 </script>
 
 
 
-
-
-
-
+<!-- CAROUSELITEMTPL -->
+<script type="text/template" id="imagetpl">
+<div class="item">
+<img src="<%= src %>" alt="">
+<div class="carousel-caption">
+<h4>Second Thumbnail label</h4>
+</div>
+</div>
+</script>
 
 
 <!-- HOMEVIEWTPL -->

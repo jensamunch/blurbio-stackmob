@@ -19,19 +19,18 @@ App.Homeview = Backbone.View.extend({
 	}
 })
 
+
+
 App.Newview = Backbone.View.extend({
 	
 	el: '#main',
 	
 	template: _.template($("#newviewtpl").html()),
 	
+	imagetpl: _.template($("#imagetpl").html()),
 	
 	initialize: function() {
-		_.bindAll(this)
-		console.log('init');
-		console.log(JSON.stringify(this.model))
-		//this.model.on('change', this.createblurb);
-		this.model.on('change', this.createblurb);
+		_.bindAll(this, 'createblurb');
 		this.render();
 		
 		
@@ -41,9 +40,10 @@ App.Newview = Backbone.View.extend({
 	events: {
 		'click .btn' : 'createblurb',
 		//"change input": "fieldchanged",
-		//"change select": "selectionchanged",
-		"change input#files": "fileselect",
+		//'change select' : "selectionchanged",
+		'change input#files' : 'fileselect',
 	},
+	
 	
 	render: function() {
 		console.log('newview - Render')
@@ -51,9 +51,34 @@ App.Newview = Backbone.View.extend({
 		
 	},
 	
+	rendercarousel: function() {
+		
+		// loop through an array with the image URLs
+		console.log('render carousel');
+		this.model.images.each(function(f){ 
+			$(that.el).append(that.imagetemplate());	
+		});
+		
+		$('.carousel').carousel();
+
+
+	},
+	
 	createblurb: function() {
+		that = this;
 		console.log('Ready to create and show Blurb');
-		console.log(JSON.stringify(this.model))
+		
+		//show all thumbnails below
+		blurbimages.each(function(f) {
+		
+		var html = that.imagetpl({src : f.get('data')})
+		console.log(f.get('filename'));
+		that.$("#carouselitem").append(html)
+		
+          });
+
+		
+	
 	},
 	
 	fieldchanged: function(e) {
@@ -71,39 +96,37 @@ App.Newview = Backbone.View.extend({
 	 
   
   fileselect: function(evt) {
-    var files = evt.target.files; // FileList object
- 
-    // Loop through the FileList
-    for (var i = 0, f; f = files[i]; i++) {
- 
-      var reader = new FileReader();
- 
-      // Closure to capture the file information
-      reader.onload = (function(theFile) {
-        return function(e) {
- 
-          /*
-            e.target.result will return "data:image/jpeg;base64,[base64 encoded data]...".
-            We only want the "[base64 encoded data] portion, so strip out the first part
-          */
-          var base64Content = e.target.result.substring(e.target.result.indexOf(',') + 1, e.target.result.length);
-          var fileName = theFile.name;
-          var fileType = theFile.type;
-          blurbmodel.setBinaryFile('photo', fileName, fileType, base64Content);
-          blurbmodel.save();
- 
-        };
-      })(f);
- 
-      // Read in the file as a data URL
-      fileContent = reader.readAsDataURL(f);
- 
-    }
+	  
+	  var files = evt.target.files; // FileList object
+	  
+	  	//Set thumbnails in backbone model
+	  	//for (var i = 0, f; f = files[i]; i++) {
+	  	
+		  	// Only process image files.
+	      //if (f.type.match('image.*')) {
+	      
+	      //var blurbimage = new App.Blurbimage({ f : f})
+
+	      //}
+	  
+	  //	}
+	  
+	  
+	  // Loop through the FileList - Limit to 5 - and save them all in StackMob 
+	    for (var i = 0; i<5; i++) {
+	    	
+	    	//upload each image - one by one..commented out for now
+		    this.model.setimage(files[i],i); 
+	    }
+	    console.log('saving')
+	    console.log(this.model)
+	    this.model.save();
+	    
   },
 	
 	
-	
-	
+
+
 	
 	
 	
