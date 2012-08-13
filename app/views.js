@@ -33,7 +33,7 @@ App.Newview = Backbone.View.extend({
 		_.bindAll(this);
 		this.render();
 		//use trigger to start this
-		this.model.on('change:photos', this.rendercarousel);
+		//this.model.on('change:photos', this.rendercarousel);
 
 
 
@@ -97,12 +97,21 @@ App.Newview = Backbone.View.extend({
 	 
   
   fileselect: function(evt) {
+	  var that = this;
 	  console.log('fileselect');
 	  var files = evt.target.files; // FileList object
 	  
 	  for (var i = 0, f; f = files[i]; i++) {
 		  this.model.setimages(f);	    
 		  }
+	  
+	  //they're all in = now trigger rendercaorousel
+	  console.log('theyre all in - rendering new images');
+	  
+	  setTimeout( alert() ,2000);
+	  
+	  //for some reason it all breaks when this line is active
+	  //that.rendercarousel();
   },
 	
 	
