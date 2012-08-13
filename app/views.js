@@ -25,20 +25,24 @@ App.Newview = Backbone.View.extend({
 	
 	el: '#main',
 	
-	template: _.template($("#newviewtpl").html()),
+	tpl: _.template($("#newviewtpl").html()),
 	
-	imagetpl: _.template($("#imagetpl").html()),
+	carouseltpl: _.template($("#carouseltpl").html()),
 	
 	initialize: function() {
-		_.bindAll(this, 'createblurb');
+		_.bindAll(this);
 		this.render();
-		
-		
-		
+		//use trigger to start this
+		this.model.on('change:photos', this.rendercarousel);
+
+
+
 	},
 	
 	events: {
-		'click .btn' : 'createblurb',
+		'click .btn' : 'rendercarousel',
+		//'click .carousel-control-left' : 'carouselleft',
+		//'click .carousel-control-right' : 'carouselright',
 		//"change input": "fieldchanged",
 		//'change select' : "selectionchanged",
 		'change input#files' : 'fileselect',
@@ -47,81 +51,58 @@ App.Newview = Backbone.View.extend({
 	
 	render: function() {
 		console.log('newview - Render')
-		this.$el.html(this.template())
+		this.$el.html(this.tpl());
 		
 	},
 	
 	rendercarousel: function() {
+		//later this will be saved when the whole thing saves
 		
+		that = this;
 		// loop through an array with the image URLs
 		console.log('render carousel');
-		this.model.images.each(function(f){ 
-			$(that.el).append(that.imagetemplate());	
-		});
+		photos = this.model.get('photos')
 		
-		$('.carousel').carousel();
+		//reset div
+		$('#add').html('');
+		
+		for (var m=0; m<photos.length; m++) {	
+			html = that.carouseltpl({data : photos[m]});
+			$('#add').append(html);
+			}		
+		console.log(this.model);
+		this.model.save();
+      },
 
 
-	},
 	
 	createblurb: function() {
 		that = this;
 		console.log('Ready to create and show Blurb');
+
 		
-		//show all thumbnails below
-		blurbimages.each(function(f) {
-		
-		var html = that.imagetpl({src : f.get('data')})
-		console.log(f.get('filename'));
-		that.$("#carouselitem").append(html)
-		
-          });
+	},
 
 		
 	
-	},
 	
 	fieldchanged: function(e) {
 		console.log('fieldchanged');
-		var field = $(e.currentTarget);
-		var data = {};
-		data[field.attr('id')] = field.val();
-		this.model.set(data);
+		
+
+			
 	},
 	
-	selectionchanged: function() {
-		console.log('selectchanged')	
-	},
 	
 	 
   
   fileselect: function(evt) {
-	  
+	  console.log('fileselect');
 	  var files = evt.target.files; // FileList object
 	  
-	  	//Set thumbnails in backbone model
-	  	//for (var i = 0, f; f = files[i]; i++) {
-	  	
-		  	// Only process image files.
-	      //if (f.type.match('image.*')) {
-	      
-	      //var blurbimage = new App.Blurbimage({ f : f})
-
-	      //}
-	  
-	  //	}
-	  
-	  
-	  // Loop through the FileList - Limit to 5 - and save them all in StackMob 
-	    for (var i = 0; i<5; i++) {
-	    	
-	    	//upload each image - one by one..commented out for now
-		    this.model.setimage(files[i],i); 
-	    }
-	    console.log('saving')
-	    console.log(this.model)
-	    this.model.save();
-	    
+	  for (var i = 0, f; f = files[i]; i++) {
+		  this.model.setimages(f);	    
+		  }
   },
 	
 	
