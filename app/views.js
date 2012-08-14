@@ -123,8 +123,10 @@ App.Blurbview = Backbone.View.extend({
 		
 		//render images if there are any
 		images = this.model.get('images');
-		if (!!images) {console.log('we have images' + JSON.stringify(images)}
-	}
+		if (!!images) function(){
+		console.log('we have images' + JSON.stringify(images)
+		};
+	},
 	
 	rendercarousel: function() {
 		that = this;
@@ -136,5 +138,5 @@ App.Blurbview = Backbone.View.extend({
 				data: images[m]
 			});
 			$('.images').append(html);
-		}
+		},
 })
