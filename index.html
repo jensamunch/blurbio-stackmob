@@ -12,41 +12,47 @@
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <div class="navbar navbar-inner span8">
-                <a class="brand" href="/">Blurb.io</a>
+   
+<header>
 
-                <ul class="nav">
-                    <li><a href="./#/new/">New Blurb</a></li>
-
-                    <li><a href="./#Jj7ToN">View Jj7ToN</a></li>
-                </ul>
-            </div>
-        </div>
-    </header><!-- BODY ID WHERE TEMPLATES WILL BE INSERTED -->
-
-    <div id="main"></div>
-    <div id="add"></div>
+<a id="home" href="http://local.blurb.io:4567/">Blurb.io</a>
+<a id="new" href="http://local.blurb.io:4567/#new/">New Blurb</a>
+</header>
     
+   
     
+<!-- BODY ID WHERE TEMPLATES WILL BE INSERTED -->
+
+<div id="main"></div>
+    
+   
+   
     
     
     <!-- NEWVIEWTPL -->
     <script type="text/template" id="newviewtpl">
-      <p>    <input type="text" class="input-xlarge" id="title"></p>
-      <p>         <textarea class="input-xlarge span5" id="description" rows="5"></textarea></p>
+      
+    	<p>Your URL will be <a href="http://local.blurb.io:4567/#/<%= uid %> ">http://local.blurb.io:4567/#/<%= uid %> </a></p>
+      <p>         <textarea class="input" id="title" rows="5"></textarea></p>
+      <p>Max 5 images</p>
       <p><input class="input-file" id="files" type="file" multiple="mutiple"></p>
-       <p><button type="submit" class="btn btn-primary btn-large">Post Blurb</button></p>
-
+    
+    <div class="carousel">
+    	<ul class="images"> </ul>
+    </div>
+    
+    <button class='next'> &laquo; </button>
+    <button class='prev'> &raquo; </button>
+<p><button type="submit" class="btn" id="render">Render slideshow</button></p>
+<p><button type="submit" class="btn" id="create">Post Blurb</button></p>
 
 
     </script>
     
     
     <!-- CAROUSELITEMTPL -->
-    <script type="text/template" id="carouseltpl">
-    <img src="<%= data %>" alt="" />
+    <script type="text/template" id="imagetpl">
+	<li><img src="<%= data %>" alt=""/></li>
      </script>
     
     
@@ -62,6 +68,8 @@
     
     <!-- BLURBVIEWTPL -->
     <script type="text/template" id="blurbviewtpl">
+    <p>The title is : <%= title %></p>
+
     
     
     </script>
@@ -84,6 +92,8 @@ StackMob.init({
 </script><script src="app/models.js" type="text/javascript">
 </script><script src="app/views.js" type="text/javascript">
 </script><script src="app/router.js" type="text/javascript">
+</script>
+
 </script>
 </body>
 </html>

@@ -1,4 +1,8 @@
-textarea {
-	resize: none;
-}
+ body {
+    position: relative;
+    width: 100%;
+    border: 1px solid black;
+    display: block;
+    text-align:center;
+  }
 

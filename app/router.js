@@ -1,50 +1,57 @@
 var App = App || {};
 "use strict";
-
 App.Router = Backbone.Router.extend({
 	routes: {
-
-		''						: 'home',
-		'new/'					: 'newview',
-		':blurbid'				: 'blurbview',
-		
-
+		'new/': 'newview',
+		':blurbid': 'blurbview',
+		'': 'home',
 	},
-
 	initialize: function() {
-		console.log('Router Init')
+	console.log('router')
 		
-
 	},
-
-	home: function () {
-		console.log('-------')
-		console.log('home')
+	home: function() {
 		var homeview = new App.Homeview()
 	},
-	
-	
 	newview: function() {
-		console.log('-------');
-		console.log('newview');
-		blurbmodel = new App.Blurbmodel();	
-		var newview = new App.Newview({model : blurbmodel});
-
+		
+		//fresh models
+		blurbmodel = new App.Blurbmodel();
+		images = []
+		
+		blurbmodel.set({
+			uid: makeid()
+		});
+		
+		var newview = new App.Newview({
+			model: blurbmodel
+		});
 	},
 	
 	blurbview: function(blurbid) {
-		console.log('-------')
-		console.log('blurbview for - ' + blurbid)
-		var blurbmodel = new App.Blurbmodel()
-		var blurbview = new App.Blurbview({model : blurbmodel, blurbid : blurbid});
-	}
 	
-})
+		//fresh model
+		blurbmodel = new App.Blurbmodel();
 
-$(function() { 
-	new App.Router();	
+		blurbmodel.set({
+			uid: blurbid
+		});
+		
+		blurbmodel.fetch({
+		      success: function(model) {
+	        //After StackMob returns "Bill Watterson", print out the result
+	        console.debug('success' + model.get('title') + ': ' + model.get('uid'));
+	        console.log(model);
+	        var blurbview = new App.Blurbview({
+			model: blurbmodel
+		});
+		      }
+	    });
+	    
+	    
+	}
+})
+$(function() {
+	app = new App.Router();
 	Backbone.history.start();
 })
-
-
-

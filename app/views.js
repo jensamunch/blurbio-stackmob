@@ -1,135 +1,118 @@
-
 var App = App || {};
 "use strict";
 
-
-//JSON.stringify
-//toJSON
-//console.log(this.template());
 
 App.Homeview = Backbone.View.extend({
 	el: '#main',
 	template: _.template($("#homeviewtpl").html()),
 	initialize: function() {
+		$('#main').empty();
 		this.render()
 	},
 	render: function() {
-		console.log('homeView - Render')
-		$(this.el).html(this.template())
+		console.log('homeView - render')
+		$(this.el).append(this.template())
 	}
 })
-
 
 
 App.Newview = Backbone.View.extend({
-	
 	el: '#main',
-	
 	tpl: _.template($("#newviewtpl").html()),
-	
-	carouseltpl: _.template($("#carouseltpl").html()),
-	
+	imagetpl: _.template($("#imagetpl").html()),
 	initialize: function() {
 		_.bindAll(this);
+		$('#main').empty();
 		this.render();
-		//use trigger to start this
-		//this.model.on('change:photos', this.rendercarousel);
-
-
 
 	},
-	
 	events: {
-		'click .btn' : 'rendercarousel',
-		//'click .carousel-control-left' : 'carouselleft',
-		//'click .carousel-control-right' : 'carouselright',
-		//"change input": "fieldchanged",
-		//'change select' : "selectionchanged",
-		'change input#files' : 'fileselect',
+		'click .btn#render': 'rendercarousel',
+		'click .btn#create': 'createblurb',
+		'change input#files': 'fileselect',
 	},
-	
-	
 	render: function() {
-		console.log('newview - Render')
-		this.$el.html(this.tpl());
-		
+		that = this
+		console.log('newview - render')
+		html = this.tpl(that.model.toJSON())
+		this.$el.append(html);
 	},
-	
 	rendercarousel: function() {
-		//later this will be saved when the whole thing saves
-		
 		that = this;
-		// loop through an array with the image URLs
-		console.log('render carousel');
-		photos = this.model.get('photos')
-		
 		//reset div
-		$('#add').html('');
-		
-		for (var m=0; m<photos.length; m++) {	
-			html = that.carouseltpl({data : photos[m]});
-			$('#add').append(html);
-			}		
-		console.log(this.model);
-		this.model.save();
-      },
+		$('.images').empty();
+		for (var m = 0; m < images.length; m++) {
+			console.log('render ' + m);
+			html = that.imagetpl({
+				data: images[m]
+			});
+			$('.images').append(html);
+		}
 
-
-	
+	},
 	createblurb: function() {
-		that = this;
-		console.log('Ready to create and show Blurb');
-
+		that = this
+		console.log('create and show blurb');
 		
+		//first set title and images[]
+		console.log('title being saved is' + $('#title').val() )
+		this.model.set({
+			title: $('#title').val(),
+			images: images,
+			})
+
+		this.model.create({
+			success: function(model) {
+				console.debug('saved as - ' + model);
+				that.unbind();
+				var blurbview = new App.Blurbview({
+				model: that.model
+				});
+				app.navigate(that.model.get('uid'), {trigger: false});
+				
+			},
+			error: function(model) {
+				console.debug('not saved - why oh why');
+			}
+			});
+		},
+		
+
+	fileselect: function(evt) {
+		//empty array
+		images = [];
+		
+		var files = evt.target.files; // FileList object
+		
+		//only allow 5 images
+		for (var i = 0, f; f = files[i]; i++) {
+			if (i > 4) return;
+			console.log(i);
+			setimages(f);
+		}
+		//they're all in = now trigger rendercaorousel
+		console.log('theyre all in - rendering new images');
+		//for some reason it all breaks when this line is active
+		//that.rendercarousel();
 	},
-
-		
-	
-	
-	fieldchanged: function(e) {
-		console.log('fieldchanged');
-		
-
-			
-	},
-	
-	
-	 
-  
-  fileselect: function(evt) {
-	  var that = this;
-	  console.log('fileselect');
-	  var files = evt.target.files; // FileList object
-	  
-	  for (var i = 0, f; f = files[i]; i++) {
-		  this.model.setimages(f);	    
-		  }
-	  
-	  //they're all in = now trigger rendercaorousel
-	  console.log('theyre all in - rendering new images');
-	  
-	  setTimeout( alert() ,2000);
-	  
-	  //for some reason it all breaks when this line is active
-	  //that.rendercarousel();
-  },
-	
-	
-
-
-	
-	
-	
 })
+
+
 App.Blurbview = Backbone.View.extend({
+	
 	el: '#main',
+	
 	template: _.template($("#blurbviewtpl").html()),
+	
 	initialize: function() {
+		$('#main').empty();
 		this.render()
+		
 	},
 	render: function() {
-		console.log('blurbview - Render')
-		$(this.el).html(this.template())
+		console.log('blurbview - render')
+		console.log('this is the fetched object' + JSON.stringify(this.model));
+		html = this.template(this.model.toJSON());
+		$(this.el).append(html);
 	}
 })
-
