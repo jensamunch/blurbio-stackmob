@@ -24,11 +24,6 @@ App.Newview = Backbone.View.extend({
 		_.bindAll(this);
 		$('#main').empty();
 		images = [];
-		//fresh models
-		blurbmodel = new App.Blurbmodel();
-		blurbmodel.set({
-			uid: makeid()
-		});
 		this.render();
 
 	},
