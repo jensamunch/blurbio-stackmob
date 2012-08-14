@@ -24,6 +24,11 @@ App.Newview = Backbone.View.extend({
 		_.bindAll(this);
 		$('#main').empty();
 		images = [];
+		//fresh models
+		blurbmodel = new App.Blurbmodel();
+		blurbmodel.set({
+			uid: makeid()
+		});
 		this.render();
 
 	},
@@ -73,7 +78,8 @@ App.Newview = Backbone.View.extend({
 				
 			},
 			error: function(model) {
-				console.debug('not saved - why oh why');
+				console.debug('not saved - why oh why')
+				console.log(model);
 			}
 			});
 		},
@@ -109,22 +115,24 @@ App.Blurbview = Backbone.View.extend({
 	
 	initialize: function() {
 		_.bindAll(this);
+		that = this;
 		$('#main').empty();
 		images = [];
-		this.render()
 		
+		console.log(this.model);
+
 	},
 	render: function() {
 		console.log('blurbview - render')
 		console.log('this is the fetched object' + JSON.stringify(this.model));
 		
-		html = this.template(this.model.toJSON());
+		html = this.tpl(this.model.toJSON());
 		if (!!html) { $(this.el).append(html) }
 		
 		//render images if there are any
 		images = this.model.get('images');
 		if (images[0]) {
-		console.log('we have images' + JSON.stringify(images)
+		console.log('we have images' + JSON.stringify(images))
 		};
 	},
 	
@@ -136,7 +144,8 @@ App.Blurbview = Backbone.View.extend({
 			console.log('render ' + m);
 			html = that.imagetpl({
 				data: images[m]
-			});
+				})
 			$('.images').append(html);
-		},
-})
+		}
+	}
+});
