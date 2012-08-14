@@ -25,7 +25,7 @@ App.Router = Backbone.Router.extend({
 		blurbmodel = new App.Blurbmodel();
 
 		blurbmodel.set({
-			uid: this.uid
+			uid: blurbid
 		});
 		
 		blurbmodel.fetch({
