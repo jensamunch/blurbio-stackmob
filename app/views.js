@@ -123,7 +123,7 @@ App.Blurbview = Backbone.View.extend({
 		
 		//render images if there are any
 		images = this.model.get('images');
-		if (!!images) function(){
+		if (images[0]) {
 		console.log('we have images' + JSON.stringify(images)
 		};
 	},
