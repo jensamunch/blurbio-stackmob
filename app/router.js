@@ -17,7 +17,6 @@ App.Router = Backbone.Router.extend({
 		
 		//fresh models
 		blurbmodel = new App.Blurbmodel();
-		images = []
 		
 		blurbmodel.set({
 			uid: makeid()
@@ -44,7 +43,7 @@ App.Router = Backbone.Router.extend({
 	        console.log(model);
 	        var blurbview = new App.Blurbview({
 			model: blurbmodel
-		});
+				});
 		      }
 	    });
 	    

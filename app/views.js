@@ -23,6 +23,7 @@ App.Newview = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this);
 		$('#main').empty();
+		images = [];
 		this.render();
 
 	},
@@ -102,17 +103,38 @@ App.Blurbview = Backbone.View.extend({
 	
 	el: '#main',
 	
-	template: _.template($("#blurbviewtpl").html()),
+	tpl: _.template($("#blurbviewtpl").html()),
+	
+	imagetpl: _.template($("#imagetpl").html()),
 	
 	initialize: function() {
+		_.bindAll(this);
 		$('#main').empty();
+		images = [];
 		this.render()
 		
 	},
 	render: function() {
 		console.log('blurbview - render')
 		console.log('this is the fetched object' + JSON.stringify(this.model));
+		
 		html = this.template(this.model.toJSON());
-		$(this.el).append(html);
+		if (!!html) { $(this.el).append(html) }
+		
+		//render images if there are any
+		images = this.model.get('images');
+		if (!!images) {console.log('we have images' + JSON.stringify(images)}
 	}
+	
+	rendercarousel: function() {
+		that = this;
+		//reset div
+		$('.images').empty();
+		for (var m = 0; m < images.length; m++) {
+			console.log('render ' + m);
+			html = that.imagetpl({
+				data: images[m]
+			});
+			$('.images').append(html);
+		}
 })

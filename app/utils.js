@@ -12,8 +12,8 @@ makeid = function() {
 var setimages = function(f) {
 		var ratio = 1;
 		// defining cause it wasnt
-		var maxWidth = 200,
-			maxHeight = 200;
+		var maxWidth = 500,
+			maxHeight = 500;
 		that = this;
 		var base64resized;
 		var reader = new FileReader();
