@@ -1,0 +1,29 @@
+body {
+    position: relative;
+    width: 100%;
+    display: block;
+    text-align:center;
+    background-color:#bdcbdd;
+  }
+   
+#main {
+	background-color:#ffffff;
+	width: 800px ;
+  margin-left: auto ;
+  margin-right: auto ;
+  border-radius: 15px;
+  padding: 5px 5px 2px 25px
+	
+}
+
+textarea {
+	border-radius: 15px;
+	resize: none;
+	width: 400px;
+	height: 100px;
+	
+}
+
+#title {
+	background-color:#ffffff;
+}

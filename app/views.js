@@ -1,20 +1,12 @@
 var App = App || {};
 "use strict";
-
-
-App.Homeview = Backbone.View.extend({
-	el: '#main',
-	template: _.template($("#homeviewtpl").html()),
-	initialize: function() {
-		$('#main').empty();
-		this.render()
-	},
-	render: function() {
-		console.log('homeView - render')
-		$(this.el).append(this.template())
+Backbone.View.prototype.close = function() {
+	this.remove();
+	this.unbind();
+	if (this.onclose) {
+		this.onclose();
 	}
-})
-
+}
 
 App.Newview = Backbone.View.extend({
 	el: '#main',
@@ -22,74 +14,93 @@ App.Newview = Backbone.View.extend({
 	imagetpl: _.template($("#imagetpl").html()),
 	initialize: function() {
 		_.bindAll(this);
-		$('#main').empty();
 		images = [];
+		postmodel = new App.Blurbmodel();
+		postmodel;
+		postmodel.set({
+			blurbschema_id: makeid()
+		});
 		this.render();
-
 	},
 	events: {
 		'click .btn#render': 'rendercarousel',
 		'click .btn#create': 'createblurb',
+		'click .btn#new': 'new',
 		'change input#files': 'fileselect',
 	},
 	render: function() {
 		that = this
 		console.log('newview - render')
-		html = this.tpl(that.model.toJSON())
-		this.$el.append(html);
+		html = this.tpl(postmodel.toJSON())
+		this.$el.html(html);
 	},
+				
+		
+		new: function() {
+		this.close();
+		var newview = new App.Newview();	
+		
+		
+		
+	},
+	
 	rendercarousel: function() {
 		that = this;
+		image = images[m];
 		//reset div
 		$('.images').empty();
 		for (var m = 0; m < images.length; m++) {
-			console.log('render ' + m);
 			html = that.imagetpl({
-				data: images[m]
+				data: image,
+				m : m
 			});
-			$('.images').append(html);
+			$('#carousel').append(html);
 		}
+		
+		
+
 
 	},
 	createblurb: function() {
-		that = this
+		var target = document.getElementById('main');
+		var spinner = new Spinner(opts).spin(target);
 		console.log('create and show blurb');
-		
 		//first set title and images[]
-		console.log('title being saved is' + $('#title').val() )
-		this.model.set({
+		console.log('title being saved is - ' + $('#title').val())
+		postmodel.set({
 			title: $('#title').val(),
 			images: images,
-			})
-
-		this.model.create({
+		})
+		postmodel.create({
 			success: function(model) {
 				console.debug('saved as - ' + model);
-				that.unbind();
+				spinner.stop();
 				var blurbview = new App.Blurbview({
-				model: that.model
+					model: postmodel
 				});
-				app.navigate(that.model.get('uid'), {trigger: false});
-				
+				app.navigate(postmodel.get('blurbschema_id'), {
+					trigger: false,
+					replace: true
+				});
 			},
 			error: function(model) {
 				console.debug('not saved - why oh why')
-				console.log(model);
+				console.log('go home');
+				app.navigate('/', {
+					trigger: true
+				});
+				that.close();
 			}
-			});
-		},
-		
-
+		});
+	},
 	fileselect: function(evt) {
 		//empty array
 		images = [];
-		
 		var files = evt.target.files; // FileList object
-		
-		//only allow 5 images
+		//only allow 3 images
 		for (var i = 0, f; f = files[i]; i++) {
-			if (i > 4) return;
-			console.log(i);
+			if (i > 2) return;
+			//can be found in utils
 			setimages(f);
 		}
 		//they're all in = now trigger rendercaorousel
@@ -97,50 +108,54 @@ App.Newview = Backbone.View.extend({
 		//for some reason it all breaks when this line is active
 		//that.rendercarousel();
 	},
+	onclose: function() {
+		this.model.unbind("change", this.render);
+	}
 })
-
-
 App.Blurbview = Backbone.View.extend({
-	
 	el: '#main',
-	
 	tpl: _.template($("#blurbviewtpl").html()),
-	
 	imagetpl: _.template($("#imagetpl").html()),
 	
 	initialize: function() {
 		_.bindAll(this);
 		that = this;
-		$('#main').empty();
-		images = [];
-		
-		console.log(this.model);
-
+		console.log('model inside blurbview is = ' + this.model.get('blurbschema_id'));
+		this.render();
 	},
+	
+	events: {
+		'click .btn#new': 'new',
+	},
+	
+	
 	render: function() {
 		console.log('blurbview - render')
-		console.log('this is the fetched object' + JSON.stringify(this.model));
-		
 		html = this.tpl(this.model.toJSON());
-		if (!!html) { $(this.el).append(html) }
-		
-		//render images if there are any
+		$(this.el).html(html)
+		//render images if there are any - if not try to get them
 		images = this.model.get('images');
 		if (images[0]) {
-		console.log('we have images' + JSON.stringify(images))
-		};
+			this.rendercarousel(images);
+		}
+	},
+	
+	new: function() {
+		app.navigate('/', {	trigger: false,replace: true });
+
+		
 	},
 	
 	rendercarousel: function() {
 		that = this;
-		//reset div
-		$('.images').empty();
 		for (var m = 0; m < images.length; m++) {
-			console.log('render ' + m);
+			image = images[0];
+			console.log('rendercarousel');
+			console.log(image)
 			html = that.imagetpl({
-				data: images[m]
-				})
-			$('.images').append(html);
+				data: image
+			})
+			$('#carousel').append(html);
 		}
 	}
 });
