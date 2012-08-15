@@ -150,8 +150,6 @@ App.Blurbview = Backbone.View.extend({
 		that = this;
 		for (var m = 0; m < images.length; m++) {
 			image = images[0];
-			console.log('rendercarousel');
-			console.log(image)
 			html = that.imagetpl({
 				data: image
 			})
