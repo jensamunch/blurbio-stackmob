@@ -1,12 +1,7 @@
 var App = App || {};
 "use strict";
-Backbone.View.prototype.close = function() {
-	this.remove();
-	this.unbind();
-	if (this.onclose) {
-		this.onclose();
-	}
-}
+
+
 
 App.Newview = Backbone.View.extend({
 	el: '#main',
@@ -25,7 +20,7 @@ App.Newview = Backbone.View.extend({
 	events: {
 		'click .btn#render': 'rendercarousel',
 		'click .btn#create': 'createblurb',
-		'click .btn#new': 'new',
+		'click #new': 'new',
 		'change input#files': 'fileselect',
 	},
 	render: function() {
@@ -37,8 +32,10 @@ App.Newview = Backbone.View.extend({
 				
 		
 		new: function() {
-		this.close();
-		var newview = new App.Newview();	
+		
+		console.log('new blurb')
+		var newview = new App.Newview();
+
 		
 		
 		
@@ -46,21 +43,15 @@ App.Newview = Backbone.View.extend({
 	
 	rendercarousel: function() {
 		that = this;
-		image = images[m];
-		//reset div
-		$('.images').empty();
 		for (var m = 0; m < images.length; m++) {
+			image = images[0];
 			html = that.imagetpl({
-				data: image,
-				m : m
-			});
+				data: image
+			})
 			$('#carousel').append(html);
-		}
-		
-		
-
-
+		}		
 	},
+	
 	createblurb: function() {
 		var target = document.getElementById('main');
 		var spinner = new Spinner(opts).spin(target);
@@ -80,7 +71,7 @@ App.Newview = Backbone.View.extend({
 				});
 				app.navigate(postmodel.get('blurbschema_id'), {
 					trigger: false,
-					replace: true
+					replace: false
 				});
 			},
 			error: function(model) {
@@ -108,9 +99,7 @@ App.Newview = Backbone.View.extend({
 		//for some reason it all breaks when this line is active
 		//that.rendercarousel();
 	},
-	onclose: function() {
-		this.model.unbind("change", this.render);
-	}
+
 })
 App.Blurbview = Backbone.View.extend({
 	el: '#main',
@@ -141,7 +130,7 @@ App.Blurbview = Backbone.View.extend({
 	},
 	
 	new: function() {
-		app.navigate('/', {	trigger: false,replace: true });
+		app.navigate('/', {	trigger: true });
 
 		
 	},

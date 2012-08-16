@@ -17,7 +17,7 @@
     
 <!-- NEWVIEWTPL -->
 <script type="text/template" id="newviewtpl">
-<p><button type="submit" class="btn" id="new">Start new blurb</button></p>
+<p><button class="btn" id="new">Start new blurb</button></p>
 <p>Your URL will be <a href="http://dev.blurb./#<%= blurbschema_id %> ">http://dev.blurb.io/#<%= blurbschema_id %> </a></p>
       <p>         <textarea id="title" rows="5"></textarea></p>
       <p>Max 5 images</p>
@@ -34,7 +34,9 @@
 
 <!-- BLURBVIEWTPL -->
 <script type="text/template" id="blurbviewtpl">
-<p><button type="submit" class="btn" id="new">Start new blurb</button></p>
+
+<p><button class="btn" id="new">Start new blurb</button></p>
+
     <p class="title">The title is : <%= title %></p>
     <div id="carousel"> </div>
 

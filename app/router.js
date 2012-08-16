@@ -19,6 +19,7 @@ App.Router = Backbone.Router.extend({
 		blurbmodel.set({
 			blurbschema_id: blurbid
 		});
+		
 		blurbmodel.fetch({
 			success: function(model) {
 				//After StackMob returns print out the result
