@@ -1,16 +1,19 @@
 var App = App || {};
 "use strict";
+
 App.Router = Backbone.Router.extend({
 	routes: {
 		':blurbid': 'blurbview',
-		'': 'newview',
+		'': 'postview',
 	},
+	
 	initialize: function() {
-		console.log('router')
+	console.log('router')
 	},
 
-	newview: function() {
-		var newview = new App.Newview();
+	postview: function() {
+	console.log('route new');
+		var postview = new App.Postview();
 	},
 	
 	

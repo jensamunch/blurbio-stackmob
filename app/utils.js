@@ -9,11 +9,11 @@ makeid = function() {
 	return text;
 }
 
-var setimages = function(f) {
+var setimages = function(f, w, h) {
 		var ratio = 1;
 		// defining cause it wasnt
-		var maxWidth = 300,
-			maxHeight = 300;
+		var maxWidth = w,
+			maxHeight = h;
 		that = this;
 		var base64resized;
 		var reader = new FileReader();
@@ -38,8 +38,6 @@ var setimages = function(f) {
 					base64resized = canvas.toDataURL("image/jpeg", 0.7);
 					//save base64 as array images[]
 					images.push(base64resized);
-					
-
 				};
 				//load base64 into img
 				img.src = e.target.result;

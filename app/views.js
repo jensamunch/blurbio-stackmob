@@ -3,103 +3,86 @@ var App = App || {};
 
 
 
-App.Newview = Backbone.View.extend({
+App.Postview = Backbone.View.extend({
 	el: '#main',
 	tpl: _.template($("#newviewtpl").html()),
 	imagetpl: _.template($("#imagetpl").html()),
 	initialize: function() {
 		_.bindAll(this);
-		images = [];
-		postmodel = new App.Blurbmodel();
-		postmodel;
-		postmodel.set({
+		var files = [];
+		var images = [];
+
+		blurbmodel = new App.Blurbmodel();
+		this.model = blurbmodel;
+		this.model.set({
 			blurbschema_id: makeid()
 		});
 		this.render();
+		
 	},
 	events: {
-		'click .btn#render': 'rendercarousel',
-		'click .btn#create': 'createblurb',
-		'click #new': 'new',
-		'change input#files': 'fileselect',
+		'click .button#create': 'createblurb',
+		'change #inputfiles' : 'selectfiles',
 	},
 	render: function() {
 		that = this
-		console.log('newview - render')
-		html = this.tpl(postmodel.toJSON())
+		html = this.tpl(this.model.toJSON())
 		this.$el.html(html);
 	},
-				
-		
-		new: function() {
-		
-		console.log('new blurb')
-		var newview = new App.Newview();
-
-		
-		
-		
-	},
 	
-	rendercarousel: function() {
-		that = this;
-		$('#carousel').empty();
-		for (var m = 0; m < images.length; m++) {
-			image = images[0];
-			html = that.imagetpl({
-				data: image
-			})
-			$('#carousel').append(html);
-		}		
-	},
-	
-	createblurb: function() {
-		var target = document.getElementById('main');
-		var spinner = new Spinner(opts).spin(target);
-		console.log('create and show blurb');
-		//first set title and images[]
-		console.log('title being saved is - ' + $('#title').val())
-		postmodel.set({
-			title: $('#title').val(),
-			images: images,
-		})
-		postmodel.create({
-			success: function(model) {
-				console.debug('saved as - ' + model);
-				spinner.stop();
-				var blurbview = new App.Blurbview({
-					model: postmodel
-				});
-				app.navigate(postmodel.get('blurbschema_id'), {
-					trigger: false,
-					replace: false
-				});
-			},
-			error: function(model) {
-				console.debug('not saved - why oh why')
-				console.log('go home');
-				app.navigate('/', {
-					trigger: true
-				});
-
+	selectfiles: function(evt) {
+	files = evt.target.files;
+	images = [];
+	if (files) {
+			if ($('#size').val() == 'phone') {
+				var w=300, h = 200;
 			}
-		});
-	},
-	fileselect: function(evt) {
-		//empty array
-		images = [];
-		var files = evt.target.files; // FileList object
-		//only allow 3 images
-		for (var i = 0, f; f = files[i]; i++) {
-			if (i > 2) return;
-			//can be found in utils
-			setimages(f);
+			else {
+				var w=600, h = 400;
+			}
+			
+			for (var m = 0, f; f = files[m]; m++) {
+				setimages(f, w, h);
+				}
 		}
-		//they're all in = now trigger rendercaorousel
-		console.log('theyre all in - rendering new images');
-		//for some reason it all breaks when this line is active
-		//that.rendercarousel();
+	},	
+	
+	createblurb: function() {		
+		app.navigate(this.model.get('blurbschema_id'));
+		//deactivate button
+		that = this;
+		
+		if (images) {
+			
+						//start spinner		
+						var target = document.getElementById('main');
+						var spinner = new Spinner(opts).spin(target);
+						
+						this.model.set({
+								title: $('#title').val(),
+								images : images,
+							})
+							
+						console.log('create and show blurb');
+						this.model.create({
+							success: function(model) {
+								spinner.stop();
+								var blurbview = new App.Blurbview({
+									model: model
+									});
+								},
+							error: function(model) {
+								console.debug('not saved - why oh why')
+								console.log('go home');
+								app.navigate('', {
+									trigger: true
+								});
+				
+							}
+						});
+			}
 	},
+	
 
 })
 App.Blurbview = Backbone.View.extend({
@@ -115,7 +98,7 @@ App.Blurbview = Backbone.View.extend({
 	},
 	
 	events: {
-		'click .btn#new': 'new',
+		'click .button#new': 'new',
 	},
 	
 	
@@ -125,25 +108,27 @@ App.Blurbview = Backbone.View.extend({
 		$(this.el).html(html)
 		//render images if there are any - if not try to get them
 		images = this.model.get('images');
+		
 		if (images[0]) {
 			this.rendercarousel(images);
 		}
 	},
 	
 	new: function() {
-		app.navigate('/', {	trigger: true });
+		app.navigate('', {	trigger: true });
 
 		
 	},
 	
 	rendercarousel: function() {
 		that = this;
+		$('#images').empty();
+		
 		for (var m = 0; m < images.length; m++) {
-			image = images[0];
 			html = that.imagetpl({
-				data: image
+				data: images[m]
 			})
-			$('#carousel').append(html);
-		}
-	}
+			$('#images').append(html);
+		}		
+	},
 });
