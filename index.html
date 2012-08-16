@@ -9,6 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
@@ -19,24 +21,35 @@
 <p><input type="text" id="title" maxlength="25"/></p>
 <p>
     <select id="size">
-    <option value="phone">Share with phones</option>
+    <option value="phone" selected="selected">Share with phones</option>
     <option value="tablet">Share with tablets</option>
     </select></p>
  
 
     <p><input id="inputfiles" type="file" multiple="mutiple"></p>
-    <p><button type="submit" class="button" id="create">Post Blurb</button></p>
-    </script><!-- BLURBVIEWTPL -->
+    <p><button type="submit" disabled="disabled" class="button" id="create">Create Blurb</button></p>
+    </script>
+    
+    
+    <!-- BLURBVIEWTPL -->
     <script type="text/template" id="blurbviewtpl">
 <p><%= title %></p>
-<div id="images"></div>
+
+
+<div class="reveal">
+    <div class="slides"> 
+
+    </div>
+</div>
 
 
     </script><!-- IMAGETPL -->
     <script type="text/template" id="imagetpl">
-<div>
+
+<section>
 <img src="<%= data %>" />
-</div>
+</section>
+
     </script><!-- Libs -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
 </script><script type="text/javascript" src="http://static.stackmob.com/js/json2-min.js">
@@ -44,8 +57,10 @@
 </script><script type="text/javascript" src="http://static.stackmob.com/js/backbone-0.9.2-min.js">
 </script><script type="text/javascript" src="http://static.stackmob.com/js/2.5.3-crypto-sha1-hmac.js">
 </script><script type="text/javascript" src="http://static.stackmob.com/js/stackmob-js-0.5.5-min.js">
-</script><script type="text/javascript" src="lib/spin.min.js">
-</script><script type="text/javascript">
+</script><script type="text/javascript" src="lib/spin.min.js"></script>
+
+<script type="text/javascript" src="lib/reveal.js"></script>
+<script type="text/javascript">
 StackMob.init({
     appName: "blurb",
     clientSubdomain: "jensmunch",
