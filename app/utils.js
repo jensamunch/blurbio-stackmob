@@ -35,7 +35,7 @@ var setimages = function(f) {
 					canvas.height = img.height * ratio;
 					ctx.drawImage(canvasCopy, 0, 0, canvas.width, canvas.height);
 					//move canvas data back to DataURL Base64
-					base64resized = canvas.toDataURL();
+					base64resized = canvas.toDataURL("image/jpeg", 0.7);
 					//save base64 as array images[]
 					images.push(base64resized);
 					

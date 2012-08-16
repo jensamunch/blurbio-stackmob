@@ -43,6 +43,7 @@ App.Newview = Backbone.View.extend({
 	
 	rendercarousel: function() {
 		that = this;
+		$('#carousel').empty();
 		for (var m = 0; m < images.length; m++) {
 			image = images[0];
 			html = that.imagetpl({
