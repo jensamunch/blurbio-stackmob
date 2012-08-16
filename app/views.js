@@ -80,7 +80,7 @@ App.Newview = Backbone.View.extend({
 				app.navigate('/', {
 					trigger: true
 				});
-				that.close();
+
 			}
 		});
 	},
