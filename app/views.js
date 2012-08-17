@@ -115,9 +115,9 @@ App.Blurbview = Backbone.View.extend({
 		});
 	},
 	mail: function() {
-    var subject= '#' + this.model.get('blurbschema_id')
+    var subject= document.location;
     var body = "\r\n\r\n";
-    body += document.location;
+    body += 'Here\'s something I wanted to share - ' + document.location;
     var uri = "mailto:?subject=";
     uri += encodeURIComponent(subject);
     uri += "&body=";
