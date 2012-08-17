@@ -9,6 +9,15 @@ makeid = function() {
 	return text;
 }
 
+
+gettweets = function(foo) {
+        $(".tweet").tweet({
+            avatar_size: 32,
+          count: 4,
+          query: foo,
+        });
+    }
+    
 var setimages = function(f, w, h) {
 		var ratio = 1;
 		// defining cause it wasnt

@@ -9,6 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
+    <link href="css/jquery.tweet.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
@@ -32,8 +34,7 @@
     <!-- BLURBVIEWTPL -->
     <script type="text/template" id="blurbviewtpl">
     
-    <div class="sharing">
-
+<div class="sharing">
 <img class="share" id="mail" src="img/mail.png"/>
 <button class="button" id="new">New Blurb</button>
 <img class="share" id="twitter" src="img/twitter.png"/>
@@ -45,6 +46,7 @@
     <ul class="images"> </ul>
 
 <p><%= title %></p>
+<div class="tweet"></div>
 
     </script><!-- IMAGETPL -->
     <script type="text/template" id="imagetpl">
@@ -59,6 +61,7 @@
 </script><script type="text/javascript" src="http://static.stackmob.com/js/2.5.3-crypto-sha1-hmac.js">
 </script><script type="text/javascript" src="http://static.stackmob.com/js/stackmob-js-0.5.5-min.js">
 </script><script type="text/javascript" src="lib/spin.min.js"></script>
+<script type="text/javascript" src="lib/jquery.tweet.js"></script>
 
 <script type="text/javascript">
 StackMob.init({
