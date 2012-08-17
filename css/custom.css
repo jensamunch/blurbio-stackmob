@@ -6,7 +6,7 @@ html, body {
     border: 0;
     text-align: center;
     overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 #main {
@@ -39,7 +39,6 @@ padding-top: 30px;
 ul.images {
   white-space: nowrap;
   overflow-x: scroll;
-  overflow-y: hidden;
 
 }
 ul.images li {
