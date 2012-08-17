@@ -7,7 +7,7 @@ body {
   }
 
 .sharing {
-	width: 300;
+	width: 200px;
 	overflow: hidden;
 	white-space:nowrap;
 	display: inline;
@@ -23,8 +23,6 @@ body {
 
 
 ul.images {
-  margin: 0;
- padding-top: 20px;
   white-space: nowrap;
   width: 100%;
   overflow-x: auto;
@@ -32,7 +30,7 @@ ul.images {
 
 }
 ul.images li {
-  padding: 50px;
+  padding-right: 50px;
   vertical-align: middle;	
 	display: inline-block;
 }
@@ -54,9 +52,7 @@ textarea:focus {
 
 
 .input-file {
-	
-	width: 230px;
-	
+	width: 230px;	
 }
 
 select {
@@ -67,6 +63,9 @@ select {
     width: 200px;      
 }
 
+select:focus {
+	outline:none;
+}
 
 button {
         background-color:#fc8d83;

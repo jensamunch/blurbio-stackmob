@@ -112,7 +112,7 @@ App.Blurbview = Backbone.View.extend({
 		});
 	},
 	mail: function() {
-    var subject= this.model.get('blurbschema_id')
+    var subject= '#' + this.model.get('blurbschema_id')
     var body = "\r\n\r\n";
     body += document.location;
     var uri = "mailto:?subject=";
