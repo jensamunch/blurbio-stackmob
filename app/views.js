@@ -111,9 +111,8 @@ App.Blurbview = Backbone.View.extend({
 		});
 	},
 	mail: function() {
-		console.log('mail');
-    var subject= "Some information";
-    var body = "I thought you might find this information interesting:\r\n\r\n<";
+    var subject= this.model.get('blurbschema_id')
+    var body = "\r\n\r\n<";
     body += document.location;
     body += ">";
     var uri = "mailto:?subject=";
@@ -133,8 +132,8 @@ App.Blurbview = Backbone.View.extend({
 			twtTitle = twtTitle.substr(0, (maxLength - 3))+'...';
 			}
 			var twtLink = 'http://twitter.com/home?status='+encodeURIComponent(twtTitle + ' ' + twtUrl);
-window.open(twtLink);
-
+			window.open(twtLink);
+	
 
 	
 		}, 
