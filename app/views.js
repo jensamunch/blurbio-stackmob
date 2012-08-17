@@ -91,7 +91,7 @@ App.Blurbview = Backbone.View.extend({
 		div.innerHTML = str;
 		var text = div.textContent || div.innerText || "";
 		
-		document.title = text.substring(0,20);
+		document.title = text.substring(0,20) +'...';
 		var url = Backbone.history.getFragment();
 			_gaq.push(['_trackPageview', "/#"+url]);
 		this.render();
@@ -134,7 +134,7 @@ App.Blurbview = Backbone.View.extend({
 		var hashtag = this.model.get('blurbschema_id');
 		var twtTitle  = document.title;
 		var twtUrl    = location.href;
-			var twtLink = 'http://twitter.com/home?status='+encodeURIComponent(twtTitle + ' ' + twtUrl);
+			var twtLink = 'http://twitter.com/home?status='+encodeURIComponent(twtTitle + ' ' + twtUrl + hashtag);
 			window.open(twtLink);
 
 	
