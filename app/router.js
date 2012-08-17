@@ -4,26 +4,21 @@ var App = App || {};
 App.Router = Backbone.Router.extend({
 	routes: {
 		':blurbid': 'blurbview',
-		'new/': 'postview',
 		''	:	'homeview',
 	},
 	
 	initialize: function(options) {
+	console.log('render')
     },
 
 	homeview: function() {
+		console.log('render home')
 		homeview = new App.Homeview();	
 		appview.showview(homeview);
 	},
-  
-	postview: function() {
-		blurbmodel = new App.Blurbmodel();
-		postview = new App.Postview({model : blurbmodel});
-		appview.showview(postview);
-	},
-	
 	
 	blurbview: function(blurbid) {
+		console.log('render blurbview')
 		blurbmodel = new App.Blurbmodel();
 		blurbmodel.set({
 			blurbschema_id: blurbid

@@ -2,6 +2,7 @@ var App = App || {};
 "use strict";
 
 Backbone.View.prototype.close = function(){
+  console.log('removing');
   this.remove();
   this.unbind();
   if (this.close){
@@ -36,15 +37,15 @@ App.Homeview = Backbone.View.extend({
 		_.bindAll(this);
 	},
 	events: {
-		'click .button#create': 'gocreate',
+		'click .button#gocreate': 'gocreate',
 	},
 	
 	gocreate: function() {
 		blurbmodel = new App.Blurbmodel();
 		postview = new App.Postview({model : blurbmodel});
-		appview.showview(postview);	
-	},	
-	
+		appview.showview(postview);
+	},
+		
 	close: function(){
     },
     
@@ -78,6 +79,7 @@ App.Postview = Backbone.View.extend({
 	
 	render: function() {
 		that = this
+		images = [];
 		html = this.tpl()
 		this.$el.html(html);
 		$('#redactor').redactor(textopts);	
@@ -105,7 +107,9 @@ App.Postview = Backbone.View.extend({
 		//start spinner		
 		var target = document.getElementById('main');
 		var spinner = new Spinner(opts).spin(target);
+		
 		that = this;
+		console.log($('#redactor').val());
 		
 		this.model.set({
 			blurbschema_id: makeid(),
@@ -117,7 +121,7 @@ App.Postview = Backbone.View.extend({
 				images: images,
 				})
 			}
-					
+		
 		this.model.create({
 			success: function(model) {
 				spinner.stop();
@@ -151,7 +155,7 @@ App.Blurbview = Backbone.View.extend({
 
 	},
 	events: {
-		'click .button#new': 'gocreate',
+		'click .button#gocreate': 'gocreate',
 		'click .share#mail': 'mail',
 		'click .share#twitter': 'twitter',
 	},
@@ -162,7 +166,8 @@ App.Blurbview = Backbone.View.extend({
 	render: function() {
 		that = this;
 		
-		var str = this.model.get('title');		
+		var str = this.model.get('title');
+		console.log(str)		
 		var div = document.createElement("div");
 		div.innerHTML = str;
 		var text = div.textContent || div.innerText || "";
@@ -187,7 +192,8 @@ App.Blurbview = Backbone.View.extend({
 	gocreate: function() {
 		blurbmodel = new App.Blurbmodel();
 		postview = new App.Postview({model : blurbmodel});
-		appview.showview(postview);	
+		app.navigate('', {trigger:false, replace: true});
+		appview.showview(postview);
 	},
 	
 	mail: function() {
