@@ -5,14 +5,11 @@ html, body {
     padding: 0;
     border: 0;
     text-align: center;
+    overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 #main {
-	width: 100%;
-	min-width: 100%;
-	margin: 0;
-    padding: 0;
-    border: 0;
 }
 
 div #post {
