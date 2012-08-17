@@ -37,7 +37,6 @@ App.Router = Backbone.Router.extend({
 })
 $(function() {
 	app = new App.Router();
-	app.ga = new Backbone.Analytics({code: 'UA-34158464-1', debug: true});
 	Backbone.history.start();
 })
 

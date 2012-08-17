@@ -85,6 +85,9 @@ App.Blurbview = Backbone.View.extend({
 		that = this;
 		console.log('model inside blurbview is = ' + this.model.get('blurbschema_id'));
 		document.title = "#" + this.model.get('blurbschema_id');
+		var url = Backbone.history.getFragment();
+		console.log('analytics' + url);
+			_gaq.push(['_trackPageview', "/#"+url]);
 		this.render();
 	},
 	events: {
