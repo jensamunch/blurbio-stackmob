@@ -27,7 +27,6 @@ App.Router = Backbone.Router.extend({
 		blurbmodel.fetch({
 			success: function(model) {
 				//After StackMob returns print out the result
-				console.debug('success of fetch - title : ' + blurbmodel.get('title'));
 			blurbview = new App.Blurbview({
 				model: model
 			})

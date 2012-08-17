@@ -1,0 +1,27 @@
+html, body {
+	margin: 0;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+
+/* =Typography
+-----------------------------------------------------------------------------*/
+body {
+	font-family: Helvetica, Arial, sans-serif;	
+	font-size: 14px;
+}
+
+
+/* =Layout
+-----------------------------------------------------------------------------*/
+#page {
+	width: 940px;
+	margin: 50px auto;
+}
+
+/* =Misc
+-----------------------------------------------------------------------------*/
+.list li {
+	margin: 10px 0;
+}

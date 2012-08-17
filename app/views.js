@@ -16,11 +16,16 @@ App.Postview = Backbone.View.extend({
 		'click .button#create': 'createblurb',
 		'change #inputfiles': 'selectfiles',
 	},
+	
 	render: function() {
 		that = this
 		html = this.tpl(this.model.toJSON())
 		this.$el.html(html);
+		$('#redactor').redactor(textopts);	
 	},
+		
+
+	
 	selectfiles: function(evt) {
 		files = evt.target.files;
 		images = [];
@@ -54,7 +59,7 @@ App.Postview = Backbone.View.extend({
 			}
 		})
 		this.model.set({
-			title: $('#title').val(),
+			title: $('#redactor').val(),
 			images: images,
 		})
 		console.log('create and show blurb');

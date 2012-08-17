@@ -4,7 +4,7 @@ var App = App || {};
 makeid = function() {
 	var text = "";
 	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	for (var i = 0; i < 4; i++)
+	for (var i = 0; i < 6; i++)
 	text += possible.charAt(Math.floor(Math.random() * possible.length));
 	return text;
 }
@@ -13,10 +13,45 @@ makeid = function() {
 gettweets = function(foo) {
         $(".tweet").tweet({
             avatar_size: 32,
-          count: 4,
+          count: 100,
           query: foo,
         });
     }
+
+
+textopts = {
+		keyupCallback: false, // function
+		keydownCallback: false, // function
+		execCommandCallback: false, // function
+	
+		focus: false,
+		autoresize: true,
+		fixed: false,
+		source: true,
+
+		mobile: true,
+		air: false,
+		wym: false,
+		convertLinks: true,
+		convertDivs: false,
+
+		autosave: false, // false or url
+		interval: 60, // seconds
+
+		imageGetJson: false, // url (ex. /folder/images.json ) or false
+		
+		imageUpload: false, // url
+		imageUploadCallback: false, // function
+		
+		fileUpload: false, // url
+		fileUploadCallback: false, // function
+
+		uploadCrossDomain: false,
+		uploadFields: false,
+
+		observeImages: true,
+		overlay: true, // modal overlay
+}
     
 var setimages = function(f, w, h) {
 		var ratio = 1;
