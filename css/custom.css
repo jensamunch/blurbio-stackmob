@@ -1,17 +1,30 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
 body {
     text-align:center;
     font-family: sans-serif;
 	font-size: large;
 	  overflow-x: hidden;
 	  overflow-y: auto;
-	  margin: 0;
-    padding: 0;
   }
 
 
+
+
+#main {
+	float: left;
+	width: 100%;
+	min-width: 100%;
+	margin: 0;
+    padding: 0;
+    border: 0;
+}
+
 .sharing {
-	width: 200px;
-	overflow: hidden;
 	white-space:nowrap;
 	display: inline;
 }
@@ -19,11 +32,9 @@ body {
 .sharing img {
 	vertical-align: middle;	
 	display: inline-block;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
-
-
 
 ul.images {
   white-space: nowrap;
@@ -39,31 +50,18 @@ ul.images li {
 }
 
 
-textarea {
-        font-family: sans-serif;
-        font-size: large;
-        border-radius:10px;
-        width: 300px;
-        height: 30px;	
-        text-align: left	        
-    }
-    
 
-textarea:focus {
-	outline:none;
-}
-
-
-.input-file {
-	width: 230px;	
+#inputfiles {
+	font-family: sans-serif;
+    font-size: medium;
+    border-radius:10px;  
 }
 
 select {
-	padding: 20px;
     font-family: sans-serif;
-    font-size: small;
+    font-size: medium;
     border-radius:10px;
-    width: 200px;      
+    width: 300px;	   
 }
 
 select:focus {
