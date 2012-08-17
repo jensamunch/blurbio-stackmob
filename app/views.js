@@ -50,7 +50,6 @@ App.Homeview = Backbone.View.extend({
     
 	render: function() {
 		html = this.tpl();
-		console.log(html);
 		this.$el.html(html);
 	},
 	
