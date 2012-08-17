@@ -79,7 +79,7 @@ App.Postview = Backbone.View.extend({
 	createblurb: function() {
 		//start spinner		
 		var target = document.getElementById('main');
-		var spinner = new Spinner(opts).spin(target);
+		var spinner = new Spinner(spinopts).spin(target);
 		that = this;
 		this.model.set({
 			blurbschema_id: makeid(),
@@ -93,7 +93,7 @@ App.Postview = Backbone.View.extend({
 		this.model.create({
 			success: function(model) {
 				spinner.stop();
-				var blurbview = new App.Blurbview({
+				blurbview = new App.Blurbview({
 					model: model
 				});
 				blurbview = new App.Blurbview({
