@@ -119,7 +119,7 @@ App.Blurbview = Backbone.View.extend({
 		});
 	},
 	mail: function() {
-    var subject= document.location;
+    var subject= document.title;
     var body = "\r\n\r\n";
     body += 'Here\'s something I wanted to share - ' + document.location;
     var uri = "mailto:?subject=";
@@ -131,6 +131,7 @@ App.Blurbview = Backbone.View.extend({
     
 	},
 	twitter: function() {
+		var hashtag = this.model.get('blurbschema_id');
 		var twtTitle  = document.title;
 		var twtUrl    = location.href;
 			var twtLink = 'http://twitter.com/home?status='+encodeURIComponent(twtTitle + ' ' + twtUrl);
