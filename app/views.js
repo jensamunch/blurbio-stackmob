@@ -100,7 +100,8 @@ App.Blurbview = Backbone.View.extend({
 		$(this.el).html(html)
 		//render images if there are any - if not try to get them
 		//gettweets(this.model.get('blurbschema_id'));
-		gettweets('#' + this.model.get('blurbschema_id'));
+		gettweets('#dogs')
+		//gettweets('#' + this.model.get('blurbschema_id'));
 		images = this.model.get('images');
 		if (images[0]) {
 			this.rendercarousel(images);
