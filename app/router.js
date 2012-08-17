@@ -8,12 +8,10 @@ App.Router = Backbone.Router.extend({
 	},
 	
 	initialize: function() {
-	console.log('router')
 	},
 
   
 	postview: function() {
-	console.log('route new');
 		var postview = new App.Postview();
 	},
 	

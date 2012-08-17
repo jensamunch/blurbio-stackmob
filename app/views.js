@@ -62,7 +62,6 @@ App.Postview = Backbone.View.extend({
 			title: $('#redactor').val(),
 			images: images,
 		})
-		console.log('create and show blurb');
 		this.model.create({
 			success: function(model) {
 				spinner.stop();
@@ -71,8 +70,7 @@ App.Postview = Backbone.View.extend({
 				});
 			},
 			error: function(model, response) {
-				console.debug('not saved - why oh why' + response)
-				console.log('go home');
+				console.debug('not saved' + response)
 				return false;
 			},
 		});
@@ -87,11 +85,14 @@ App.Blurbview = Backbone.View.extend({
 	imagetpl: _.template($("#imagetpl").html()),
 	initialize: function() {
 		_.bindAll(this);
-		that = this;
-		console.log('model inside blurbview is = ' + this.model.get('blurbschema_id'));
-		document.title = "#" + this.model.get('blurbschema_id');
+		that = this;		
+		var str = this.model.get('title');		
+		var div = document.createElement("div");
+		div.innerHTML = str;
+		var text = div.textContent || div.innerText || "";
+		
+		document.title = "#" + this.model.get('blurbschema_id') + '...' + text.substring(0,20);
 		var url = Backbone.history.getFragment();
-		console.log('analytics' + url);
 			_gaq.push(['_trackPageview', "/#"+url]);
 		this.render();
 	},
@@ -101,7 +102,6 @@ App.Blurbview = Backbone.View.extend({
 		'click .share#twitter': 'twitter',
 	},
 	render: function() {
-		console.log('blurbview - render')
 		html = this.tpl(this.model.toJSON());
 		$(this.el).html(html)
 		//show tweets
@@ -114,7 +114,6 @@ App.Blurbview = Backbone.View.extend({
 		}
 	},
 	new: function() {
-		console.log('new');
 		app.navigate('/', {
 			trigger: true
 		});
@@ -132,7 +131,6 @@ App.Blurbview = Backbone.View.extend({
     
 	},
 	twitter: function() {
-		console.log('twitter');
 		var twtTitle  = document.title;
 		var twtUrl    = location.href;
 			var twtLink = 'http://twitter.com/home?status='+encodeURIComponent(twtTitle + ' ' + twtUrl);
