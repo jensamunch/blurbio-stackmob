@@ -91,7 +91,7 @@ App.Blurbview = Backbone.View.extend({
 		div.innerHTML = str;
 		var text = div.textContent || div.innerText || "";
 		
-		document.title = "#" + this.model.get('blurbschema_id') + '...' + text.substring(0,20);
+		document.title = text.substring(0,20);
 		var url = Backbone.history.getFragment();
 			_gaq.push(['_trackPageview', "/#"+url]);
 		this.render();
