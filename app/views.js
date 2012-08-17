@@ -26,11 +26,11 @@ App.Postview = Backbone.View.extend({
 		images = [];
 		if (files) {
 			if ($('#size').val() == 'phone') {
-				var w = 300,
-					h = 200;
+				var w = 500,
+					h = 500;
 			} else {
-				var w = 600,
-					h = 400;
+				var w = 1000,
+					h = 1000;
 			}
 			for (var m = 0, f; f = files[m]; m++) {
 				setimages(f, w, h);
@@ -43,12 +43,10 @@ App.Postview = Backbone.View.extend({
 		//start spinner		
 		var target = document.getElementById('main');
 		var spinner = new Spinner(opts).spin(target);
-		
 		that = this;
 		this.model.set({
 			blurbschema_id: makeid()
 		});
-		
 		this.model.fetch({
 			error: function() {
 				that.model.set({
@@ -57,7 +55,6 @@ App.Postview = Backbone.View.extend({
 				return
 			}
 		})
-		
 		this.model.set({
 			title: $('#title').val(),
 			images: images,
@@ -76,9 +73,10 @@ App.Postview = Backbone.View.extend({
 				return false;
 			},
 		});
-
-	app.navigate(this.model.get('blurbschema_id'), {trigger : false});
-},
+		app.navigate(this.model.get('blurbschema_id'), {
+			trigger: false
+		});
+	},
 })
 App.Blurbview = Backbone.View.extend({
 	el: '#main',
@@ -88,10 +86,13 @@ App.Blurbview = Backbone.View.extend({
 		_.bindAll(this);
 		that = this;
 		console.log('model inside blurbview is = ' + this.model.get('blurbschema_id'));
+		document.title = "#" + this.model.get('blurbschema_id');
 		this.render();
 	},
 	events: {
 		'click .button#new': 'new',
+		'click .share#mail': 'mail',
+		'click .share#twitter': 'twitter',
 	},
 	render: function() {
 		console.log('blurbview - render')
@@ -104,21 +105,50 @@ App.Blurbview = Backbone.View.extend({
 		}
 	},
 	new: function() {
-		app.navigate('', {
+		console.log('new');
+		app.navigate('/', {
 			trigger: true
 		});
 	},
-	rendercarousel: function() {
-		that = this;
-		$('#images').empty();
-		for (var m = 0; m < images.length; m++) {
-			html = that.imagetpl({
-				data: images[m]
-			})
-			$('.slides').append(html);
-		}
-		Reveal.initialize(revealopts)
-    // Display controls in the bottom right corner
+	mail: function() {
+		console.log('mail');
+    var subject= "Some information";
+    var body = "I thought you might find this information interesting:\r\n\r\n<";
+    body += document.location;
+    body += ">";
+    var uri = "mailto:?subject=";
+    uri += encodeURIComponent(subject);
+    uri += "&body=";
+    uri += encodeURIComponent(body);
+    window.open(uri);
+
     
 	},
+	twitter: function() {
+		console.log('twitter');
+		var twtTitle  = document.title;
+		var twtUrl    = location.href;
+		var maxLength = 140 - (twtUrl.length + 1);
+		if (twtTitle.length > maxLength) {
+			twtTitle = twtTitle.substr(0, (maxLength - 3))+'...';
+			}
+			var twtLink = 'http://twitter.com/home?status='+encodeURIComponent(twtTitle + ' ' + twtUrl);
+window.open(twtLink);
+
+
+	
+		}, 
+
+rendercarousel: function() {
+	that = this;
+	$('#images').empty();
+	for (var m = 0; m < images.length; m++) {
+		html = that.imagetpl({
+			data: images[m]
+		})
+		$('.images').append(html);
+	}
+	//	Reveal.initialize(revealopts)
+	// Display controls in the bottom right corner
+},
 });

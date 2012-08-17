@@ -1,24 +1,29 @@
 body {
-    position: relative;
-    width: 100%;
-    display: block;
     text-align:center;
-
+    font-family: sans-serif;
+	font-size: large
   }
 
-
-
-   
-
-p {
-	font-family: sans-serif;
-	font-size: large
+.sharing img {
+	padding-left: 50px;
+	padding-right: 50px;
+	display: inline;
+	vertical-align: middle;	
 }
 
-img {
-	padding: 20px;
-	overflow: auto;
-	white-space: nowrap; 
+
+
+ul.images {
+  margin: 0;
+ padding-top: 20px;
+  white-space: nowrap;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+ul.images li {
+  display: inline;
+  padding: 50px;
 }
 
 
@@ -76,9 +81,6 @@ button {
     }
     .button:hover {
         
-        background-color:#e4685d;
+        background-color:#e3695d;
     }
-    .button:active {
-        position:relative;
-        top:1px;
-    }
+
