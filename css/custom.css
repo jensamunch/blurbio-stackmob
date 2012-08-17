@@ -4,12 +4,15 @@ html, body {
     margin: 0;
     padding: 0;
     border: 0;
-    overflow-x: hidden;
     text-align: center;
 }
 
-div #main {
-	text-align: center;
+#main {
+	width: 100%;
+	min-width: 100%;
+	margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 div #post {
@@ -26,17 +29,6 @@ padding-top: 30px;
 	margin: 20px;
 }
 
-
-
-#main {
-	float: left;
-	width: 100%;
-	min-width: 100%;
-	margin: 0;
-    padding: 0;
-    border: 0;
-}
-
 .sharing {
 	white-space:nowrap;
 	padding-top: 10px;
@@ -49,8 +41,7 @@ padding-top: 30px;
 
 ul.images {
   white-space: nowrap;
-  width: 100%;
-  overflow-x: auto;
+  overflow-x: scroll;
   overflow-y: hidden;
 
 }
