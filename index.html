@@ -18,16 +18,19 @@
 
     <div id="main"></div><!-- NEWVIEWTPL -->
     <script type="text/template" id="newviewtpl">
-<p><input type="text" id="title" maxlength="25"/></p>
-<p>
-    <select id="size">
-    <option value="phone" selected="selected">Share with phones</option>
-    <option value="tablet">Share with tablets</option>
-    </select></p>
+
+<p><textarea id="title"/></p>
+
  
 
     <p><input id="inputfiles" type="file" multiple="mutiple"></p>
-    <p><button type="submit" disabled="disabled" class="button" id="create">Create Blurb</button></p>
+    <p>
+    <select id="size">
+    <option value="phone" selected="selected">Make images small</option>
+    <option value="tablet">Make images large</option>
+    </select></p>
+    
+    <p><button type="submit" class="button" id="create">Create Blurb</button></p>
     </script>
     
     

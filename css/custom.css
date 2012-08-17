@@ -34,7 +34,7 @@ ul.images li {
 }
 
 
-input {
+textarea {
         font-family: sans-serif;
         font-size: large;
         
@@ -59,12 +59,10 @@ input:focus {
 
 select {
 	padding: 20px;
-            font-family: sans-serif;
-    font-size: large;
+    font-family: sans-serif;
+    font-size: small;
     border-radius:10px;
-    width: 300px;
-    height: 30px;	
-    text-align: center	        
+    width: 200px;      
 }
 
 

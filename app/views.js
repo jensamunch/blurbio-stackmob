@@ -6,8 +6,8 @@ App.Postview = Backbone.View.extend({
 	imagetpl: _.template($("#imagetpl").html()),
 	initialize: function() {
 		_.bindAll(this);
-		var files = [];
-		var images = [];
+		files = [];
+		images = [];
 		blurbmodel = new App.Blurbmodel();
 		this.model = blurbmodel;
 		this.render();
@@ -36,8 +36,6 @@ App.Postview = Backbone.View.extend({
 				setimages(f, w, h);
 			}
 		}
-		//activate button
-		$("button[type=submit]").removeAttr("disabled");
 	},
 	createblurb: function() {
 		//start spinner		
