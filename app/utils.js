@@ -71,7 +71,6 @@ var setimages = function(f, w, h) {
 					var canvasCopy = document.createElement("canvas");
 					var copyContext = canvasCopy.getContext("2d");
 					
-					console.log('width = ' + img.width + 'height =' +img.height)
 					if (img.width > img.height) {
 						if (img.width > w) ratio = maxWidth / img.width;
 					}
@@ -79,15 +78,12 @@ var setimages = function(f, w, h) {
 						if (img.height > h) ratio = maxHeight / img.height;
 					}
 
-					console.log(ratio)
 					canvasCopy.width = img.width;
 					canvasCopy.height = img.height;
 					copyContext.drawImage(img, 0, 0);
 					canvas.width = img.width * ratio;
 					canvas.height = img.height * ratio;
-					
-					console.log('width = ' + canvas.width + 'height =' +canvas.height)
-					
+										
 					ctx.drawImage(canvasCopy, 0, 0, canvas.width, canvas.height);
 					//move canvas data back to DataURL Base64
 					base64resized = canvas.toDataURL("image/jpeg", 0.7);

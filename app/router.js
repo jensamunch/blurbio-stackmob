@@ -4,15 +4,22 @@ var App = App || {};
 App.Router = Backbone.Router.extend({
 	routes: {
 		':blurbid': 'blurbview',
-		'': 'postview',
+		'new/': 'postview',
+		''	:	'homeview',
 	},
 	
-	initialize: function() {
-	},
+	initialize: function(options) {
+    },
 
+	homeview: function() {
+		homeview = new App.Homeview();	
+		appview.showview(homeview);
+	},
   
 	postview: function() {
-		var postview = new App.Postview();
+		blurbmodel = new App.Blurbmodel();
+		postview = new App.Postview({model : blurbmodel});
+		appview.showview(postview);
 	},
 	
 	
@@ -28,11 +35,15 @@ App.Router = Backbone.Router.extend({
 			blurbview = new App.Blurbview({
 				model: model
 			})
+			appview.showview(blurbview);
 		}
 		});
-}
+		
+    },
+    
 })
 $(function() {
+	appview = new App.Appview();
 	app = new App.Router();
 	Backbone.history.start();
 })

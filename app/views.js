@@ -1,25 +1,85 @@
 var App = App || {};
 "use strict";
+
+Backbone.View.prototype.close = function(){
+  this.remove();
+  this.unbind();
+  if (this.close){
+    this.close();
+  }
+}
+
+
+App.Appview = Backbone.View.extend({
+	
+    showview: function(view){
+      if (this.currentview){
+      this.currentview.close();
+      }
+      
+      this.currentview = view;
+      this.currentview.render();
+    }
+  });
+
+
+
+
+App.Homeview = Backbone.View.extend({
+	
+	el: '#main',
+	
+	//tpl: _.template($("#homeviewtpl").html()),
+	tpl: _.template($("#homeviewtpl").html()),
+	
+	initialize: function() {
+		_.bindAll(this);
+	},
+	events: {
+		'click .button#create': 'gocreate',
+	},
+	
+	gocreate: function() {
+		blurbmodel = new App.Blurbmodel();
+		postview = new App.Postview({model : blurbmodel});
+		appview.showview(postview);	
+	},	
+	
+	close: function(){
+    },
+    
+	render: function() {
+		html = this.tpl();
+		console.log(html);
+		this.$el.html(html);
+	},
+	
+	postview: {
+	}
+	
+    
+})	
+	
+	
 App.Postview = Backbone.View.extend({
 	el: '#main',
+	
 	tpl: _.template($("#newviewtpl").html()),
 	imagetpl: _.template($("#imagetpl").html()),
 	initialize: function() {
 		_.bindAll(this);
-		files = [];
-		images = [];
-		blurbmodel = new App.Blurbmodel();
-		this.model = blurbmodel;
-		this.render();
+		
 	},
 	events: {
 		'click .button#create': 'createblurb',
 		'change #inputfiles': 'selectfiles',
 	},
+	close: function(){
+    },
 	
 	render: function() {
 		that = this
-		html = this.tpl(this.model.toJSON())
+		html = this.tpl()
 		this.$el.html(html);
 		$('#redactor').redactor(textopts);	
 	},
@@ -47,27 +107,26 @@ App.Postview = Backbone.View.extend({
 		var target = document.getElementById('main');
 		var spinner = new Spinner(opts).spin(target);
 		that = this;
+		
 		this.model.set({
-			blurbschema_id: makeid()
-		});
-		this.model.fetch({
-			error: function() {
-				that.model.set({
-					blurbschema_id: makeid()
-				});
-				return
-			}
-		})
-		this.model.set({
+			blurbschema_id: makeid(),
 			title: $('#redactor').val(),
-			images: images,
 		})
+		
+		if (typeof images != 'undefined') {
+			this.model.set({
+				images: images,
+				})
+			}
+					
 		this.model.create({
 			success: function(model) {
 				spinner.stop();
 				var blurbview = new App.Blurbview({
 					model: model
 				});
+				blurbview = new App.Blurbview({ model : model })
+				appview.showview(blurbview);
 			},
 			error: function(model, response) {
 				console.debug('not saved' + response)
@@ -79,13 +138,31 @@ App.Postview = Backbone.View.extend({
 		});
 	},
 })
+
+
+
+
 App.Blurbview = Backbone.View.extend({
 	el: '#main',
 	tpl: _.template($("#blurbviewtpl").html()),
 	imagetpl: _.template($("#imagetpl").html()),
 	initialize: function() {
-		_.bindAll(this);
-		that = this;		
+		_.bindAll(this);	
+		
+
+	},
+	events: {
+		'click .button#new': 'gocreate',
+		'click .share#mail': 'mail',
+		'click .share#twitter': 'twitter',
+	},
+	
+	close: function(){
+    },
+	
+	render: function() {
+		that = this;
+		
 		var str = this.model.get('title');		
 		var div = document.createElement("div");
 		div.innerHTML = str;
@@ -94,30 +171,26 @@ App.Blurbview = Backbone.View.extend({
 		document.title = text.substring(0,40) +'...';
 		var url = Backbone.history.getFragment();
 			_gaq.push(['_trackPageview', "/#"+url]);
-		this.render();
-	},
-	events: {
-		'click .button#new': 'new',
-		'click .share#mail': 'mail',
-		'click .share#twitter': 'twitter',
-	},
-	render: function() {
+		
 		html = this.tpl(this.model.toJSON());
+		
 		$(this.el).html(html)
 		//show tweets
 		gettweets('#' + this.model.get('blurbschema_id'));
 
 		//render images if there are any - if not try to get them
 		images = this.model.get('images');
-		if (images[0]) {
+		
+		if (typeof images != 'undefined') {
 			this.rendercarousel(images);
 		}
 	},
-	new: function() {
-		app.navigate('/', {
-			trigger: true
-		});
+	gocreate: function() {
+		blurbmodel = new App.Blurbmodel();
+		postview = new App.Postview({model : blurbmodel});
+		appview.showview(postview);	
 	},
+	
 	mail: function() {
     var subject= document.title;
     var body = "\r\n";

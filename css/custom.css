@@ -18,6 +18,12 @@ div #post {
 	padding: 10px;
 }
 
+div #text {
+	font-family: sans-serif;
+	font-size: medium;
+	padding: 10px;
+}
+
 div #postbutton {
 padding-top: 30px;
 }
@@ -68,25 +74,26 @@ select:focus {
 }
 
 button {
-        background-color:#fc8d83;
-        
-        -moz-border-radius:10px;
-        -webkit-border-radius:10px;
-        border-radius:10px;
-        
-        border:0px solid #d83526;
-        
-        display:inline-block;
-        color:#ffffff;
-        font-family:arial;
-        font-size:20px;
-        font-weight:bold;
-        padding:5px 5px;
-        text-decoration:none;
-        
-    }
-    .button:hover {
-        
-        background-color:#e3695d;
-    }
+    background-color:#fc8d83;
+    
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
+    
+    border:0px solid #d83526;
+    
+    display:inline-block;
+    color:#ffffff;
+    font-family:arial;
+    font-size:20px;
+    font-weight:bold;
+    padding:5px 5px;
+    text-decoration:none;
+    
+}
+
+.button:hover {
+    
+    background-color:#e3695d;
+}
 
