@@ -40,16 +40,17 @@
 		</textarea>
 
  
+		<div id="post">	Upload some images here. And decide how big you want them</div>
+<div id="post">   <input id="inputfiles" type="file" multiple="mutiple"></div>
 
-    <p><input id="inputfiles" type="file" multiple="mutiple"></p>
-
-    <p>
-    <select id="size">
+    
+<div id="post">    <select id="size">
     <option value="phone" selected="selected">Make images small</option>
     <option value="tablet">Make images large</option>
-    </select></p>
-    
-    <p><button type="submit" class="button" id="create">Create Blurb</button></p>
+    </select>    
+</div>
+
+<div id="postbutton">    <button type="submit" class="button" id="create">Create Blurb</button></div>
     </script>
     
     
@@ -67,7 +68,7 @@
 
     <ul class="images"> </ul>
 
-<p><%= title %></p>
+<%= title %>
 <div class="tweet"></div>
 
     </script><!-- IMAGETPL -->
