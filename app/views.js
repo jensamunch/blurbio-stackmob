@@ -112,9 +112,8 @@ App.Blurbview = Backbone.View.extend({
 	},
 	mail: function() {
     var subject= this.model.get('blurbschema_id')
-    var body = "\r\n\r\n<";
+    var body = "\r\n\r\n";
     body += document.location;
-    body += ">";
     var uri = "mailto:?subject=";
     uri += encodeURIComponent(subject);
     uri += "&body=";
@@ -127,13 +126,8 @@ App.Blurbview = Backbone.View.extend({
 		console.log('twitter');
 		var twtTitle  = document.title;
 		var twtUrl    = location.href;
-		var maxLength = 140 - (twtUrl.length + 1);
-		if (twtTitle.length > maxLength) {
-			twtTitle = twtTitle.substr(0, (maxLength - 3))+'...';
-			}
 			var twtLink = 'http://twitter.com/home?status='+encodeURIComponent(twtTitle + ' ' + twtUrl);
 			window.open(twtLink);
-	
 
 	
 		}, 

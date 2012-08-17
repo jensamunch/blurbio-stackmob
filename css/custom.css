@@ -1,14 +1,20 @@
 body {
     text-align:center;
     font-family: sans-serif;
-	font-size: large
+	font-size: large;
+	  overflow: hidden;
   }
 
-.sharing img {
-	padding-left: 50px;
-	padding-right: 50px;
+.sharing {
+	width: 300;
+	overflow: hidden;
+	white-space:nowrap;
 	display: inline;
+}
+
+.sharing img {
 	vertical-align: middle;	
+	display: inline-block;
 }
 
 
@@ -38,15 +44,6 @@ input {
         text-align: center	        
     }
     
-    select {
-    	padding: 20px;
-                font-family: sans-serif;
-        font-size: large;
-        border-radius:10px;
-        width: 300px;
-        height: 30px;	
-        text-align: center	        
-    }
 
 input:focus {
 	outline:none;
@@ -59,6 +56,15 @@ input:focus {
 	
 }
 
+select {
+	padding: 20px;
+            font-family: sans-serif;
+    font-size: large;
+    border-radius:10px;
+    width: 300px;
+    height: 30px;	
+    text-align: center	        
+}
 
 
 button {
@@ -73,9 +79,9 @@ button {
         display:inline-block;
         color:#ffffff;
         font-family:arial;
-        font-size:23px;
+        font-size:20px;
         font-weight:bold;
-        padding:10px 48px;
+        padding:5px 5px;
         text-decoration:none;
         
     }
