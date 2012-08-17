@@ -26,11 +26,11 @@ App.Postview = Backbone.View.extend({
 		images = [];
 		if (files) {
 			if ($('#size').val() == 'phone') {
-				var w = 500,
-					h = 500;
+				var w = 500;
+				var h = 500;
 			} else {
-				var w = 1000,
-					h = 1000;
+				var w = 1000;
+				var	h = 1000;
 			}
 			for (var m = 0, f; f = files[m]; m++) {
 				setimages(f, w, h);
@@ -96,10 +96,10 @@ App.Blurbview = Backbone.View.extend({
 		console.log('blurbview - render')
 		html = this.tpl(this.model.toJSON());
 		$(this.el).html(html)
+		//show tweets
+		gettweets('#' + this.model.get('blurbschema_id'));
+
 		//render images if there are any - if not try to get them
-		//gettweets(this.model.get('blurbschema_id'));
-		gettweets('#dogs')
-		//gettweets('#' + this.model.get('blurbschema_id'));
 		images = this.model.get('images');
 		if (images[0]) {
 			this.rendercarousel(images);
