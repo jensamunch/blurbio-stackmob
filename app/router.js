@@ -48,6 +48,8 @@ App.Router = Backbone.Router.extend({
     
 })
 $(function() {
+	window.App = window.App || {};
+	window.App.ga = new Backbone.Analytics({code: 'UA-34158464-1'});
 	appview = new App.Appview();
 	app = new App.Router();
 	Backbone.history.start();
