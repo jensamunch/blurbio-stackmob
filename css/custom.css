@@ -22,7 +22,6 @@ div #post {
 div #text {
 	font-family: sans-serif;
 	font-size: medium;
-	padding: 10px;
 	max-width: 600px;
 	margin: 0 auto; 
 }
@@ -37,10 +36,13 @@ div .tweet {
 
 div #postbutton {
 padding-top: 30px;
+padding-bottom: 50px;
 }
 
 div #createbutton {
 padding-top: 30px;
+padding-bottom: 50px;
+
 }
 
 
