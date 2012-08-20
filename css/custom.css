@@ -27,7 +27,7 @@ div #text {
 	margin: 0 auto; 
 }
 
-div #tweet {
+div .tweet {
 	font-family: sans-serif;
 	font-size: medium;
 	padding: 10px;
