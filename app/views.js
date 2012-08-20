@@ -10,11 +10,9 @@ Backbone.View.prototype.close = function() {
 App.Appview = Backbone.View.extend({
 	showview: function(view) {
 		if (this.currentview) {
-			console.log('closing');
 			this.currentview.close();
 		}
 		this.currentview = view;
-		console.log('appview render')
 		this.currentview.render();
 		$("#main").html(this.currentview.el);
 	}
@@ -30,7 +28,7 @@ App.Homeview = Backbone.View.extend({
 		'click .button#gocreate': 'gocreate',
 	},
 	onclose: function(){
-		//$('#gocreate').unbind();
+		$('#gocreate').unbind();
     },
 	render: function() {
 		console.log('render home');
@@ -63,7 +61,7 @@ App.Postview = Backbone.View.extend({
 
 	render: function() {
 		console.log('render new');
-		$('.redactor_box').show();
+		_gaq.push(['_trackPageview', "/#new/"]);
 		that = this
 		images = [];
 		html = this.tpl()
@@ -132,7 +130,6 @@ App.Blurbview = Backbone.View.extend({
 	imagetpl: _.template($("#imagetpl").html()),
 	initialize: function() {
 		_.bindAll(this);
-		$('.redactor_box').hide();
 	},
 	events: {
 		'click .button#gocreate': 'gocreate',
