@@ -61,7 +61,7 @@ App.Postview = Backbone.View.extend({
 
 	render: function() {
 		console.log('render new');
-		_gaq.push(['_trackPageview', "/new/"]);
+		//_gaq.push(['_trackPageview', "/new/"]);
 		that = this
 		images = [];
 		html = this.tpl()
@@ -78,8 +78,8 @@ App.Postview = Backbone.View.extend({
 		files = evt.target.files;
 		images = [];
 		if (files) {
-			var w = 800;
-			var h = 800;
+			var w = 600;
+			var h = 600;
 			
 			for (var m = 0, f; f = files[m]; m++) {
 				if (!f.type.match('image.*')) {
@@ -138,13 +138,14 @@ App.Blurbview = Backbone.View.extend({
 	},
 	close: function() {},
 	render: function() {	
+		console.log(this.model);
 		var str = this.model.get('title');
 		var div = document.createElement("div");
 		div.innerHTML = str;
 		var text = div.textContent || div.innerText || "";
 		document.title = text.substring(0, 40) + '...';
 		var url = Backbone.history.getFragment();
-		_gaq.push(['_trackPageview', "/blurb/" + url]);
+		//_gaq.push(['_trackPageview', "/blurb/" + url]);
 		html = this.tpl(this.model.toJSON());
 		$(this.el).html(html)
 		//show tweets
@@ -183,13 +184,18 @@ App.Blurbview = Backbone.View.extend({
 		var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent(twtTitle + ' ' + twtUrl + ' #' + hashtag);
 		window.open(twtLink);
 	},
-	renderimages: function() {
+	renderimages: function(images) {
 		that = this;
-		for (var m = 0; m < images.length; m++) {
+		//console.log('render' + images)
+		setInterval(function(){
+			for (var m = 0; m < images.length; m++) {
 			html = that.imagetpl({
 				data: images[m]
 			})
 			$('.images').append(html);
 		}
+		},100);
+		
+		
 	},
 });
