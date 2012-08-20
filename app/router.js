@@ -4,21 +4,31 @@ var App = App || {};
 App.Router = Backbone.Router.extend({
 	routes: {
 		':blurbid': 'blurbview',
+		'new/' :	'newview',
 		''	:	'homeview',
 	},
 	
 	initialize: function(options) {
-	console.log('render')
+	console.log('router')
     },
 
 	homeview: function() {
-		console.log('render home')
+		console.log('router home')
 		homeview = new App.Homeview();	
 		appview.showview(homeview);
 	},
 	
+	newview: function() {
+		console.log('router new')
+		blurbmodel = new App.Blurbmodel();
+		postview = new App.Postview({
+			model: blurbmodel
+		});
+		appview.showview(postview);
+	},
+	
 	blurbview: function(blurbid) {
-		console.log('render blurbview')
+		console.log('router blurbview')
 		blurbmodel = new App.Blurbmodel();
 		blurbmodel.set({
 			blurbschema_id: blurbid
@@ -28,7 +38,7 @@ App.Router = Backbone.Router.extend({
 			success: function(model) {
 				//After StackMob returns print out the result
 			blurbview = new App.Blurbview({
-				model: model
+				model: blurbmodel
 			})
 			appview.showview(blurbview);
 		}

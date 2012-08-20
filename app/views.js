@@ -1,24 +1,26 @@
 var App = App || {};
 "use strict";
 Backbone.View.prototype.close = function() {
-	console.log('removing');
 	this.remove();
 	this.unbind();
-	if (this.close) {
-		this.close();
+	if (this.onclose) {
+		this.onclose();
 	}
 }
 App.Appview = Backbone.View.extend({
 	showview: function(view) {
 		if (this.currentview) {
+			console.log('closing');
 			this.currentview.close();
 		}
 		this.currentview = view;
+		console.log('appview render')
 		this.currentview.render();
+		$("#main").html(this.currentview.el);
 	}
 });
 App.Homeview = Backbone.View.extend({
-	el: '#main',
+
 	//tpl: _.template($("#homeviewtpl").html()),
 	tpl: _.template($("#homeviewtpl").html()),
 	initialize: function() {
@@ -27,22 +29,28 @@ App.Homeview = Backbone.View.extend({
 	events: {
 		'click .button#gocreate': 'gocreate',
 	},
+	onclose: function(){
+		//$('#gocreate').unbind();
+    },
+	render: function() {
+		console.log('render home');
+		html = this.tpl();
+		this.$el.html(html);
+	},
 	gocreate: function() {
 		blurbmodel = new App.Blurbmodel();
 		postview = new App.Postview({
 			model: blurbmodel
 		});
+		app.navigate('new/', {
+			trigger: false
+		});
 		appview.showview(postview);
 	},
-	close: function() {},
-	render: function() {
-		html = this.tpl();
-		this.$el.html(html);
-	},
-	postview: {}
+
 })
 App.Postview = Backbone.View.extend({
-	el: '#main',
+
 	tpl: _.template($("#newviewtpl").html()),
 	imagetpl: _.template($("#imagetpl").html()),
 	initialize: function() {
@@ -52,13 +60,21 @@ App.Postview = Backbone.View.extend({
 		'click .button#create': 'createblurb',
 		'change #inputfiles': 'selectfiles',
 	},
-	close: function() {},
+
 	render: function() {
+		console.log('render new');
+		$('.redactor_box').show();
 		that = this
 		images = [];
 		html = this.tpl()
 		this.$el.html(html);
+		setInterval(function(){
 		$('#redactor').redactor(textopts);
+		},200);
+		$('#redactor').show();
+		
+		
+		
 	},
 	selectfiles: function(evt) {
 		files = evt.target.files;
@@ -111,11 +127,12 @@ App.Postview = Backbone.View.extend({
 	},
 })
 App.Blurbview = Backbone.View.extend({
-	el: '#main',
+
 	tpl: _.template($("#blurbviewtpl").html()),
 	imagetpl: _.template($("#imagetpl").html()),
 	initialize: function() {
 		_.bindAll(this);
+		$('.redactor_box').hide();
 	},
 	events: {
 		'click .button#gocreate': 'gocreate',
@@ -123,7 +140,7 @@ App.Blurbview = Backbone.View.extend({
 		'click .share#twitter': 'twitter',
 	},
 	close: function() {},
-	render: function() {
+	render: function() {	
 		var str = this.model.get('title');
 		var div = document.createElement("div");
 		div.innerHTML = str;
