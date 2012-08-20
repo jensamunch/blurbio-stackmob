@@ -28,8 +28,14 @@ div #postbutton {
 padding-top: 30px;
 }
 
+div #createbutton {
+padding-top: 30px;
+}
+
 .redactor_box {
-	margin: 100px;
+margin-top: 50px;
+	margin-left: 100px;
+	margin-right: 100px;
 }
 
 .sharing {

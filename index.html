@@ -31,7 +31,8 @@ var _gaq = _gaq || [];
 
     <div id="main"></div><!-- NEWVIEWTPL -->
     <script type="text/template" id="newviewtpl">
-
+	    <div id="postbutton">    <button type="submit" class="button" id="create">> > > ></button></div>
+	    
     <textarea id="redactor" name="content"></textarea>
     <div id="post">Choose the images you want to share. And decide how big you want them</div>
     <div id="post"><input id="inputfiles" type="file" multiple="mutiple"></div>
@@ -43,7 +44,7 @@ var _gaq = _gaq || [];
     </select>    
     </div>
 
-    <div id="postbutton">    <button type="submit" class="button" id="create">Create Blurb</button></div>
+    
     </script><!-- BLURBVIEWTPL -->
     <script type="text/template" id="blurbviewtpl">
 
@@ -59,10 +60,12 @@ var _gaq = _gaq || [];
 
     </script><!-- HOMEVIEWTPL -->
     <script type="text/template" id="homeviewtpl">
+<div id="createbutton"><button type="submit" class="button" id="gocreate">> > > ></button></div>
+
 <div id="text"><h1>Blurb.io</h1>Create your own page with slideshow and text. <br>It doesn't require a login and only takes 2 clicks. <br><br>
 Share the page via email or twitter. Give it a go! 
 </div>
-    <div id="createbutton"><button type="submit" class="button" id="gocreate">Create Blurb</button></div>
+    
     </script><!-- IMAGETPL -->
     <script type="text/template" id="imagetpl">
 <li>
