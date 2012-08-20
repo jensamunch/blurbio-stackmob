@@ -66,9 +66,9 @@ App.Postview = Backbone.View.extend({
 		images = [];
 		html = this.tpl()
 		this.$el.html(html);
-		setInterval(function(){
+		setTimeout(function(){
 		$('#redactor').redactor(textopts);
-		},200);
+		},500);
 		$('#redactor').show();
 		
 		
@@ -138,6 +138,7 @@ App.Blurbview = Backbone.View.extend({
 	},
 	close: function() {},
 	render: function() {	
+		console.log('render post');
 		console.log(this.model);
 		var str = this.model.get('title');
 		var div = document.createElement("div");
@@ -186,15 +187,16 @@ App.Blurbview = Backbone.View.extend({
 	},
 	renderimages: function(images) {
 		that = this;
+		//console.log('renderimage');
 		//console.log('render' + images)
-		setInterval(function(){
+		setTimeout(function(){
 			for (var m = 0; m < images.length; m++) {
-			html = that.imagetpl({
-				data: images[m]
-			})
-			$('.images').append(html);
-		}
-		},100);
+				html = that.imagetpl({
+					data: images[m]
+				})
+				$('.images').append(html);
+			}
+		},200);
 		
 		
 	},
