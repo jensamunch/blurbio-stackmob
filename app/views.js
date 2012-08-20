@@ -64,14 +64,13 @@ App.Postview = Backbone.View.extend({
 		files = evt.target.files;
 		images = [];
 		if (files) {
-			if ($('#size').val() == 'phone') {
-				var w = 500;
-				var h = 500;
-			} else {
-				var w = 1000;
-				var h = 1000;
-			}
+			var w = 800;
+			var h = 800;
+			
 			for (var m = 0, f; f = files[m]; m++) {
+				if (!f.type.match('image.*')) {
+						continue;
+						}
 				setimages(f, w, h);
 			}
 		}
