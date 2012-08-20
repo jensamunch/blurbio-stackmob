@@ -71,6 +71,7 @@ ul.images {
 }
 ul.images li {
   padding-right: 50px;
+  padding-left: 50px;
   vertical-align: middle;	
 	display: inline-block;
 }
