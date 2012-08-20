@@ -70,8 +70,8 @@ ul.images {
 
 }
 ul.images li {
-  padding-right: 50px;
-  padding-left: 50px;
+  padding-right: 100px;
+  padding-left: 100px;
   vertical-align: middle;	
 	display: inline-block;
 }

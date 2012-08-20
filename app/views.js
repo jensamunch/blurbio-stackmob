@@ -61,7 +61,7 @@ App.Postview = Backbone.View.extend({
 
 	render: function() {
 		console.log('render new');
-		//_gaq.push(['_trackPageview', "/new/"]);
+		_gaq.push(['_trackPageview', "/new/"]);
 		that = this
 		images = [];
 		html = this.tpl()
@@ -145,7 +145,7 @@ App.Blurbview = Backbone.View.extend({
 		var text = div.textContent || div.innerText || "";
 		document.title = text.substring(0, 40) + '...';
 		var url = Backbone.history.getFragment();
-		//_gaq.push(['_trackPageview', "/blurb/" + url]);
+		_gaq.push(['_trackPageview', "/blurb/" + url]);
 		html = this.tpl(this.model.toJSON());
 		$(this.el).html(html)
 		//show tweets
