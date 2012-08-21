@@ -7,168 +7,73 @@ Backbone.View.prototype.close = function() {
 		this.onclose();
 	}
 }
+
 App.Appview = Backbone.View.extend({
-	showview: function(view) {
-		if (this.currentview) {
-			this.currentview.close();
+	showmain: function(view) {
+		if (this.mainview) {
+			this.mainview.close();
 		}
-		this.currentview = view;
-		this.currentview.render();
-		$("#main").html(this.currentview.el);
+		this.mainview = view;
+		this.mainview.render();
+		$("#main").html(this.mainview.el);
+	},
+	showimage: function(view) {
+		if (this.imageview) {
+			this.imageview.close();
+		}
+		this.imageview = view;
+		$("#image").html(this.imageview.el);
 	}
 });
-App.Homeview = Backbone.View.extend({
 
-	//tpl: _.template($("#homeviewtpl").html()),
-	tpl: _.template($("#homeviewtpl").html()),
+
+App.Headerview = Backbone.View.extend({
+	
+	el: "#header",
+	
+	tpl: _.template($("#headertpl").html()),
+	
 	initialize: function() {
 		_.bindAll(this);
+		console.log('headerview init');
+		this.render()
 	},
 	events: {
-		'click .button#gocreate': 'gocreate',
-	},
-	onclose: function(){
-		$('#gocreate').unbind();
-    },
-	render: function() {
-		console.log('render home');
-		html = this.tpl();
-		this.$el.html(html);
-	},
-	gocreate: function() {
-		blurbmodel = new App.Blurbmodel();
-		postview = new App.Postview({
-			model: blurbmodel
-		});
-		app.navigate('new/', {
-			trigger: false
-		});
-		appview.showview(postview);
-	},
-
-})
-App.Postview = Backbone.View.extend({
-
-	tpl: _.template($("#newviewtpl").html()),
-	imagetpl: _.template($("#imagetpl").html()),
-	initialize: function() {
-		_.bindAll(this);
-	},
-	events: {
-		'click .button#create': 'createblurb',
-		'change #inputfiles': 'selectfiles',
-	},
-
-	render: function() {
-		console.log('render new');
-		_gaq.push(['_trackPageview', "/new/"]);
-		that = this
-		images = [];
-		html = this.tpl()
-		this.$el.html(html);
-		setTimeout(function(){
-		$('#redactor').redactor(textopts);
-		},500);
-		$('#redactor').show();
-		
-		
-		
-	},
-	selectfiles: function(evt) {
-		files = evt.target.files;
-		images = [];
-		if (files) {
-			var w = 600;
-			var h = 600;
-			
-			for (var m = 0, f; f = files[m]; m++) {
-				if (!f.type.match('image.*')) {
-						continue;
-						}
-				setimages(f, w, h);
-			}
-		}
-	},
-	createblurb: function() {
-		//start spinner		
-		var target = document.getElementById('main');
-		var spinner = new Spinner(spinopts).spin(target);
-		that = this;
-		this.model.set({
-			blurbschema_id: makeid(),
-			title: $('#redactor').val(),
-		})
-		if (typeof images != 'undefined') {
-			this.model.set({
-				images: images,
-			})
-		}
-		this.model.create({
-			success: function(model) {
-				spinner.stop();
-				blurbview = new App.Blurbview({
-					model: model
-				});
-				blurbview = new App.Blurbview({
-					model: model
-				})
-				appview.showview(blurbview);
-			},
-			error: function(model, response) {
-				console.debug('not saved' + response)
-				return false;
-			},
-		});
-		app.navigate(this.model.get('blurbschema_id'), {
-			trigger: false
-		});
-	},
-})
-App.Blurbview = Backbone.View.extend({
-
-	tpl: _.template($("#blurbviewtpl").html()),
-	imagetpl: _.template($("#imagetpl").html()),
-	initialize: function() {
-		_.bindAll(this);
-	},
-	events: {
-		'click .button#gocreate': 'gocreate',
-		'click .share#mail': 'mail',
+		'click .share#email': 'email',
 		'click .share#twitter': 'twitter',
+		'click .navigate#home': 'gonew',
+		'click .navigate#new': 'goblurb',
+		'click .navigate#blurb': 'gohome',
+		
 	},
-	close: function() {},
-	render: function() {	
-		console.log('render post');
-		console.log(this.model);
-		var str = this.model.get('title');
-		var div = document.createElement("div");
-		div.innerHTML = str;
-		var text = div.textContent || div.innerText || "";
-		document.title = text.substring(0, 40) + '...';
-		var url = Backbone.history.getFragment();
-		_gaq.push(['_trackPageview', "/blurb/" + url]);
-		html = this.tpl(this.model.toJSON());
-		$(this.el).html(html)
-		//show tweets
-		gettweets('#' + this.model.get('blurbschema_id'));
-		//render images if there are any - if not try to get them
-		images = this.model.get('images');
-		if (typeof images != 'undefined') {
-			this.renderimages(images);
-		}
+
+	gohome: function() {
+		app.navigate('', {trigger: true})
+		this.model.set({page : 'home'});
+		this.model.set({button : '> > > >'});
+		this.render();		
 	},
-	gocreate: function() {
-		blurbmodel = new App.Blurbmodel();
-		postview = new App.Postview({
-			model: blurbmodel
-		});
-		app.navigate('', {
-			trigger: false,
-			replace: true
-		});
-		appview.showview(postview);
+	gonew: function() {
+		app.navigate('new/', {trigger : true})
+		this.model.set({page : 'new'});
+		this.model.set({button : '> > > >'});
+		this.render();
 	},
-	mail: function() {
+	
+	goblurb: function() {
+		app.navigate(blurbmodel.get('blurbschema_id'), {trigger: false})
+		
+		this.model.set({page : 'blurb'});
+		this.model.set({button : 'BLURB.IO'});
+		
+		blurbview = new App.Blurbview({model : blurbmodel})
+		appview.showmain(blurbview);
+		//start spinner and deactivate button
+		//then create the blurb
+		this.render();
+	},
+	
+	email: function() {
 		var subject = document.title;
 		var body = "\r\n";
 		body += 'Here\'s something I wanted to share - ' + document.location;
@@ -185,19 +90,134 @@ App.Blurbview = Backbone.View.extend({
 		var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent(twtTitle + ' ' + twtUrl + ' #' + hashtag);
 		window.open(twtLink);
 	},
-	renderimages: function(images) {
-		that = this;
-		//console.log('renderimage');
-		//console.log('render' + images)
-		setTimeout(function(){
-			for (var m = 0; m < images.length; m++) {
-				html = that.imagetpl({
-					data: images[m]
-				})
-				$('.images').append(html);
-			}
-		},200);
 		
+	render: function() {
+		that = this;
+		this.$el.empty();
+		html = this.tpl(this.model.toJSON());
+		this.$el.html(html);
+	},
+	
+});
+
+App.Homeview = Backbone.View.extend({
+
+	//tpl: _.template($("#homeviewtpl").html()),
+	tpl: _.template($("#homeviewtpl").html()),
+	initialize: function() {
+		_.bindAll(this);
+	},
+	onclose: function(){
+    },
+	render: function() {
+		_gaq.push(['_trackPageview', "/"])
+		
+		console.log('render home');
+		html = this.tpl();
+		this.$el.html(html);
+	},
+
+})
+App.Newview = Backbone.View.extend({
+
+	tpl: _.template($("#newviewtpl").html()),
+	imagetpl: _.template($("#imagetpl").html()),
+	initialize: function() {
+		_.bindAll(this);
+	},
+	events: {
+		'change #inputfiles': 'selectfiles',
+	},
+
+	render: function() {
+		_gaq.push(['_trackPageview', "/new/"])
+		
+		this.model.set({ blurbschema_id : makeid() })
+		console.log('render new');
+		this.$el.html(this.tpl());
+
+		setTimeout(function(){
+		$('#redactor').redactor(textopts);
+		},500);
+		
+		$('#redactor').show();
+	},
+	selectfiles: function(evt) {
+		files = evt.target.files;			
+				imagecollection.reset();
+				var w = 600;
+				var h = 600;
+				
+				for (var m = 0, f; f = files[m]; m++) {
+					if (!f.type.match('image.*')) {continue;}
+					setimages(f, w, h);
+				}
+
+	},
+	
+
+})
+App.Blurbview = Backbone.View.extend({
+
+	tpl: _.template($("#blurbviewtpl").html()),
+
+	initialize: function() {
+		_.bindAll(this);
+		console.log('blurbview init');
+	
+	},
+
+	close: function() {},
+	
+	render: function() {	
+		url = Backbone.history.getFragment()
+		_gaq.push(['_trackPageview', "/blurb/" +url])
+		
+		html = this.tpl();
+		console.log(html);
+		this.$el.html(html)
+		
+		var str = this.model.get('title');
+		var div = document.createElement("div");
+		div.innerHTML = str;
+		var text = div.textContent || div.innerText || "";
+		document.title = text.substring(0, 40) + '...';
+		
+		
+		//show tweets
+		//gettweets('#' + this.model.get('blurbschema_id'));
+		//render images if there are any - if not try to get them
+		
+		images = this.model.get('images');
+		this.renderimages(images);
+
+	},	
+
+});
+
+
+App.Imageview = Backbone.View.extend({
+
+	tpl: _.template($("#imagetpl").html()),
+	
+	initialize: function() {
+		_.bindAll(this);
+		console.log('imageview init');
+	},
+	
+	events: {
+		//this.collection.on('add', this.render);
+		//this.collection.on('remove', this.render);
+		
+	},
+	close: function() {},
+	
+	render: function() {
+		this.$el.empty();	
+		this.collection.each(function(model){
+			html = this.tpl(this.model);
+			this.$el.append(html)
+		})
 		
 	},
 });

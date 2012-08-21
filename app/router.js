@@ -9,22 +9,29 @@ App.Router = Backbone.Router.extend({
 	},
 	
 	initialize: function(options) {
-	console.log('router')
+		console.log('router')
+		appview = new App.Appview();
+		
+		appmodel = new App.Appmodel();
+		headerview = new App.Headerview({model : appmodel});
     },
 
 	homeview: function() {
 		console.log('router home')
-		homeview = new App.Homeview();	
-		appview.showview(homeview);
+		homeview = new App.Homeview();
+		appview.showmain(homeview);
 	},
 	
 	newview: function() {
 		console.log('router new')
-		blurbmodel = new App.Blurbmodel();
-		postview = new App.Postview({
-			model: blurbmodel
-		});
-		appview.showview(postview);
+		imagecollection = new App.Imagecollection()
+		blurbmodel = new App.Blurbmodel()
+		
+		newview = new App.Newview({model : blurbmodel});
+		imageview = new App.Imageview({collection : imagecollection});
+		
+		appview.showimage(imageview);
+		appview.showmain(newview);
 	},
 	
 	blurbview: function(blurbid) {
@@ -37,11 +44,13 @@ App.Router = Backbone.Router.extend({
 		blurbmodel.fetch({
 			success: function(model) {
 				//After StackMob returns print out the result
-			console.log(model);
 			blurbview = new App.Blurbview({
 				model: blurbmodel
 			})
-			appview.showview(blurbview);
+			imageview = new App.Imageview({collection : imagecollection});
+			
+			appview.showimage(imageview);
+			appview.showmain(blurbview);
 		}
 		});
 		
@@ -49,9 +58,6 @@ App.Router = Backbone.Router.extend({
     
 })
 $(function() {
-	window.App = window.App || {};
-	window.App.ga = new Backbone.Analytics({code: 'UA-34158464-1'});
-	appview = new App.Appview();
 	app = new App.Router();
 	Backbone.history.start();
 })
