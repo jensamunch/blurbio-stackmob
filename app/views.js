@@ -1,5 +1,7 @@
 var App = App || {};
 "use strict";
+
+
 Backbone.View.prototype.close = function() {
 	this.remove();
 	this.unbind();
@@ -9,6 +11,15 @@ Backbone.View.prototype.close = function() {
 }
 
 App.Appview = Backbone.View.extend({
+	showheader: function(view) {
+		if (this.headerview) {
+			this.headerview.close();
+		}
+		this.headerview = view;
+		this.headerview.render();
+		$("#header").html(this.headerview.el);
+	},
+	
 	showmain: function(view) {
 		if (this.mainview) {
 			this.mainview.close();
@@ -17,34 +28,45 @@ App.Appview = Backbone.View.extend({
 		this.mainview.render();
 		$("#main").html(this.mainview.el);
 	},
+	
 	showimage: function(view) {
 		if (this.imageview) {
 			this.imageview.close();
 		}
+		if (view == 'none') {
+			imageview.close();
+			console.log('closing')
+			}
 		this.imageview = view;
-		$("#image").html(this.imageview.el);
+		this.mainview.render();
+		$("#images").html(this.imageview.el);
 	}
 });
 
 
 App.Headerview = Backbone.View.extend({
 	
-	el: "#header",
-	
 	tpl: _.template($("#headertpl").html()),
 	
 	initialize: function() {
 		_.bindAll(this);
 		console.log('headerview init');
-		this.render()
 	},
+	onclose: function(){
+    },
+    
+	render: function() {
+		console.log('render header')
+		html = this.tpl(this.model.toJSON());
+		this.$el.html(html);
+	},
+	
 	events: {
 		'click .share#email': 'email',
 		'click .share#twitter': 'twitter',
 		'click .navigate#home': 'gonew',
 		'click .navigate#new': 'goblurb',
 		'click .navigate#blurb': 'gohome',
-		
 	},
 
 	gohome: function() {
@@ -61,15 +83,32 @@ App.Headerview = Backbone.View.extend({
 	},
 	
 	goblurb: function() {
-		app.navigate(blurbmodel.get('blurbschema_id'), {trigger: false})
+		//start spinner		
+		var target = document.getElementById('images');
+		var spinner = new Spinner(spinopts).spin(target);
 		
 		this.model.set({page : 'blurb'});
 		this.model.set({button : 'BLURB.IO'});
 		
-		blurbview = new App.Blurbview({model : blurbmodel})
-		appview.showmain(blurbview);
 		//start spinner and deactivate button
-		//then create the blurb
+		//create the blurb
+		blurbmodel.set({
+			title: $('#redactor').val(),
+		})
+		
+		console.log('text is ' + $('#redactor').val())
+
+		//create model
+		blurbmodel.create({
+			success: function(model) {
+				spinner.stop();
+				blurbview = new App.Blurbview({model : blurbmodel})
+				
+				appview.showmain(blurbview);
+				app.navigate(blurbmodel.get('blurbschema_id'), {trigger: false});
+			},
+		});
+
 		this.render();
 	},
 	
@@ -89,13 +128,6 @@ App.Headerview = Backbone.View.extend({
 		var twtUrl = location.href;
 		var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent(twtTitle + ' ' + twtUrl + ' #' + hashtag);
 		window.open(twtLink);
-	},
-		
-	render: function() {
-		that = this;
-		this.$el.empty();
-		html = this.tpl(this.model.toJSON());
-		this.$el.html(html);
 	},
 	
 });
@@ -118,6 +150,8 @@ App.Homeview = Backbone.View.extend({
 	},
 
 })
+
+
 App.Newview = Backbone.View.extend({
 
 	tpl: _.template($("#newviewtpl").html()),
@@ -125,38 +159,44 @@ App.Newview = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this);
 	},
+		
 	events: {
 		'change #inputfiles': 'selectfiles',
 	},
 
 	render: function() {
+		this.$el.html(this.tpl());
 		_gaq.push(['_trackPageview', "/new/"])
 		
-		this.model.set({ blurbschema_id : makeid() })
+		blurbmodel.set({ blurbschema_id : makeid() })
 		console.log('render new');
-		this.$el.html(this.tpl());
-
+		
 		setTimeout(function(){
 		$('#redactor').redactor(textopts);
-		},500);
+		},100);
 		
 		$('#redactor').show();
 	},
-	selectfiles: function(evt) {
-		files = evt.target.files;			
-				imagecollection.reset();
-				var w = 600;
-				var h = 600;
-				
-				for (var m = 0, f; f = files[m]; m++) {
-					if (!f.type.match('image.*')) {continue;}
-					setimages(f, w, h);
-				}
-
-	},
 	
-
+	selectfiles: function(evt) {
+		console.log('files selected');
+		images = []
+		
+		files = evt.target.files;			
+			for (var m = 0, f; f = files[m]; m++) {
+				if (!f.type.match('image.*')) {continue;}		
+				//add to array
+				addimage(f, m);				
+			}
+		setTimeout(function(){
+		blurbmodel.set('images',images);
+		imageview.render();
+		appview.showimage(imageview);
+		},500);
+	},
 })
+
+
 App.Blurbview = Backbone.View.extend({
 
 	tpl: _.template($("#blurbviewtpl").html()),
@@ -173,24 +213,17 @@ App.Blurbview = Backbone.View.extend({
 		url = Backbone.history.getFragment()
 		_gaq.push(['_trackPageview', "/blurb/" +url])
 		
-		html = this.tpl();
-		console.log(html);
-		this.$el.html(html)
-		
 		var str = this.model.get('title');
 		var div = document.createElement("div");
 		div.innerHTML = str;
 		var text = div.textContent || div.innerText || "";
 		document.title = text.substring(0, 40) + '...';
 		
+		html = this.tpl(this.model.toJSON());
+		this.$el.html(html);
 		
 		//show tweets
-		//gettweets('#' + this.model.get('blurbschema_id'));
-		//render images if there are any - if not try to get them
-		
-		images = this.model.get('images');
-		this.renderimages(images);
-
+		gettweets('#' + this.model.get('blurbschema_id'));
 	},	
 
 });
@@ -199,25 +232,28 @@ App.Blurbview = Backbone.View.extend({
 App.Imageview = Backbone.View.extend({
 
 	tpl: _.template($("#imagetpl").html()),
-	
+		
 	initialize: function() {
 		_.bindAll(this);
 		console.log('imageview init');
 	},
 	
-	events: {
-		//this.collection.on('add', this.render);
-		//this.collection.on('remove', this.render);
-		
+	events: {		
 	},
+	
 	close: function() {},
 	
 	render: function() {
+		console.log('render images')
 		this.$el.empty();	
-		this.collection.each(function(model){
-			html = this.tpl(this.model);
-			this.$el.append(html)
-		})
+		images = []
+		images = blurbmodel.get("images")
 		
-	},
+		for (var i = 0; i < images.length; i++) {
+			image = images[i];
+			html = this.tpl({data : image});
+			this.$el.append(html);
+			}
+		
+		},
 });

@@ -1,5 +1,6 @@
 var App = App || {};
 "use strict";
+
 makeid = function() {
 	var text = "";
 	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -7,6 +8,7 @@ makeid = function() {
 	text += possible.charAt(Math.floor(Math.random() * possible.length));
 	return text;
 }
+
 gettweets = function(f) {
 	$(".tweet").tweet({
 		avatar_size: 32,
@@ -14,45 +16,54 @@ gettweets = function(f) {
 		query: f,
 	});
 }
-setimages = function(f, w, h) {
-	var ratio = 1;
-	// defining cause it wasnt
-	var maxWidth = w;
-	var maxHeight = h;
-	that = this;
-	var base64resized;
-	var reader = new FileReader();
-	var img = new Image();
-	reader.onload = (function(theFile) {
-		return function(e) {
-			//once base64 has been loaded into image we can start resizing
-			img.onload = function() {
-				var canvas = document.createElement("canvas");
-				var ctx = canvas.getContext("2d");
-				var canvasCopy = document.createElement("canvas");
-				var copyContext = canvasCopy.getContext("2d");
-				if (img.width > img.height) {
-					if (img.width > w) ratio = maxWidth / img.width;
-				} else {
-					if (img.height > h) ratio = maxHeight / img.height;
-				}
-				canvasCopy.width = img.width;
-				canvasCopy.height = img.height;
-				copyContext.drawImage(img, 0, 0);
-				canvas.width = img.width * ratio;
-				canvas.height = img.height * ratio;
-				ctx.drawImage(canvasCopy, 0, 0, canvas.width, canvas.height);
-				//move canvas data back to DataURL Base64
-				base64resized = canvas.toDataURL("image/jpeg", 0.7);
-				//save base64 as array images[]
-				images.push(base64resized);
-			};
-			//load base64 into img
-			img.src = e.target.result;
-		}
-	})(f);
-	reader.readAsDataURL(f);
-}
+
+
+addimage = function(f,m) {
+		//this is where the resizing comes in
+		var base64resized;	
+		var ratio = 1;
+		var maxWidth = 500;
+		var maxHeight = 500;
+		var base64resized;
+		var reader = new FileReader();
+		var img = new Image();
+		
+		reader.onload = (function(theFile) {
+			return function(e) {
+				//once base64 has been loaded into image we can start resizing
+				img.onload = function() {
+					var canvas = document.createElement("canvas");
+					var ctx = canvas.getContext("2d");
+					var canvasCopy = document.createElement("canvas");
+					var copyContext = canvasCopy.getContext("2d");
+					if (img.width > img.height) {
+						if (img.width > maxWidth) ratio = maxWidth / img.width;
+					} else {
+						if (img.height > maxHeight) ratio = maxHeight / img.height;
+					}
+					canvasCopy.width = img.width;
+					canvasCopy.height = img.height;
+					copyContext.drawImage(img, 0, 0);
+					canvas.width = img.width * ratio;
+					canvas.height = img.height * ratio;
+					ctx.drawImage(canvasCopy, 0, 0, canvas.width, canvas.height);
+					//move canvas data back to DataURL Base64
+					base64resized = canvas.toDataURL("image/jpeg", 0.7);
+					
+					//push to array
+					console.log(m)
+					images[m] = base64resized;
+				};
+				//load base64 into img
+				img.src = e.target.result;
+			}
+		})(f);
+		reader.readAsDataURL(f);
+	},
+
+
+
+
 spinopts = {
 	lines: 10,
 	// The number of lines to draw
@@ -84,6 +95,8 @@ spinopts = {
 	// Top position relative to parent in px
 	left: 'auto' // Left position relative to parent in px
 };
+
+
 textopts = {
 	keyupCallback: false,
 	// function

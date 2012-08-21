@@ -9,33 +9,51 @@ App.Router = Backbone.Router.extend({
 	},
 	
 	initialize: function(options) {
-		console.log('router')
-		appview = new App.Appview();
-		
-		appmodel = new App.Appmodel();
-		headerview = new App.Headerview({model : appmodel});
+		console.log('router init');
     },
 
 	homeview: function() {
 		console.log('router home')
+		
+		appmodel.set({page : 'home'});
+		appmodel.set({button : '> > > >'});
+		
+		headerview = new App.Headerview({model : appmodel})
+		appview.showheader(headerview);
+		
 		homeview = new App.Homeview();
 		appview.showmain(homeview);
+		
+		appview.showimage('none');
 	},
 	
 	newview: function() {
 		console.log('router new')
-		imagecollection = new App.Imagecollection()
+		
+		appmodel.set({page : 'new'});
+		appmodel.set({button : '> > > >'});
+		
+		headerview = new App.Headerview({model : appmodel});
+		appview.showheader(headerview);
+		
 		blurbmodel = new App.Blurbmodel()
-		
 		newview = new App.Newview({model : blurbmodel});
-		imageview = new App.Imageview({collection : imagecollection});
-		
-		appview.showimage(imageview);
 		appview.showmain(newview);
+		
+		imageview = new App.Imageview();
+		
+		
 	},
 	
 	blurbview: function(blurbid) {
 		console.log('router blurbview')
+		
+		appmodel.set({page : 'blurb'});
+		appmodel.set({button : 'BLURB.IO'});
+		
+		headerview = new App.Headerview({model : appmodel});
+		appview.showheader(headerview);
+		
 		blurbmodel = new App.Blurbmodel();
 		blurbmodel.set({
 			blurbschema_id: blurbid
@@ -47,7 +65,7 @@ App.Router = Backbone.Router.extend({
 			blurbview = new App.Blurbview({
 				model: blurbmodel
 			})
-			imageview = new App.Imageview({collection : imagecollection});
+			imageview = new App.Imageview();
 			
 			appview.showimage(imageview);
 			appview.showmain(blurbview);
@@ -58,7 +76,10 @@ App.Router = Backbone.Router.extend({
     
 })
 $(function() {
+	appview = new App.Appview()
+	
 	app = new App.Router();
 	Backbone.history.start();
+
 })
 
