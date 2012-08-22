@@ -93,7 +93,7 @@ App.Headerview = Backbone.View.extend({
 		window.open(uri);
 	},
 	twitter: function() {
-		var hashtag = this.model.get('blurbschema_id');
+		var hashtag = blurbmodel.get('blurbschema_id');
 		var twtTitle = document.title;
 		var twtUrl = location.href;
 		var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent(twtTitle + ' ' + twtUrl + ' #' + hashtag);
@@ -138,11 +138,12 @@ App.Newview = Backbone.View.extend({
 		_gaq.push(['_trackPageview', "/new/"])
 		console.log('newview render');
 		
-		setTimeout(function(){
+		setTimeout(this.showredactor, 0);		
+	},
+	
+	showredactor: function() {
 		$('#redactor').redactor(redactoropts);
-		},100);
-		
-		$('#redactor').show();
+		$('#redactor').show();	
 	},
 	
 	selectfiles: function(evt) {
@@ -160,7 +161,7 @@ App.Newview = Backbone.View.extend({
 		setTimeout(function(){
 		blurbmodel.set('images',images);
 		blurbmodel.triggerimages();
-		},500);
+		},200);
 	},
 })
 
@@ -178,6 +179,9 @@ App.Blurbview = Backbone.View.extend({
 	close: function() {},
 	
 	render: function() {	
+		html = this.tpl(this.model.toJSON());
+		this.$el.html(html);
+		
 		_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
 		
 		var str = this.model.get('title');
@@ -186,13 +190,18 @@ App.Blurbview = Backbone.View.extend({
 		var text = div.textContent || div.innerText || "";
 		document.title = text.substring(0, 40) + '...';
 		
-		html = this.tpl(this.model.toJSON());
-		this.$el.html(html);
-		
-		//show tweets
-		gettweets('#' + this.model.get('blurbschema_id'));
+		setTimeout(this.showtweets, 0);
 	},	
-
+	
+	showtweets: function() { 
+		//show tweets
+		var query = '#' + this.model.get('blurbschema_id');
+		$("#tweets").tweet({
+			avatar_size: 32,
+			count: 100,
+			query: query,
+			});
+		},
 });
 
 

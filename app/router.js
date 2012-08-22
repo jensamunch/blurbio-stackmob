@@ -71,7 +71,12 @@ App.Router = Backbone.Router.extend({
 				spinner.stop();
 				$("#spinner").hide();
 				appview.showmain(blurbview);
-				}
+				},
+			error: function(model) {
+				spinner.stop();
+				$("#spinner").hide();
+				app.navigate('');
+				},
 		});
 		
     },

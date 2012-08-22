@@ -9,15 +9,6 @@ makeid = function() {
 	return text;
 }
 
-gettweets = function(f) {
-	$(".tweet").tweet({
-		avatar_size: 32,
-		count: 100,
-		query: f,
-	});
-}
-
-
 addimage = function(f,m) {
 		//this is where the resizing comes in
 		var base64resized;	
