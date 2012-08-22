@@ -31,22 +31,19 @@
 <body>
     <!-- BODY ID WHERE TEMPLATES WILL BE INSERTED -->
 
-    <div id="header"></div>
-    
+<div id="header">
+<div class="sharing">
+<img class="share" id="email" src="img/mail.png"/>
+<button class="navigate"></button>
+<img class="share" id="twitter" src="img/twitter.png"/>
+</div>
+</div>
+
+    <div id="spinner"></div>
     <div id="images"></div>
-    
     <div id="main"></div>
 
 
-<!-- HEADERVIEWTPL -->
-<script type="text/template" id="headertpl">
-<div class="sharing">
-    <img class="share" id="email" src="img/mail.png"/>
-    <button class="navigate" id="<%= page %>"><%= button %></button>
-    <img class="share" id="twitter" src="img/twitter.png"/>
-</div>
-</script>
-    
         
     <script type="text/template" id="newviewtpl">
 <!-- NEWVIEWTPL -->

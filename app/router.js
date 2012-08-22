@@ -9,39 +9,45 @@ App.Router = Backbone.Router.extend({
 	},
 	
 	initialize: function(options) {
-		console.log('router init');
+		//$("#spinner").show();
+		//var target = document.getElementById('spinner');
+		//var spinner = new Spinner(spinopts).spin(target);
+		//spinner.stop();
+		//$("#spinner").show();
     },
 
 	homeview: function() {
 		console.log('router home')
 		
+		//reset imageview from previous views
+		images.length = 0;
+		blurbmodel.set('images',images);
+		blurbmodel.triggerimages();
+		
 		appmodel.set({page : 'home'});
-		appmodel.set({button : '> > > >'});
-		
-		headerview = new App.Headerview({model : appmodel})
-		appview.showheader(headerview);
-		
+		$(".navigate").html('New');
+		$(".navigate").attr("id","new");
+				
 		homeview = new App.Homeview();
-		appview.showmain(homeview);
+		appview.showmain(homeview);	
 		
-		appview.showimage('none');
 	},
 	
 	newview: function() {
 		console.log('router new')
 		
+		//reset imageview from previous views
+		images.length = 0;
+		blurbmodel.set('images',images);
+		blurbmodel.triggerimages();
+		
 		appmodel.set({page : 'new'});
-		appmodel.set({button : '> > > >'});
+		$(".navigate").html('Create')
+		$(".navigate").attr("id","create");
 		
-		headerview = new App.Headerview({model : appmodel});
-		appview.showheader(headerview);
-		
-		blurbmodel = new App.Blurbmodel()
+		blurbmodel.set({ blurbschema_id : makeid() })
 		newview = new App.Newview({model : blurbmodel});
-		appview.showmain(newview);
-		
-		imageview = new App.Imageview();
-		
+		appview.showmain(newview);		
 		
 	},
 	
@@ -49,12 +55,14 @@ App.Router = Backbone.Router.extend({
 		console.log('router blurbview')
 		
 		appmodel.set({page : 'blurb'});
-		appmodel.set({button : 'blurb.io'});
+		$(".navigate").html('Home')
+		$(".navigate").attr("id","home");
 		
-		headerview = new App.Headerview({model : appmodel});
-		appview.showheader(headerview);
+		//start spinner
+		$("#spinner").show();
+		var target = document.getElementById('spinner');
+		var spinner = new Spinner(spinopts).spin(target);
 		
-		blurbmodel = new App.Blurbmodel();
 		blurbmodel.set({
 			blurbschema_id: blurbid
 		});
@@ -62,21 +70,31 @@ App.Router = Backbone.Router.extend({
 		blurbmodel.fetch({
 			success: function(model) {
 				//After StackMob returns print out the result
-			blurbview = new App.Blurbview({
-				model: blurbmodel
-			})
-			imageview = new App.Imageview();
-			
-			appview.showimage(imageview);
-			appview.showmain(blurbview);
-		}
+				blurbview = new App.Blurbview({
+					model: blurbmodel
+				})
+				spinner.stop();
+				$("#spinner").hide();
+				appview.showmain(blurbview);
+				}
 		});
 		
     },
     
 })
 $(function() {
+	//create all the models and variables i want to be global and reuse
+	
 	appview = new App.Appview()
+	blurbmodel = new App.Blurbmodel();
+	
+	//this one will hold the images array
+	images = [];
+	
+	appmodel = new App.Appmodel();
+	headerview = new App.Headerview({model : appmodel})
+	
+	imagesview = new App.Imagesview({ model : blurbmodel});
 	
 	app = new App.Router();
 	Backbone.history.start();
