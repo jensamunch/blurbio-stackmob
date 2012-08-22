@@ -9,13 +9,8 @@ App.Router = Backbone.Router.extend({
 	},
 	
 	initialize: function(options) {
-		//$("#spinner").show();
-		//var target = document.getElementById('spinner');
-		//var spinner = new Spinner(spinopts).spin(target);
-		//spinner.stop();
-		//$("#spinner").show();
     },
-
+  
 	homeview: function() {
 		console.log('router home')
 		
