@@ -11,9 +11,7 @@ App.Router = Backbone.Router.extend({
 	initialize: function(options) {
     },
   
-	homeview: function() {
-		console.log('router home')
-		
+	homeview: function() {		
 		//reset imageview from previous views
 		images.length = 0;
 		blurbmodel.set('images',images);
@@ -28,9 +26,7 @@ App.Router = Backbone.Router.extend({
 		
 	},
 	
-	newview: function() {
-		console.log('router new')
-		
+	newview: function() {		
 		//reset imageview from previous views
 		images.length = 0;
 		blurbmodel.set('images',images);
@@ -46,9 +42,7 @@ App.Router = Backbone.Router.extend({
 		
 	},
 	
-	blurbview: function(blurbid) {
-		console.log('router blurbview')
-		
+	blurbview: function(blurbid) {		
 		appmodel.set({page : 'blurb'});
 		$(".navigate").html('Home')
 		$(".navigate").attr("id","home");

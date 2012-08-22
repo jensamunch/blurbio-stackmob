@@ -49,9 +49,7 @@ App.Headerview = Backbone.View.extend({
 		app.navigate('new/', {trigger : true})
 	},
 	
-	gocreate: function() {
-		console.log('headerview gocreate')
-		
+	gocreate: function() {		
 		appmodel.set({page : 'blurb'});
 		
 		$(".navigate").html('Home');
@@ -77,6 +75,12 @@ App.Headerview = Backbone.View.extend({
 				appview.showmain(blurbview);
 				app.navigate(blurbmodel.get('blurbschema_id'), {trigger: false});
 			},
+			error: function() {
+				spinner.stop();
+				$("#spinner").hide();
+				app.navigate('');
+				console.log('FAILED TO SAVE');
+			}
 		});
 
 		this.render();
@@ -218,7 +222,6 @@ App.Imagesview = Backbone.View.extend({
 	},
 	
 	render: function() {
-		console.log('render images')
 		this.$el.empty();	
 		images = blurbmodel.get("images")
 		for (var i = 0; i < images.length; i++) {
