@@ -49,7 +49,7 @@ App.Router = Backbone.Router.extend({
 		console.log('router blurbview')
 		
 		appmodel.set({page : 'blurb'});
-		appmodel.set({button : 'BLURB.IO'});
+		appmodel.set({button : 'blurb.io'});
 		
 		headerview = new App.Headerview({model : appmodel});
 		appview.showheader(headerview);

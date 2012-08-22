@@ -3,8 +3,6 @@
 	border: 1px solid #ddd;
 	max-width: 600px;
 	margin: 0 auto;
-	margin-top: 50px;
-	margin-bottom: 50px;
 }
 .redactor_box, .redactor_box textarea {
 	background-color: #fff;

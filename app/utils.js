@@ -61,8 +61,11 @@ addimage = function(f,m) {
 		reader.readAsDataURL(f);
 	},
 
+redactoropts = {
 
-
+buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', '|', 'link', '|',
+				'fontcolor', 'backcolor', '|', 'alignleft', 'aligncenter', 'alignright', 'justify'],
+}				
 
 spinopts = {
 	lines: 10,

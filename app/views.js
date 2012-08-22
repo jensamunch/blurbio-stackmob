@@ -70,7 +70,7 @@ App.Headerview = Backbone.View.extend({
 	},
 
 	gohome: function() {
-		app.navigate('', {trigger: true})
+		app.navigate('/', {trigger: true})
 		this.model.set({page : 'home'});
 		this.model.set({button : '> > > >'});
 		this.render();		
@@ -88,7 +88,7 @@ App.Headerview = Backbone.View.extend({
 		var spinner = new Spinner(spinopts).spin(target);
 		
 		this.model.set({page : 'blurb'});
-		this.model.set({button : 'BLURB.IO'});
+		this.model.set({button : 'blurb.io'});
 		
 		//start spinner and deactivate button
 		//create the blurb
@@ -172,7 +172,7 @@ App.Newview = Backbone.View.extend({
 		console.log('render new');
 		
 		setTimeout(function(){
-		$('#redactor').redactor(textopts);
+		$('#redactor').redactor(redactoropts);
 		},100);
 		
 		$('#redactor').show();
