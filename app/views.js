@@ -178,7 +178,7 @@ App.Blurbview = Backbone.View.extend({
 	close: function() {},
 	
 	render: function() {	
-		_gaq.push([ '_trackPageview', "/blurb/#" + blurmodel.get('blurbschema_id') ]);
+		_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
 		
 		var str = this.model.get('title');
 		var div = document.createElement("div");
