@@ -14,10 +14,7 @@ App.Router = Backbone.Router.extend({
 	homeview: function() {		
 		//reset imagecollection to avoid showing
 		imagecollection.reset();
-			
-		blurbmodel.set('images',images);
-		blurbmodel.triggerimages();
-		
+				
 		appmodel.set({page : 'home'});
 		$(".navigate").html('New');
 		$(".navigate").attr("id","new");
@@ -30,9 +27,6 @@ App.Router = Backbone.Router.extend({
 	newview: function() {		
 		//reset imagecollection to avoid showing
 		imagecollection.reset();
-		
-		blurbmodel.set('images',images);
-		blurbmodel.triggerimages();
 				
 		appmodel.set({page : 'new'});
 		$(".navigate").html('Create')

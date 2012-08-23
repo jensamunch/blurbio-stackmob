@@ -69,7 +69,7 @@ App.Headerview = Backbone.View.extend({
 		
 		//set blurbmodel
 		blurbmodel.set({
-			title: $('#redactor').val(),
+			text: $('#redactor').val(),
 			images: images,
 		})
 		
@@ -105,10 +105,16 @@ App.Headerview = Backbone.View.extend({
 		window.open(uri);
 	},
 	twitter: function() {
-		var hashtag = blurbmodel.get('blurbschema_id');
+		var hashtag = '#' + blurbmodel.get('blurbschema_id');
+		if (appmodel.get('page') != 'blurb') { 
+		var hashtag = '';
+		}
+		console.log(appmodel.get('page'))
+		console.log(hashtag)
+
 		var twtTitle = document.title;
 		var twtUrl = location.href;
-		var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent(twtTitle + ' ' + twtUrl + ' #' + hashtag);
+		var twtLink = 'http://twitter.com/home?status=' + encodeURIComponent(twtTitle + ' ' + twtUrl);
 		window.open(twtLink);
 	},
 	
