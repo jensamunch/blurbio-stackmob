@@ -195,11 +195,6 @@ App.Blurbview = Backbone.View.extend({
 		document.title = text.substring(0, 40) + '...';
 		
 		setTimeout(this.showtweets, 0);
-		views = blurbmodel.get('viewcount');
-		views++;
-		blurbmodel.set({viewcount : views});
-		blurbmodel.save();
-		console.log(blurbmodel.get('viewcount'));
 		
 	},	
 	
@@ -225,6 +220,7 @@ App.Imagesview = Backbone.View.extend({
 		_.bindAll(this);
 		console.log('imageview init');
 		this.model.on('change:images', this.render)
+		//this.collection.bind("add", function(model) {
 	},
 	
 	render: function() {
