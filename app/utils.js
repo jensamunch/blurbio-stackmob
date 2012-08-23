@@ -11,11 +11,11 @@ makeid = function() {
 
 addimage = function(f,m) {
 		//this is where the resizing comes in
-		var base64resized;	
 		var ratio = 1;
-		var maxWidth = 500;
-		var maxHeight = 500;
-		var base64resized;
+		var maxWidth = 600;
+		var maxHeight = 600;
+		var quality = 0.7
+		
 		var reader = new FileReader();
 		var img = new Image();
 		
@@ -38,12 +38,12 @@ addimage = function(f,m) {
 					canvas.width = img.width * ratio;
 					canvas.height = img.height * ratio;
 					ctx.drawImage(canvasCopy, 0, 0, canvas.width, canvas.height);
-					//move canvas data back to DataURL Base64
-					base64resized = canvas.toDataURL("image/jpeg", 0.7);
+					//move canvas data back to DataURL Base64 - choose quality
+					base64resized = canvas.toDataURL("image/jpeg", quality);
 					
-					//push to array
-					console.log(m)
-					images[m] = base64resized;
+					//push to collection
+					imagecollection.add({data : base64resized});
+					
 				};
 				//load base64 into img
 				img.src = e.target.result;

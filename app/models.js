@@ -15,3 +15,9 @@ App.Blurbmodel = StackMob.Model.extend({
 		this.trigger("change:images");
 		}
 });
+
+App.Imagemodel = Backbone.Model.extend({});
+
+App.Imagecollection = Backbone.Collection.extend({
+	model: App.Imagemodel,
+})

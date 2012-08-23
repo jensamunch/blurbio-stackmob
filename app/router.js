@@ -12,8 +12,9 @@ App.Router = Backbone.Router.extend({
     },
   
 	homeview: function() {		
-		//reset imageview from previous views
-		images.length = 0;
+		//reset imagecollection to avoid showing
+		imagecollection.reset();
+			
 		blurbmodel.set('images',images);
 		blurbmodel.triggerimages();
 		
@@ -27,11 +28,12 @@ App.Router = Backbone.Router.extend({
 	},
 	
 	newview: function() {		
-		//reset imageview from previous views
-		images.length = 0;
+		//reset imagecollection to avoid showing
+		imagecollection.reset();
+		
 		blurbmodel.set('images',images);
 		blurbmodel.triggerimages();
-		
+				
 		appmodel.set({page : 'new'});
 		$(".navigate").html('Create')
 		$(".navigate").attr("id","create");
@@ -58,7 +60,13 @@ App.Router = Backbone.Router.extend({
 		
 		blurbmodel.fetch({
 			success: function(model) {
-				//After StackMob returns print out the result
+				//load images
+				images = model.get('images');
+	
+				for (var m = 0; images[m]; m++) {
+					imagecollection.add({ data : images[m] })				
+					}
+				
 				blurbview = new App.Blurbview({
 					model: blurbmodel
 				})
@@ -79,16 +87,17 @@ App.Router = Backbone.Router.extend({
 $(function() {
 	//create all the models and variables i want to be global and reuse
 	
-	appview = new App.Appview()
+	appview = new App.Appview();
 	blurbmodel = new App.Blurbmodel();
 	
 	//this one will hold the images array
 	images = [];
-	
+	imagecollection = new App.Imagecollection();
+
 	appmodel = new App.Appmodel();
 	headerview = new App.Headerview({model : appmodel})
 	
-	imagesview = new App.Imagesview({ model : blurbmodel});
+	imagesview = new App.Imagesview({ model : blurbmodel, collection : imagecollection});
 	
 	app = new App.Router();
 	Backbone.history.start();

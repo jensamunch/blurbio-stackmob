@@ -27,9 +27,8 @@ App.Headerview = Backbone.View.extend({
 	el: $('#header'),
 	
 	initialize: function() {
+		_.bindAll(this);
 	},
-	onclose: function(){
-    },
 	
 	events: {
 		'click .share#email': 'email',
@@ -39,7 +38,8 @@ App.Headerview = Backbone.View.extend({
 		'click .navigate#create': 'gocreate',
 	},
 	
-
+	onclose: function(){
+    },
 		
 	gohome: function() {
 		app.navigate('', {trigger: true})	
@@ -59,6 +59,13 @@ App.Headerview = Backbone.View.extend({
 		$("#spinner").show();
 		var target = document.getElementById('spinner');
 		var spinner = new Spinner(spinopts).spin(target);
+		
+		//create and reset temporary array
+		images = []
+		images.length = 0
+		imagecollection.each( function(item) {
+			images.push(item.get('data'))		
+		})
 		
 		//set blurbmodel
 		blurbmodel.set({
@@ -120,6 +127,8 @@ App.Homeview = Backbone.View.extend({
 		console.log('render home');
 		html = this.tpl();
 		this.$el.html(html);
+		
+		
 	},
 
 })
@@ -152,8 +161,8 @@ App.Newview = Backbone.View.extend({
 	selectfiles: function(evt) {
 		console.log('files selected');
 		
-		//reset the variable images used by utils
-		images.length = 0;
+		//reset imagecollection to avoid showing
+		imagecollection.reset();
 		
 		files = evt.target.files;			
 			for (var m = 0, f; f = files[m]; m++) {
@@ -189,6 +198,8 @@ App.Blurbview = Backbone.View.extend({
 		_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
 		
 		var str = this.model.get('title');
+		if (!str == '') {$('#text').show() }
+		
 		var div = document.createElement("div");
 		div.innerHTML = str;
 		var text = div.textContent || div.innerText || "";
@@ -219,8 +230,19 @@ App.Imagesview = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this);
 		console.log('imageview init');
-		this.model.on('change:images', this.render)
-		//this.collection.bind("add", function(model) {
+		//this.model.on('change:images', this.render)
+		this.collection.on("add", this.addimage)
+		this.collection.on('reset', this.hideview);
+	},
+	
+	addimage: function(model) {
+		this.$el.show();
+		html = this.tpl(model.toJSON());
+		this.$el.append(html);	
+	},
+	
+	hideview: function() {
+		this.$el.hide();
 	},
 	
 	render: function() {
