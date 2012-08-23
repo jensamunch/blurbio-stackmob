@@ -147,17 +147,17 @@ App.Newview = Backbone.View.extend({
 	
 	showredactor: function() {
 		$('#redactor').redactor(redactoropts);
-		$('#redactor').show();	
 	},
 	
 	selectfiles: function(evt) {
 		console.log('files selected');
 		
-		//reset the variable images
+		//reset the variable images used by utils
 		images.length = 0;
 		
 		files = evt.target.files;			
 			for (var m = 0, f; f = files[m]; m++) {
+				if (m >14) {continue;}
 				if (!f.type.match('image.*')) {continue;}		
 				//add to array
 				addimage(f, m);				
@@ -165,7 +165,7 @@ App.Newview = Backbone.View.extend({
 		setTimeout(function(){
 		blurbmodel.set('images',images);
 		blurbmodel.triggerimages();
-		},200);
+		},500);
 	},
 })
 
@@ -195,6 +195,12 @@ App.Blurbview = Backbone.View.extend({
 		document.title = text.substring(0, 40) + '...';
 		
 		setTimeout(this.showtweets, 0);
+		views = blurbmodel.get('viewcount');
+		views++;
+		blurbmodel.set({viewcount : views});
+		blurbmodel.save();
+		console.log(blurbmodel.get('viewcount'));
+		
 	},	
 	
 	showtweets: function() { 

@@ -8,9 +8,10 @@
     <meta name="viewport" content="width=device-width" user-scalable="no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="css/custom.css" rel="stylesheet" type="text/css">
+    
     <link href="css/jquery.tweet.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="redactor/redactor.css" type="text/css">
+    <link href="redactor/redactor.css" rel="stylesheet"  type="text/css">
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
 
@@ -30,6 +31,7 @@
 
 <body>
     <!-- BODY ID WHERE TEMPLATES WILL BE INSERTED -->
+<div id="wrapper">
 
 <div id="header">
 <div class="sharing">
@@ -44,11 +46,20 @@
     <div id="main"></div>
 
 
-        
+<div id="push"></div>	
+</div>
+<div id="footer">
+<a href="http://about.me/jensamunch">about.me/jensamunch</a>	
+</div>	
+
+
+    
+
+
+<!-- NEWVIEWTPL -->        
     <script type="text/template" id="newviewtpl">
-<!-- NEWVIEWTPL -->
     <div id="newtpl">
-    <h2>Images</h2>
+    <h2>Images (max. 15)</h2>
     <input id="inputfiles" type="file" multiple="mutiple">
     <br>
     <h2>Text</h2>
@@ -56,25 +67,23 @@
     </div>
     </script>
     
-    
+ <!-- BLURBVIEWTPL -->   
     <script type="text/template" id="blurbviewtpl">
-<!-- BLURBVIEWTPL -->
     <div id="text"> <%= title %> </div>
     <div id="tweets"></div>
     </script>
     
-    
+<!-- HOMEVIEWTPL -->    
     <script type="text/template" id="homeviewtpl">
-<!-- HOMEVIEWTPL -->
     <div id="text">
     <h1>blurb.io</h1>
     <p>Create a page with images and text. Then share the link.</p>
     <p>Two clicks, no login. Easy as pie.</p>
     </div>
     </script>
-    
+
+<!-- IMAGETPL -->    
     <script type="text/template" id="imagetpl">
-<!-- IMAGETPL -->
     <img id="image" src="<%= data %>" />
     </script>
     
