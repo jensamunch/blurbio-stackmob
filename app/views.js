@@ -72,7 +72,8 @@ App.Headerview = Backbone.View.extend({
 			title: $('#redactor').val(),
 			images: images,
 		})
-
+		
+		console.log(blurbmodel)
 		//create model
 		blurbmodel.create({
 			success: function(model) {
@@ -171,10 +172,6 @@ App.Newview = Backbone.View.extend({
 				//add to array
 				addimage(f, m);				
 			}
-		setTimeout(function(){
-		blurbmodel.set('images',images);
-		blurbmodel.triggerimages();
-		},500);
 	},
 })
 
@@ -185,6 +182,7 @@ App.Blurbview = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
+		that = this;
 		console.log('blurbview init');
 	
 	},
@@ -196,28 +194,28 @@ App.Blurbview = Backbone.View.extend({
 		this.$el.html(html);
 		
 		_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
-		
+		setTimeout(function() {that.postrender() }, 0);
+	},	
+	
+	postrender: function() { 
 		var str = this.model.get('title');
-		if (!str == '') {$('#text').show() }
-		
 		var div = document.createElement("div");
 		div.innerHTML = str;
 		var text = div.textContent || div.innerText || "";
 		document.title = text.substring(0, 40) + '...';
 		
-		setTimeout(this.showtweets, 0);
+		if (!str == '') { $('#blurbtext').show(); }
 		
-	},	
-	
-	showtweets: function() { 
-		//show tweets
 		var query = '#' + this.model.get('blurbschema_id');
 		$("#tweets").tweet({
 			avatar_size: 32,
 			count: 100,
 			query: query,
 			});
+		
+		
 		},
+		
 });
 
 
@@ -231,8 +229,13 @@ App.Imagesview = Backbone.View.extend({
 		_.bindAll(this);
 		console.log('imageview init');
 		//this.model.on('change:images', this.render)
-		this.collection.on("add", this.addimage)
+		this.collection.on("add", this.addall)
 		this.collection.on('reset', this.hideview);
+	},
+	
+	addall: function(model) {
+		this.$el.empty();
+		this.collection.each(this.addimage)
 	},
 	
 	addimage: function(model) {
@@ -245,13 +248,4 @@ App.Imagesview = Backbone.View.extend({
 		this.$el.hide();
 	},
 	
-	render: function() {
-		this.$el.empty();	
-		images = blurbmodel.get("images")
-		for (var i = 0; i < images.length; i++) {
-			image = images[i];
-			html = this.tpl({data : image});
-			this.$el.append(html);
-			}
-		},
 });

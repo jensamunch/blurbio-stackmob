@@ -36,18 +36,17 @@ margin-top: 20px;
 	padding: 20px;
 	border-radius: 20px;
 	border: 2px solid #e5e5e5;
-		
 	margin: 10px;
 	overflow-y: auto;
 	overflow-x: show;
-	white-space: nowrap;
-	
+	white-space: nowrap;	
 	display: none;	
 }
 
 #image {
 	margin-left: 100px;
 	margin-right: 100px;
+
 }
 
 #images>#image:first-of-type {
@@ -57,11 +56,10 @@ margin-top: 20px;
 	margin-right: 0px;
 }
 
-#text {
+#blurbtext {
 	padding: 20px;
 	border-radius: 20px;
 	border: 2px solid #e7e7e7;
-	
 	max-width: 600px;
 	display: block;
 	margin-left: auto;
@@ -79,7 +77,7 @@ margin-top: 20px;
 div #tweets {
 	font-family: sans-serif;
 	font-size: medium;
-	padding: 10px;
+	padding: 50px;
 	max-width: 600px;
 	margin: 0 auto; 
 }
@@ -108,7 +106,7 @@ display: none;
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	margin: 0 auto -50px; /* the bottom margin is the negative value of the footer's height */
+	margin: 0 auto -100px; /* the bottom margin is the negative value of the footer's height */
 }
 #footer, #push {
 	height: 50px; /* .push must be the same height as .footer */
