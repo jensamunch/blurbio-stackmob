@@ -177,13 +177,13 @@ App.Newview = Backbone.View.extend({
 		  blurbmodel.fetch({
 			success: function() {
 				//This mean duplicate ID
-				$('.control-group').toggleClass('error');
-				$('.navigate').attr('disabled', true);
+				$('.control-group').addClass('error');
+				$('.navigate').attr('disabled', 'disabled');
 				},
 			error: function() {
 				//This means we're A OK
-				$('.control-group').toggleClass('error');
-				$('.navigate').attr('disabled', false);
+				$('.control-group').removeClass('error');
+				$('.navigate').removeAttr("disabled");
 				},		
 			})
 		
