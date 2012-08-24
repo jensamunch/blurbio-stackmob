@@ -52,7 +52,7 @@ App.Headerview = Backbone.View.extend({
 	gocreate: function() {		
 		appmodel.set({page : 'blurb'});
 		
-		$(".navigate").html('Home');
+		$(".navigate").html('blurb.io');
 		$(".navigate").attr("id","home");
 		
 		//start spinner and deactivate button

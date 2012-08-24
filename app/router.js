@@ -56,10 +56,6 @@ App.Router = Backbone.Router.extend({
 	},
 	
 	blurbview: function(blurbid) {		
-		appmodel.set({page : 'blurb'});
-		$(".navigate").html('Home')
-		$(".navigate").attr("id","home");
-		
 		//start spinner
 		$("#spinner").show();
 		var target = document.getElementById('spinner');
@@ -72,6 +68,10 @@ App.Router = Backbone.Router.extend({
 		blurbmodel.fetch({
 			success: function(model) {
 				//load images
+				appmodel.set({page : 'blurb'});
+				$(".navigate").html('blurb.io')
+				$(".navigate").attr("id","home");
+				
 				images = model.get('images');
 	
 				for (var m = 0; images[m]; m++) {
