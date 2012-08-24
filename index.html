@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width" user-scalable="no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="css/jquery.tweet.css" rel="stylesheet" type="text/css">
     <link href="redactor/redactor.css" rel="stylesheet"  type="text/css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
@@ -38,8 +39,9 @@
 </div>
 
     <div id="spinner"></div>
-    <div id="images"></div>
     <div id="main"></div>
+    <div id="images"></div>
+    <div id="tweets"></div>
 
 
 <div id="push"></div>	
@@ -49,24 +51,30 @@
 </div>	
 
 
-    
-
 
 <!-- NEWVIEWTPL -->        
     <script type="text/template" id="newviewtpl">
     <div id="newtpl">
-    <h2>Images (max. 15)</h2>
+    
+    <div class="control-group">
+    <div class="input-prepend">
+	<span class="add-on">blurb.io/#</span>
+	<input class="span2" id="blurbschema_id" size="16" type="text" placeholder="<%= blurbschema_id %>">
+	</div>
+	</div>
+
     <input id="inputfiles" type="file" multiple="mutiple">
-    <br>
-    <h2>Text</h2>
+    
+   
+    <p>
     <textarea id="redactor" name="content"></textarea>
-    </div>
+    <p/>
+    
     </script>
     
  <!-- BLURBVIEWTPL -->   
     <script type="text/template" id="blurbviewtpl">
-    <div id="blurbtext"><%= text %> </div>
-    <div id="tweets"></div>
+    <div id="blurbtext"><%= blurbtext %> </div>
     </script>
     
 <!-- HOMEVIEWTPL -->    

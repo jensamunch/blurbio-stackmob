@@ -69,11 +69,10 @@ App.Headerview = Backbone.View.extend({
 		
 		//set blurbmodel
 		blurbmodel.set({
-			text: $('#redactor').val(),
+			blurbtext: $('#redactor').val(),
 			images: images,
 		})
 		
-		console.log(blurbmodel)
 		//create model
 		blurbmodel.create({
 			success: function(model) {
@@ -150,19 +149,44 @@ App.Newview = Backbone.View.extend({
 	},
 		
 	events: {
-		'change #inputfiles': 'selectfiles',
+		'change #inputfiles' : 'selectfiles',
+		'change #blurbschema_id' : 'changeid',
 	},
+	
+	onclose: function() {
+		$(this.el).undelegate('#inputfiles', 'change');
+		$(this.el).undelegate('#blurbschema', 'change');
+		
+	},
+	
 
 	render: function() {
-		this.$el.html(this.tpl());
+		this.$el.html(this.tpl( {blurbschema_id : this.model.get('blurbschema_id') } ));
 		_gaq.push(['_trackPageview', "/new/"])
 		console.log('newview render');
-		
 		setTimeout(this.showredactor, 0);		
 	},
 	
 	showredactor: function() {
 		$('#redactor').redactor(redactoropts);
+	},
+	
+	changeid: function(url) {
+		newid = $("#blurbschema_id").val();
+		blurbmodel.set({ blurbschema_id : newid })
+		  blurbmodel.fetch({
+			success: function() {
+				//This mean duplicate ID
+				$('.control-group').toggleClass('error');
+				$('.navigate').attr('disabled', true);
+				},
+			error: function() {
+				//This means we're A OK
+				$('.control-group').toggleClass('error');
+				$('.navigate').attr('disabled', false);
+				},		
+			})
+		
 	},
 	
 	selectfiles: function(evt) {
@@ -204,7 +228,7 @@ App.Blurbview = Backbone.View.extend({
 	},	
 	
 	postrender: function() { 
-		var str = this.model.get('title');
+		var str = this.model.get('blurbtext');
 		var div = document.createElement("div");
 		div.innerHTML = str;
 		var text = div.textContent || div.innerText || "";
@@ -213,6 +237,8 @@ App.Blurbview = Backbone.View.extend({
 		if (!str == '') { $('#blurbtext').show(); }
 		
 		var query = '#' + this.model.get('blurbschema_id');
+		
+		$('#tweets').show();
 		$("#tweets").tweet({
 			avatar_size: 32,
 			count: 100,
@@ -238,6 +264,11 @@ App.Imagesview = Backbone.View.extend({
 		this.collection.on("add", this.addall)
 		this.collection.on('reset', this.hideview);
 	},
+	
+	onclose: function(){
+    	this.collection.unbind("add", this.addall);
+    	this.collection.unbind("reset", this.hideview);
+    },
 	
 	addall: function(model) {
 		this.$el.empty();

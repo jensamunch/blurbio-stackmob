@@ -14,6 +14,7 @@ App.Router = Backbone.Router.extend({
 	homeview: function() {		
 		//reset imagecollection to avoid showing
 		imagecollection.reset();
+		$('#tweets').hide();
 				
 		appmodel.set({page : 'home'});
 		$(".navigate").html('New');
@@ -27,12 +28,28 @@ App.Router = Backbone.Router.extend({
 	newview: function() {		
 		//reset imagecollection to avoid showing
 		imagecollection.reset();
+		$('#tweets').hide();
 				
 		appmodel.set({page : 'new'});
 		$(".navigate").html('Create')
 		$(".navigate").attr("id","create");
 		
-		blurbmodel.set({ blurbschema_id : makeid() })
+		//get new ID which is not in use
+		
+		do
+		  {
+			  newid = makeid();
+			  blurbmodel.set({ blurbschema_id : newid })
+				  blurbmodel.fetch({
+					success: function(model) {newid = 'duplicate';}	
+					})
+		  }
+		while (newid == 'duplicate')	  
+			  
+		
+		
+				
+				
 		newview = new App.Newview({model : blurbmodel});
 		appview.showmain(newview);		
 		
