@@ -45,10 +45,9 @@ App.Headerview = Backbone.View.extend({
 	},
 	
 	gocreate: function() {		
-		appmodel.set({page : 'blurb'});
 		
 		$(".navigate").html('blurb.io');
-		$(".navigate").attr("id","home");
+		$(".navigate").attr("id","new");
 		
 		//start spinner and deactivate button
 		$("#spinner").show();
@@ -103,11 +102,6 @@ App.Headerview = Backbone.View.extend({
 	},
 	twitter: function() {
 		var hashtag = '#' + blurbmodel.get('blurbschema_id');
-		if (appmodel.get('page') != 'blurb') { 
-		var hashtag = '';
-		}
-		console.log(appmodel.get('page'))
-		console.log(hashtag)
 
 		var twtTitle = document.title;
 		var twtUrl = location.href;

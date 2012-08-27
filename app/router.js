@@ -13,7 +13,8 @@ App.Router = Backbone.Router.extend({
   
 	homeview: function() {		
 		//which blurb is the homepage - go there
-		var homepage = 'blurb.io';
+		
+		var homepage = 'blurbio';
 		app.navigate(homepage, {trigger: false});
 		this.blurbview(homepage);
 		
@@ -24,7 +25,6 @@ App.Router = Backbone.Router.extend({
 		imagecollection.reset();
 		$('#tweets').hide();
 				
-		appmodel.set({page : 'new'});
 		$(".navigate").html('> > > >')
 		$(".navigate").attr("id","create");
 		
@@ -62,8 +62,7 @@ App.Router = Backbone.Router.extend({
 		blurbmodel.fetch({
 			success: function(model) {
 				//load images
-				appmodel.set({page : 'blurb'});
-				$(".navigate").html('> > > >')
+				$(".navigate").html('blurb.io')
 				$(".navigate").attr("id","new");
 				
 				images = model.get('images');
@@ -99,8 +98,7 @@ $(function() {
 	images = [];
 	imagecollection = new App.Imagecollection();
 
-	appmodel = new App.Appmodel();
-	headerview = new App.Headerview({model : appmodel})
+	headerview = new App.Headerview()
 	
 	imagesview = new App.Imagesview({ model : blurbmodel, collection : imagecollection});
 	

@@ -1,14 +1,14 @@
 var App = App || {};
 "use strict";
 
-App.Appmodel = Backbone.Model.extend({
-});
-
 App.Blurbmodel = StackMob.Model.extend({
 	
 	schemaName: 'blurbschema',
 	
 	defaults: {
+		blurbschema_id: '',
+		blurbtext: '',
+		expirydate: 0,
 	},
 	
 	setexpiry: function(days) {
