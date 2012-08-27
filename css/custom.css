@@ -29,6 +29,28 @@ margin: 20px;
 #header img{
 	vertical-align: middle;	
 	display: inline-block;
+	border: solid 2px transparent;
+	
+	opacity: 1;
+	transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+}
+
+#header button{
+	opacity: 1;
+	transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+}
+
+#header img:hover {
+	opacity: 0.80;
+}
+
+
+#header button:hover {
+	opacity: 0.80;
 }
 
 #header button{
@@ -93,7 +115,8 @@ margin: 20px;
 	-webkit-border-radius:5px;
 	border-radius:5px;padding:25px;
 	text-align:center;
-	font:20pt bold,"Vollkorn";
+	font-family: sans-serif;
+	font-size: larger;
 	color:#bbb
 }
 

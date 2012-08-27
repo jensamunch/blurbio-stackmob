@@ -12,8 +12,10 @@ App.Blurbmodel = StackMob.Model.extend({
 	},
 	
 	setexpiry: function(days) {
-		var myDate=new Date();
-		this.set({ expiry : myDate.setDate(myDate.getDate()+days) })
+		var nowdate=new Date();
+		var expirydate = nowdate.setDate(nowdate.getDate()+days)
+		console.log(expirydate)
+		this.set({ expirydate : expirydate })
 	},
 });
 

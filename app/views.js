@@ -68,6 +68,9 @@ App.Headerview = Backbone.View.extend({
 			images: images,
 		})
 		
+		//set expirydate
+		blurbmodel.setexpiry(7);
+		
 		//create model
 		blurbmodel.create({
 			success: function(model) {
