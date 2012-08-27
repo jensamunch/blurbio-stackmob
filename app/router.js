@@ -39,11 +39,7 @@ App.Router = Backbone.Router.extend({
 					})
 		  }
 		while (newid == 'duplicate')	  
-			  
-		
-		
-				
-				
+
 		newview = new App.Newview({model : blurbmodel});
 		appview.showmain(newview);		
 		
@@ -90,17 +86,13 @@ App.Router = Backbone.Router.extend({
 })
 $(function() {
 	//create all the models and variables i want to be global and reuse
-	
 	appview = new App.Appview();
 	blurbmodel = new App.Blurbmodel();
 	
-	//this one will hold the images array
-	images = [];
 	imagecollection = new App.Imagecollection();
 
 	headerview = new App.Headerview()
-	
-	imagesview = new App.Imagesview({ model : blurbmodel, collection : imagecollection});
+	imagesview = new App.Imagesview({ collection : imagecollection});
 	
 	app = new App.Router();
 	Backbone.history.start();

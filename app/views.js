@@ -123,7 +123,8 @@ App.Newview = Backbone.View.extend({
 	events: {
 		'change #blurbschema_id' : 'changeid',
 		"drop #dropzone" : "drophandler",
-		"click #dropzone" : "resetimages"
+		"click #dropzone" : "resetimages",
+		'change #inputfiles' : 'selectfiles',
 	},
 	
 	onclose: function() {
@@ -161,6 +162,17 @@ App.Newview = Backbone.View.extend({
 			})
 		
 	},
+	
+	selectfiles: function(evt) {
+		files = evt.target.files;	
+		for (var m = 0, f; f = files[m]; m++) {
+				if (m >14) {continue;}
+				if (!f.type.match('image.*')) {continue;}		
+				//add to array
+				addimage(f, m);				
+			}
+	},
+	
 	
 	drophandler: function(event) {
 		event.stopPropagation();
