@@ -121,14 +121,6 @@ margin: 20px;
 }
 
 
-#inputfiles {
-	font-family: sans-serif;
-    font-size: medium;
-    border-radius:0px;
-    width: 210px;  
-}
-
-
 #spinner {
 z-index:1000;
 position:absolute;
