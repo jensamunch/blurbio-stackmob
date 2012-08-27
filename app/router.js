@@ -12,16 +12,10 @@ App.Router = Backbone.Router.extend({
     },
   
 	homeview: function() {		
-		//reset imagecollection to avoid showing
-		imagecollection.reset();
-		$('#tweets').hide();
-				
-		appmodel.set({page : 'home'});
-		$(".navigate").html('New');
-		$(".navigate").attr("id","new");
-				
-		homeview = new App.Homeview();
-		appview.showmain(homeview);	
+		//which blurb is the homepage - go there
+		var homepage = 'blurb.io';
+		app.navigate(homepage, {trigger: false});
+		this.blurbview(homepage);
 		
 	},
 	
@@ -31,7 +25,7 @@ App.Router = Backbone.Router.extend({
 		$('#tweets').hide();
 				
 		appmodel.set({page : 'new'});
-		$(".navigate").html('Create')
+		$(".navigate").html('> > > >')
 		$(".navigate").attr("id","create");
 		
 		//get new ID which is not in use
@@ -69,8 +63,8 @@ App.Router = Backbone.Router.extend({
 			success: function(model) {
 				//load images
 				appmodel.set({page : 'blurb'});
-				$(".navigate").html('blurb.io')
-				$(".navigate").attr("id","home");
+				$(".navigate").html('> > > >')
+				$(".navigate").attr("id","new");
 				
 				images = model.get('images');
 	
@@ -88,7 +82,7 @@ App.Router = Backbone.Router.extend({
 			error: function(model) {
 				spinner.stop();
 				$("#spinner").hide();
-				app.navigate('');
+				app.navigate('#home');
 				},
 		});
 		

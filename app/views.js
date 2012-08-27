@@ -33,17 +33,12 @@ App.Headerview = Backbone.View.extend({
 	events: {
 		'click .share#email': 'email',
 		'click .share#twitter': 'twitter',
-		'click .navigate#home': 'gohome',
 		'click .navigate#new': 'gonew',
 		'click .navigate#create': 'gocreate',
 	},
 	
 	onclose: function(){
     },
-		
-	gohome: function() {
-		app.navigate('', {trigger: true})	
-	},
 	
 	gonew: function() {
 		app.navigate('new/', {trigger : true})
@@ -119,26 +114,6 @@ App.Headerview = Backbone.View.extend({
 	
 });
 
-App.Homeview = Backbone.View.extend({
-
-	//tpl: _.template($("#homeviewtpl").html()),
-	tpl: _.template($("#homeviewtpl").html()),
-	initialize: function() {
-		_.bindAll(this);
-	},
-	onclose: function(){
-    },
-	render: function() {
-		_gaq.push(['_trackPageview', "/"])
-		console.log('render home');
-		html = this.tpl();
-		this.$el.html(html);
-		
-		
-	},
-
-})
-
 
 App.Newview = Backbone.View.extend({
 
@@ -149,8 +124,9 @@ App.Newview = Backbone.View.extend({
 	},
 		
 	events: {
-		'change #inputfiles' : 'selectfiles',
 		'change #blurbschema_id' : 'changeid',
+		"drop #dropzone" : "drophandler",
+		"click #dropzone" : "resetimages"
 	},
 	
 	onclose: function() {
@@ -189,19 +165,28 @@ App.Newview = Backbone.View.extend({
 		
 	},
 	
-	selectfiles: function(evt) {
-		console.log('files selected');
+	drophandler: function(event) {
+		event.stopPropagation();
+        event.preventDefault();
+        var event = event.originalEvent;
+        event.dataTransfer.dropEffect = 'copy';
+        files = event.dataTransfer.files;
 		
-		//reset imagecollection to avoid showing
-		imagecollection.reset();
-		
-		files = evt.target.files;			
 			for (var m = 0, f; f = files[m]; m++) {
 				if (m >14) {continue;}
 				if (!f.type.match('image.*')) {continue;}		
 				//add to array
 				addimage(f, m);				
 			}
+		
+	},
+	
+	resetimages: function(evt) {
+		console.log('files selected');
+		
+		//reset imagecollection to avoid showing
+		imagecollection.reset();
+		
 	},
 })
 

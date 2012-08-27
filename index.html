@@ -49,7 +49,7 @@
 <div id="push"></div>	
 </div>
 <div id="footer">
-blurbs are removed after about 7 days.<br>
+blurbs are removed after 7 days.<br>
 <a href="http://about.me/jensamunch">about.me/jensamunch</a>
 </div>	
 
@@ -61,18 +61,17 @@ blurbs are removed after about 7 days.<br>
     
     <div class="control-group">
     <div class="input-prepend">
-	<span class="add-on">blurb.io/#</span>
+	<span class="add-on">http://blurb.io/#</span>
 	<input class="span2" id="blurbschema_id" size="16" type="text" placeholder="<%= blurbschema_id %>">
 	</div>
 	</div>
-
-    <input id="inputfiles" type="file" multiple="mutiple">
+	
+	<p>
+    <div id="dropzone">Drop images or click to reset</div>
+	</p>
+    <textarea id="redactor" name="content" r></textarea>
     
-   
-    <p>
-    <textarea id="redactor" name="content"></textarea>
-    <p/>
-    
+    </div>
     </script>
     
  <!-- BLURBVIEWTPL -->   
@@ -80,18 +79,6 @@ blurbs are removed after about 7 days.<br>
     <div id="blurbtext"><%= blurbtext %> </div>
     </script>
     
-<!-- HOMEVIEWTPL -->    
-    <script type="text/template" id="homeviewtpl">
-    
-    <div id="hometext">
-    <h1>blurb.io BETA</h1>
-    <br>
-    <p>Create a page with images and text. Then share the link.</p>
-    <p>One click, no login. Easy as pie.</p>
-    <br><br>
-    <p>Also the page-name is a hashtag. So tweet away.</p> 
-    </div>
-    </script>
 
 <!-- IMAGETPL -->    
     <script type="text/template" id="imagetpl">

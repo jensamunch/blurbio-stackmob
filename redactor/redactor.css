@@ -3,6 +3,8 @@
 	border: 1px solid #ddd;
 	max-width: 600px;
 	margin: 0 auto;
+	text-align: left;
+	resize: vertical;
 }
 .redactor_box, .redactor_box textarea {
 	background-color: #fff;
@@ -19,7 +21,7 @@ body .redactor_air {
 	font-family: Menlo, Monaco, monospace, sans-serif;
 	font-size: 13px;
 	overflow: auto;
-	resize: none;
+	resize: vertical;
 	margin: 0;
 	padding: 0;
 	display: block;

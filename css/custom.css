@@ -22,6 +22,10 @@ margin: 20px;
 	margin-bottom: 10px;
 }
 
+#newtpl {
+	text-align: center;
+}
+
 #header img{
 	vertical-align: middle;	
 	display: inline-block;
@@ -72,11 +76,6 @@ margin: 20px;
 	display: none;
 }
 
-.redactor_box {
-	text-align: left;
-	max-width: 600px;
-}
-
 
 #tweets {
 	font-family: sans-serif;
@@ -84,6 +83,18 @@ margin: 20px;
 	padding: 20px;
 	max-width: 600px;
 	margin: 0 auto;
+}
+
+#dropzone {
+	margin: 0px auto;
+	max-width: 550px;
+	border:2px dashed #bbb;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;padding:25px;
+	text-align:center;
+	font:20pt bold,"Vollkorn";
+	color:#bbb
 }
 
 
@@ -105,6 +116,8 @@ width:100%;
 height: 100%;
 display: none;
 }
+
+
 
 #wrapper {
 	min-height: 100%;
