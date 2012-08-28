@@ -217,7 +217,13 @@ App.Blurbview = Backbone.View.extend({
 		html = this.tpl(this.model.toJSON());
 		this.$el.html(html);
 		
+		if (blurbmodel.get('blurbschema_id') == 'blurbio') {
+		_gaq.push([ '_trackPageview', "/" ]);
+		}
+		else {	
 		_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
+		}
+		
 		setTimeout(function() {that.postrender() }, 0);
 	},	
 	
