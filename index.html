@@ -1,86 +1,75 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+
     <title>blurb.io BETA</title>
     <meta name="viewport" content="width=device-width" user-scalable="no">
     <meta name="description" content="blurb.io BETA is a one-click, no-login, sharing site.">
-    <meta name="google-site-verification" content="Ci_z4fDFRtu2xhtpdAE7q-vzTOj_Mup8BGFyLDiWQt8" />
+    <meta name="google-site-verification" content="Ci_z4fDFRtu2xhtpdAE7q-vzTOj_Mup8BGFyLDiWQt8">
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="redactor/redactor.css" rel="stylesheet"  type="text/css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
-<script type="text/javascript">
+    <script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-34158464-1']);
-  _gaq.push(['_setDomainName', 'blurb.io']);
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-34158464-1']);
+    _gaq.push(['_setDomainName', 'blurb.io']);
 
-  (function() {
+    (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+    })();
 
-</script>
+    </script>
 </head>
 
 <body>
+
     <!-- BODY ID WHERE TEMPLATES WILL BE INSERTED -->
-<div id="wrapper">
-<div id="header">
-<div class="sharing">
-<img class="share" id="email" src="img/mail.png"/>
 
-<button class="navigate"></button>
 
-<img class="share" id="twitter" src="img/twitter.png"/>
-</div>
-</div>
+    <div id="wrapper">
+    
+        <div id="header">
+            <div class="sharing"><img class="share" id="email" src="img/mail.png">
+            <button class="navigate"></button>
+            <img class="share" id="twitter" src="img/twitter.png"></div>
+        </div>
+
+        <div id="main"></div>
+        
+        <div id="images">
+            <div class="imagescontainer"></div>
+        </div>
+        
+        
+
+        <div id="push"></div>
+    </div>
+
 
     <div id="spinner"></div>
-    <div id="main"></div>
-    <div id="images">
-	    <div class="imagescontainer"> 
-	    </div>
-    </div>
+    <!-- NEWVIEWTPL --><script type="text/template" id="newviewtpl">
+<div id="newtpl">
 
-<div id="push"></div>	
-</div>
-<div id="footer">
-blurbs are removed after 7 days.<br>
-</div>	
-
-
-
-<!-- NEWVIEWTPL -->        
-    <script type="text/template" id="newviewtpl">
-    <div id="newtpl">
-    
     <div class="control-group">
     <div class="input-prepend">
-	<span class="add-on">http://blurb.io/#</span>
-	<input class="span2" id="blurbschema_id" size="16" type="text" placeholder="<%= blurbschema_id %>">
-	</div>
-	</div>
-	
-	<textarea id="redactor" name="content" r></textarea>
-	<div id="dropzone">Drop images here. Click on them to remove.</div>
+    <span class="add-on">http://blurb.io/#</span>
+    <input class="span2" id="blurbschema_id" size="16" type="text" placeholder="<%= blurbschema_id %>">
     </div>
-    </script>
-    
- <!-- BLURBVIEWTPL -->   
-    <script type="text/template" id="blurbviewtpl">
-    <div id="blurbtext"><%= blurbtext %></div>
-    </script>
-    
+    </div>
 
-<!-- IMAGETPL -->    
-    <script type="text/template" id="imagetpl">
-    <img id="image" src="<%= data %>" />
-    </script>
-    
-    <!-- Libs -->
+    <!-- <textarea id="redactor" name="content"></textarea> -->
+    <div id="dropzone">Drop images here. Click on them to remove.</div>
+    </div>
+    </script><!-- BLURBVIEWTPL --><script type="text/template" id="blurbviewtpl">
+<div id="blurbtext"><%= blurbtext %></div>
+    </script><!-- IMAGETPL --><script type="text/template" id="imagetpl">
+<img id="image" src="<%= data %>" />
+    </script><!-- Libs -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
 </script><script type="text/javascript" src="http://static.stackmob.com/js/json2-min.js">
 </script><script type="text/javascript" src="http://static.stackmob.com/js/underscore-1.3.3-min.js">
@@ -88,7 +77,6 @@ blurbs are removed after 7 days.<br>
 </script><script type="text/javascript" src="http://static.stackmob.com/js/2.5.3-crypto-sha1-hmac.js">
 </script><script type="text/javascript" src="http://static.stackmob.com/js/stackmob-js-0.5.5-min.js">
 </script><script type="text/javascript" src="lib/spin.min.js">
-</script><script src="redactor/redactor.min.js" type="text/javascript">
 </script><script type="text/javascript">
 StackMob.init({
     appName: "blurb",
@@ -99,8 +87,7 @@ StackMob.init({
     </script><!-- Load App -->
     <script src="app/models.js" type="text/javascript">
 </script><script src="app/utils.js" type="text/javascript">
-</script>
-<script src="app/views.js" type="text/javascript">
+</script><script src="app/views.js" type="text/javascript">
 </script><script src="app/router.js" type="text/javascript">
 </script>
 </body>

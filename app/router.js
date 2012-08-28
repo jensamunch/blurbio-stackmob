@@ -40,7 +40,8 @@ App.Router = Backbone.Router.extend({
 		while (newid == 'duplicate')	  
 
 		newview = new App.Newview({model : blurbmodel});
-		appview.showmain(newview);		
+		appview.showmain(newview);
+			
 		
 	},
 	

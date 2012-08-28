@@ -63,7 +63,6 @@ App.Headerview = Backbone.View.extend({
 		
 		//set blurbmodel
 		blurbmodel.set({
-			blurbtext: $('#redactor').val(),
 			images: images,
 		})
 		
@@ -123,6 +122,7 @@ App.Newview = Backbone.View.extend({
 	events: {
 		'change #blurbschema_id' : 'changeid',
 		"drop #dropzone" : "drophandler",
+		'dragover #dropzone' : 'handledragover',
 	},
 	
 	onclose: function() {
@@ -136,13 +136,8 @@ App.Newview = Backbone.View.extend({
 		this.$el.html(this.tpl( {blurbschema_id : this.model.get('blurbschema_id') } ));
 		_gaq.push(['_trackPageview', "/new/"])
 		console.log('newview render');
-		
-		setTimeout(this.showredactor, 0);		
 	},
 	
-	showredactor: function() {
-		$('#redactor').redactor(redactoropts);
-	},
 	
 	
 	changeid: function(url) {
@@ -164,6 +159,12 @@ App.Newview = Backbone.View.extend({
 	},
 	
 
+	handledragover: function(evt) {
+	    evt.stopPropagation();
+	    evt.preventDefault();
+	  },
+	  
+  
 	drophandler: function(event) {
 		event.stopPropagation();
         event.preventDefault();
@@ -197,8 +198,6 @@ App.Blurbview = Backbone.View.extend({
 	close: function() {},
 	
 	render: function() {	
-		var id = this.model.get('background');
-		$('body').css('background-image', 'url("img/' + id + '.jpg")');	
 		
 		html = this.tpl(this.model.toJSON());
 		this.$el.html(html);
@@ -237,6 +236,7 @@ App.Imagesview = Backbone.View.extend({
 		//this.model.on('change:images', this.render)
 		this.collection.on("add", this.addimage)
 		this.collection.on('reset', this.hideview);
+		this.childviews = [];
 	},
 	
 	onclose: function(){
@@ -252,19 +252,30 @@ App.Imagesview = Backbone.View.extend({
 		console.log('adding image')
 		this.$el.show();
 		imageview = new App.Imageview({model: model});
+		this.childviews.push(imageview);
         imageview.render();
         $(this.el).append(imageview.el);
 	},
 	
 	hideview: function() {
 		this.$el.hide();
-	},
+		//need to delete children
+		_.each(this.childViews, function(childView){
+		    if (childView.close){
+	        childView.close();
+		    	}
+		    })
+		    },
 	
 });
 
 App.Imageview = Backbone.View.extend({
 
 	tpl: _.template($("#imagetpl").html()),
+	
+	initialize: function() {
+			
+	},
 	
 	events:  {
 		"click": "clicked"	
