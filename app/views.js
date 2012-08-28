@@ -213,13 +213,8 @@ App.Blurbview = Backbone.View.extend({
 	},	
 	
 	postrender: function() { 
-		var str = this.model.get('blurbtext');
-		var div = document.createElement("div");
-		div.innerHTML = str;
-		var text = div.textContent || div.innerText || "";
-		document.title = text.substring(0, 40) + '...';
-		
-		if (!str == '') { $('#blurbtext').show(); }
+		var str = this.model.get('blurbschema_id');
+		document.title = str;
 		
 		},
 		
