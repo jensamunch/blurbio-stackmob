@@ -126,7 +126,9 @@ border: 1px solid grey;
 	text-align:center;
 	font-family: sans-serif;
 	font-size: larger;
-	color:grey;
+	color:black;
+	background: white;
+	opacity: 0.8;
 }
 
 
