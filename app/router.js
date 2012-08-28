@@ -22,7 +22,6 @@ App.Router = Backbone.Router.extend({
 	newview: function() {		
 		//reset imagecollection to avoid showing
 		imagecollection.reset();
-		$('#tweets').hide();
 				
 		$(".navigate").html('> > > >')
 		$(".navigate").attr("id","create");
@@ -38,7 +37,6 @@ App.Router = Backbone.Router.extend({
 					})
 		  }
 		while (newid == 'duplicate')	  
-
 		newview = new App.Newview({model : blurbmodel});
 		appview.showmain(newview);
 			
@@ -67,12 +65,9 @@ App.Router = Backbone.Router.extend({
 					imagecollection.add({ data : images[m] })				
 					}
 				
-				blurbview = new App.Blurbview({
-					model: blurbmodel
-				})
 				spinner.stop();
 				$("#spinner").hide();
-				appview.showmain(blurbview);
+				_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
 				},
 			error: function(model) {
 				spinner.stop();

@@ -19,6 +19,9 @@ App.Appview = Backbone.View.extend({
 		this.mainview.render();
 		$("#main").html(this.mainview.el);
 	},
+	clearmain: function(view) {
+		this.mainview.close();
+	},
 });
 
 
@@ -74,9 +77,8 @@ App.Headerview = Backbone.View.extend({
 			success: function(model) {
 				spinner.stop();
 				$("#spinner").hide();
-				blurbview = new App.Blurbview({model : blurbmodel})
-				appview.showmain(blurbview);
 				app.navigate(blurbmodel.get('blurbschema_id'), {trigger: false});
+				appview.clearmain(newview);
 			},
 			error: function() {
 				spinner.stop();
@@ -183,42 +185,6 @@ App.Newview = Backbone.View.extend({
 	
 })
 
-
-App.Blurbview = Backbone.View.extend({
-
-	tpl: _.template($("#blurbviewtpl").html()),
-
-	initialize: function() {
-		_.bindAll(this);
-		that = this;
-		console.log('blurbview init');
-	
-	},
-
-	close: function() {},
-	
-	render: function() {	
-		
-		html = this.tpl(this.model.toJSON());
-		this.$el.html(html);
-		
-		if (blurbmodel.get('blurbschema_id') == 'blurbio') {
-		_gaq.push([ '_trackPageview', "/" ]);
-		}
-		else {	
-		_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
-		}
-		
-		setTimeout(function() {that.postrender() }, 0);
-	},	
-	
-	postrender: function() { 
-		var str = this.model.get('blurbschema_id');
-		document.title = str;
-		
-		},
-		
-});
 
 
 App.Imagesview = Backbone.View.extend({
