@@ -123,7 +123,7 @@ App.Newview = Backbone.View.extend({
 	events: {
 		'change #blurbschema_id' : 'changeid',
 		"drop #dropzone" : "drophandler",
-		'click .backgroundimages>img' : 'changebackground',
+		'click .backgroundimages>img' : 'changebackground',		
 	},
 	
 	onclose: function() {
@@ -137,6 +137,7 @@ App.Newview = Backbone.View.extend({
 		this.$el.html(this.tpl( {blurbschema_id : this.model.get('blurbschema_id') } ));
 		_gaq.push(['_trackPageview', "/new/"])
 		console.log('newview render');
+
 		setTimeout(this.showredactor, 0);		
 	},
 	
@@ -146,7 +147,6 @@ App.Newview = Backbone.View.extend({
 	
 	changebackground: function(e) {
 		var id = $(e.currentTarget).data("id");
-        console.log(id);
         this.model.set({background : id});
         $('body').css('background-image', 'url("img/' + id + '.jpg")');	
 	},
@@ -169,7 +169,7 @@ App.Newview = Backbone.View.extend({
 		
 	},
 	
-	
+
 	drophandler: function(event) {
 		event.stopPropagation();
         event.preventDefault();
@@ -291,7 +291,9 @@ App.Imageview = Backbone.View.extend({
         $(this.el).append(html);
 	},
 	
+	
 	clicked: function(e){
+        this.model.destroy();
         this.close();
     },
     
