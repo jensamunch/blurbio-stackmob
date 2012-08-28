@@ -14,7 +14,7 @@ addimage = function(f,m) {
 		var ratio = 1;
 		var maxWidth = 600;
 		var maxHeight = 600;
-		var quality = 0.7
+		var quality = 0.8
 		
 		var reader = new FileReader();
 		var img = new Image();

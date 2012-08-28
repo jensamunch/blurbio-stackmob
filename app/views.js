@@ -123,8 +123,6 @@ App.Newview = Backbone.View.extend({
 	events: {
 		'change #blurbschema_id' : 'changeid',
 		"drop #dropzone" : "drophandler",
-		"click #dropzone" : "resetimages",
-		'change #inputfiles' : 'selectfiles',
 		'click .backgroundimages>img' : 'changebackground',
 	},
 	
@@ -149,6 +147,7 @@ App.Newview = Backbone.View.extend({
 	changebackground: function(e) {
 		var id = $(e.currentTarget).data("id");
         console.log(id);
+        this.model.set({background : id});
         $('body').css('background-image', 'url("img/' + id + '.jpg")');	
 	},
 	
@@ -170,16 +169,6 @@ App.Newview = Backbone.View.extend({
 		
 	},
 	
-	selectfiles: function(evt) {
-		files = evt.target.files;	
-		for (var m = 0, f; f = files[m]; m++) {
-				if (m >14) {continue;}
-				if (!f.type.match('image.*')) {continue;}		
-				//add to array
-				addimage(f, m);				
-			}
-	},
-	
 	
 	drophandler: function(event) {
 		event.stopPropagation();
@@ -197,13 +186,6 @@ App.Newview = Backbone.View.extend({
 		
 	},
 	
-	resetimages: function(evt) {
-		console.log('files selected');
-		
-		//reset imagecollection to avoid showing
-		imagecollection.reset();
-		
-	},
 })
 
 
@@ -221,6 +203,9 @@ App.Blurbview = Backbone.View.extend({
 	close: function() {},
 	
 	render: function() {	
+		var id = this.model.get('background');
+		$('body').css('background-image', 'url("img/' + id + '.jpg")');	
+		
 		html = this.tpl(this.model.toJSON());
 		this.$el.html(html);
 		
@@ -260,36 +245,54 @@ App.Blurbview = Backbone.View.extend({
 
 App.Imagesview = Backbone.View.extend({
 
-	tpl: _.template($("#imagetpl").html()),
-	
 	el: $("#images"),
 		
 	initialize: function() {
 		_.bindAll(this);
 		console.log('imageview init');
 		//this.model.on('change:images', this.render)
-		this.collection.on("add", this.addall)
+		this.collection.on("add", this.addimage)
 		this.collection.on('reset', this.hideview);
 	},
 	
 	onclose: function(){
-    	this.collection.unbind("add", this.addall);
+    	this.collection.unbind("add", this.addimage);
     	this.collection.unbind("reset", this.hideview);
     },
 	
 	addall: function(model) {
-		this.$el.empty();
 		this.collection.each(this.addimage)
 	},
 	
 	addimage: function(model) {
+		console.log('adding image')
 		this.$el.show();
-		html = this.tpl(model.toJSON());
-		this.$el.append(html);	
+		imageview = new App.Imageview({model: model});
+        imageview.render();
+        $(this.el).append(imageview.el);
 	},
 	
 	hideview: function() {
 		this.$el.hide();
 	},
 	
+});
+
+App.Imageview = Backbone.View.extend({
+
+	tpl: _.template($("#imagetpl").html()),
+	
+	events:  {
+		"click": "clicked"	
+	},
+	
+	render: function() {
+        var html = this.tpl(this.model.toJSON());
+        $(this.el).append(html);
+	},
+	
+	clicked: function(e){
+        this.close();
+    },
+    
 });
