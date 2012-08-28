@@ -58,11 +58,23 @@ margin: 20px;
 	display: inline-block;
 }
 
-.inline {
+.backgroundimages {
 	display:inline-block;
-	margin-left: 10px;
-	margin-right: 10px;
+	padding-bottom: 20px;
+	padding-top: 10px;
 	vertical-align: middle
+}
+
+.backgroundimages>img {
+margin-left: 25px;
+margin-right: 25px;
+}
+
+.backgroundimages>img:first-of-type {
+	margin-left: 0px;
+}
+.backgroundimages>img:last-of-type {
+	margin-right: 0px;
 }
 
 #images {
@@ -75,8 +87,7 @@ margin: 20px;
 }
 
 #image {
-	margin-left: 100px;
-	margin-right: 100px;
+	margin: 10px;
 
 }
 

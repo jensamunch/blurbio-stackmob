@@ -64,12 +64,22 @@ blurbs are removed after 7 days.<br>
 	<input class="span2" id="blurbschema_id" size="16" type="text" placeholder="<%= blurbschema_id %>">
 	</div>
 	</div>
+	<div class="backgroundimages">
+	<img src="img/1.jpg"/>
+	<img src="img/2.jpg"/>
+	<img src="img/3.jpg"/>
+	<img src="img/4.jpg"/>
+	</div>
+	
+	<textarea id="redactor" name="content" r></textarea>
 	
 	<p>
     <div id="dropzone">Drop images here. Click to reset</div>
+	<!-- 
 	<input type="file" id="inputfiles" multiple="multiple"/>
+	-->
 	</p>
-    <textarea id="redactor" name="content" r></textarea>
+    
     
     </div>
     </script>
@@ -82,7 +92,9 @@ blurbs are removed after 7 days.<br>
 
 <!-- IMAGETPL -->    
     <script type="text/template" id="imagetpl">
+    <div>
     <img id="image" src="<%= data %>" />
+    </div>
     </script>
     
     <!-- Libs -->
