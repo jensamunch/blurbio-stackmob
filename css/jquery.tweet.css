@@ -5,14 +5,12 @@
 }
 
 	.tweet_list {
-		-webkit-border-radius: 0.5em;
-		-moz-border-radius: 0.5em;
-		border-radius: 0.5em;
+
 		list-style: none;
 		margin: 0;
 		padding: 0;
 		overflow-y: hidden;
-		background-color: #ededed;
+		background-color: #ffffff;
 		text-align: left;
 		font-family: sans-serif;
 		font-size: medium
@@ -30,7 +28,7 @@
 			}
 		
 		.tweet_list .tweet_even {
-			background-color: #d6d6d6;
+			background-color: #ffffff;
 		}
 		
 		.tweet_list .tweet_avatar {
