@@ -68,6 +68,8 @@ margin: 20px;
 .backgroundimages>img {
 margin-left: 25px;
 margin-right: 25px;
+height: 100px;
+width: 100px;
 }
 
 .backgroundimages>img:first-of-type {
@@ -128,7 +130,8 @@ margin-right: 25px;
 	text-align:center;
 	font-family: sans-serif;
 	font-size: larger;
-	color:#bbb
+	color:#bbb;
+	background: #e2e2e2;
 }
 
 

@@ -125,6 +125,7 @@ App.Newview = Backbone.View.extend({
 		"drop #dropzone" : "drophandler",
 		"click #dropzone" : "resetimages",
 		'change #inputfiles' : 'selectfiles',
+		'click .backgroundimages>img' : 'changebackground',
 	},
 	
 	onclose: function() {
@@ -143,6 +144,12 @@ App.Newview = Backbone.View.extend({
 	
 	showredactor: function() {
 		$('#redactor').redactor(redactoropts);
+	},
+	
+	changebackground: function(e) {
+		var id = $(e.currentTarget).data("id");
+        console.log(id);
+        $('body').css('background-image', 'url("img/' + id + '.jpg")');	
 	},
 	
 	changeid: function(url) {
