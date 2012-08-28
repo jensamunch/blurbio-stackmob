@@ -13,7 +13,6 @@ App.Router = Backbone.Router.extend({
   
 	homeview: function() {		
 		//which blurb is the homepage - go there
-		
 		var homepage = 'blurbio';
 		app.navigate(homepage, {trigger: false});
 		this.blurbview(homepage);

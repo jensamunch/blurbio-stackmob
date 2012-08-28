@@ -123,7 +123,6 @@ App.Newview = Backbone.View.extend({
 	events: {
 		'change #blurbschema_id' : 'changeid',
 		"drop #dropzone" : "drophandler",
-		'click .backgroundimages>img' : 'changebackground',		
 	},
 	
 	onclose: function() {
@@ -137,7 +136,7 @@ App.Newview = Backbone.View.extend({
 		this.$el.html(this.tpl( {blurbschema_id : this.model.get('blurbschema_id') } ));
 		_gaq.push(['_trackPageview', "/new/"])
 		console.log('newview render');
-
+		
 		setTimeout(this.showredactor, 0);		
 	},
 	
@@ -145,11 +144,6 @@ App.Newview = Backbone.View.extend({
 		$('#redactor').redactor(redactoropts);
 	},
 	
-	changebackground: function(e) {
-		var id = $(e.currentTarget).data("id");
-        this.model.set({background : id});
-        $('body').css('background-image', 'url("img/' + id + '.jpg")');	
-	},
 	
 	changeid: function(url) {
 		newid = $("#blurbschema_id").val();
@@ -228,16 +222,6 @@ App.Blurbview = Backbone.View.extend({
 		
 		if (!str == '') { $('#blurbtext').show(); }
 		
-		var query = '#' + this.model.get('blurbschema_id');
-		
-		$('#tweets').show();
-		$("#tweets").tweet({
-			avatar_size: 32,
-			count: 100,
-			query: query,
-			});
-		
-		
 		},
 		
 });
@@ -245,7 +229,7 @@ App.Blurbview = Backbone.View.extend({
 
 App.Imagesview = Backbone.View.extend({
 
-	el: $("#images"),
+	el: $(".imagescontainer"),
 		
 	initialize: function() {
 		_.bindAll(this);

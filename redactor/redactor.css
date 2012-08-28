@@ -1,11 +1,13 @@
 .redactor_box {	     
 	position: relative;
 	border: 1px solid grey;
-	max-width: 600px;
+	width: 800px;
 	margin: 0 auto;
-	text-align: left;
 	resize: vertical;
+	margin-top: 20px;
+	text-align: left;
 }
+
 .redactor_box, .redactor_box textarea {
 	background-color: #fff;
 }
