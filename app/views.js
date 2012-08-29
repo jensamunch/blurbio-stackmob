@@ -26,7 +26,7 @@ App.Appview = Backbone.View.extend({
 		dropzoneview.show();
 		texteditview.show();
 		
-		_gaq.push([ '_trackPageview', "new." ]);
+		_gaq.push([ '_trackPageview', "/new/" ]);
 		
 	},
 	
