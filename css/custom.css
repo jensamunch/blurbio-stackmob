@@ -116,7 +116,7 @@ button {
 
 
 #dropzone {
-	max-width:800px;
+	max-width:200px;
 	border:2px dashed grey;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
