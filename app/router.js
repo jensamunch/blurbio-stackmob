@@ -56,7 +56,7 @@ App.Router = Backbone.Router.extend({
 $(function() {
 	//create all the models and variables i want to be global and reuse
 	currentpage = '';
-	homepage = "blurbio";
+	homepage = 'blurbio';
 	blurbmodel = new App.Blurbmodel();
 	imagecollection = new App.Imagecollection();
 
