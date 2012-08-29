@@ -6,14 +6,11 @@
     <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
 
     <title>blurb.io BETA</title>
-    
-  
     <meta name="viewport" content="width=device-width" user-scalable="no">
-   
-    
     <meta name="description" content="blurb.io BETA is a one-click, no-login, sharing site.">
     <meta name="google-site-verification" content="Ci_z4fDFRtu2xhtpdAE7q-vzTOj_Mup8BGFyLDiWQt8">
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="redactor/redactor.css" rel="stylesheet" type="text/css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
     <script type="text/javascript">
 
@@ -42,35 +39,40 @@
             <button class="navigate"></button>
             <img class="share" id="twitter" src="img/twitter.png"></div>
         </div>
-
-        <div id="main"></div>
         
+        <div id="url">
+			<div class="control-group">
+			<div class="input-prepend">
+			<span class="add-on">http://blurb.io/#</span>
+			<input class="span2" id="blurbschema_id" size="16" type="text" placeholder="">
+			</div>
+			</div>
+		</div>
+
+        <div id="files">
+        <div id="dropzone">Drop or click to add images. Click on them to remove.</div>
+        <input type="file" id="fileselect" multiple="multiple">
+        </div> 
+          
         <div id="images">
             <div class="imagescontainer"></div>
         </div>
         
+        <div id="textedit">
+        <textarea id="redactor" name="content"></textarea>
+        </div>
         
+        <div id="text">
 
         <div id="push"></div>
+        <div id="footer">
+        blurbs are removed after 7 days.
+        </div>
     </div>
-
 
     <div id="spinner"></div>
-    <!-- NEWVIEWTPL --><script type="text/template" id="newviewtpl">
-<div id="newtpl">
-
-    <div class="control-group">
-		    <div class="input-prepend">
-		    <span class="add-on">http://blurb.io/#</span>
-		    <input class="span2" id="blurbschema_id" size="16" type="text" placeholder="<%= blurbschema_id %>">
-		    </div>
-    </div>
-
-    <div id="dropzone">Drop or click to add images. Click on them to remove.</div>
-    <input type="file" id="fileselect" multiple="multiple">
-    </div>
-    </script><!-- BLURBVIEWTPL --><script type="text/template" id="blurbviewtpl">
-    </script><!-- IMAGETPL --><script type="text/template" id="imagetpl">
+        
+    <!-- IMAGETPL --><script type="text/template" id="imagetpl">
 <img id="image" src="<%= data %>" />
     </script><!-- Libs -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
@@ -80,7 +82,10 @@
 </script><script type="text/javascript" src="http://static.stackmob.com/js/2.5.3-crypto-sha1-hmac.js">
 </script><script type="text/javascript" src="http://static.stackmob.com/js/stackmob-js-0.5.5-min.js">
 </script><script type="text/javascript" src="lib/spin.min.js">
-</script><script type="text/javascript">
+</script>
+<script src="redactor/redactor.min.js" type="text/javascript">
+</script>
+<script type="text/javascript">
 StackMob.init({
     appName: "blurb",
     clientSubdomain: "jensmunch",
@@ -88,8 +93,8 @@ StackMob.init({
     apiVersion: 0
     });
     </script><!-- Load App -->
-    <script src="app/models.js" type="text/javascript">
-</script><script src="app/utils.js" type="text/javascript">
+<script src="app/utils.js" type="text/javascript">
+</script>    <script src="app/models.js" type="text/javascript">
 </script><script src="app/views.js" type="text/javascript">
 </script><script src="app/router.js" type="text/javascript">
 </script>

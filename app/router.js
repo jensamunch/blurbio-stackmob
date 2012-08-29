@@ -13,60 +13,31 @@ App.Router = Backbone.Router.extend({
   
 	homeview: function() {		
 		//which blurb is the homepage - go there
-		//var homepage = 'blurbio';
-		//app.navigate(homepage, {trigger: false});
-		//this.blurbview(homepage);
-		
-		app.navigate('new/', {trigger: true});
-		
+		var homepage = 'blurbio';
+		app.navigate(homepage, {trigger: false});
+		this.blurbview(homepage);		
 	},
 	
 	newview: function() {		
-		//reset imagecollection to avoid showing
-		console.log('reset imagecollection');
-		imagecollection.reset();
-				
-		$(".navigate").html('> > > >')
-		$(".navigate").attr("id","create");
-		
-		//get new ID which is not in use
-	  newid = makeid();
-	  blurbmodel.set({ blurbschema_id : newid })  
-		newview = new App.Newview({model : blurbmodel});
-		appview.showmain(newview);
-			
-		
+			blurbmodel.set(blurbmodel.defaults);
+		blurbmodel.set({ blurbschema_id : makeid() });
+		appview.shownew();
 	},
 	
 	blurbview: function(blurbid) {		
 		//start spinner
 		$("#spinner").show();
-		var target = document.getElementById('spinner');
-		var spinner = new Spinner(spinopts).spin(target);
-		
+		spinner.spin(spinnertarget);
+
 		blurbmodel.set({
 			blurbschema_id: blurbid
 		});
 		
 		blurbmodel.fetch({
 			success: function(model) {
-				//load images
 				spinner.stop();
 				$("#spinner").hide();
-				
-				$(".navigate").html('blurb.io')
-				$(".navigate").attr("id","new");
-				
-				//add images to collection
-				images = model.get('images');
-				for (var m = 0; images[m]; m++) {
-					imagecollection.add({ data : images[m] })				
-					}
-				
-				//clear out newview
-				appview.clearmain(newview);
-			
-				_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
+				appview.showblurb();
 				},
 			error: function(model) {
 				spinner.stop();
@@ -80,13 +51,22 @@ App.Router = Backbone.Router.extend({
 })
 $(function() {
 	//create all the models and variables i want to be global and reuse
-	appview = new App.Appview();
+	currentpage = '';
 	blurbmodel = new App.Blurbmodel();
-	
 	imagecollection = new App.Imagecollection();
 
-	headerview = new App.Headerview()
+	//create all the views
+	appview = new App.Appview();
+	headerview = new App.Headerview({ model : blurbmodel })
+	urlview = new App.Urlview({ model : blurbmodel });
+	dropzoneview = new App.Dropzoneview();
 	imagesview = new App.Imagesview({ collection : imagecollection});
+	textview = new App.Textview({ model : blurbmodel });
+	texteditview = new App.Texteditview({ model : blurbmodel });
+	
+	//instantiate spinner
+	spinner = new Spinner(spinopts)
+	spinnertarget = document.getElementById('spinner');
 	
 	app = new App.Router();
 	Backbone.history.start();

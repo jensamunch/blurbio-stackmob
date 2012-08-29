@@ -19,6 +19,19 @@ html,body {
 /* the bottom margin is the negative value of the footer's height */
 }
 
+#footer,#push {
+	height:50px;
+/* .push must be the same height as .footer */
+	font-family:sans-serif;
+	font-size:medium;
+	padding-top:50px;
+	font-size:small;
+}
+
+#footer>a {
+	color:#000;
+	text-decoration:none;
+}
 
 #main {
 	font-family:sans-serif;

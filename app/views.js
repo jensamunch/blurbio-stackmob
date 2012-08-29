@@ -12,19 +12,46 @@ Backbone.View.prototype.close = function() {
 }
 
 App.Appview = Backbone.View.extend({
-	showmain: function(view) {
-		if (this.mainview) {
-			this.mainview.close();
-		}
-		this.mainview = view;
-		this.mainview.render();
-		$("#main").html(this.mainview.el);
-	},
-	clearmain: function(view) {
-		this.mainview.close();
-	},
-});
 
+	shownew: function() {
+		currentpage = 'new';
+		_gaq.push([ '_trackPageview', "new." ]);
+		
+		$(".navigate").html('> > > >')
+		$(".navigate").attr("id","create");
+		
+		urlview.render();
+		dropzoneview.show();
+		texteditview.show();
+		
+		//remove things
+		textview.hide();
+		imagecollection.reset();	
+		
+	},
+	
+	showblurb: function() {
+		currentpage = 'new';
+		_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
+		
+		dropzoneview.hide();
+		urlview.hide();
+		texteditview.hide();
+		
+		$(".navigate").html('blurb.io')
+		$(".navigate").attr("id","new");
+		currentpage = 'blurb';
+		
+		blurbmodel.getimages();
+		textview.render();
+		
+		//stop spinner
+		spinner.stop();
+		$("#spinner").hide();
+		
+	},
+
+})
 
 App.Headerview = Backbone.View.extend({
 	
@@ -49,47 +76,50 @@ App.Headerview = Backbone.View.extend({
 	},
 	
 	gocreate: function() {		
-	
+		that = this;
+		console.log('creating');
+		
 		//start spinner and deactivate button
+		console.log('spinner');
 		$("#spinner").show();
-		var target = document.getElementById('spinner');
-		var spinner = new Spinner(spinopts).spin(target);
+		spinner.spin(spinnertarget);
 		
-		//create and reset temporary array
-		images = []
-		images.length = 0
-		imagecollection.each( function(item) {
-			images.push(item.get('data'))		
-		})
-		
-		//set blurbmodel
-		blurbmodel.set({
-			images: images,
-		})
-		
-		//set expirydate
-		blurbmodel.setexpiry(7);
+		//get model ready to save
+		this.model.setimages();
+		this.model.setexpiry(7);
+		texteditview.settext();
 		
 		//create model
 		blurbmodel.create({
 			success: function(model) {
-				spinner.stop();
-				$("#spinner").hide();
-				$(".navigate").html('blurb.io');
-				$(".navigate").attr("id","new");
-				_gaq.push([ '_trackPageview', "/new/created/" ]);
-				app.navigate(blurbmodel.get('blurbschema_id'), {trigger: false});
-				appview.clearmain(newview);
+				that.successcreate();
 			},
-			error: function() {
+			error: function(model,response) {
 				spinner.stop();
 				$("#spinner").hide();
 				app.navigate('');
 				console.log('FAILED TO SAVE');
+				console.log(model);
+				console.log(response);
+				//mark error
 			}
 		});
-
+		
 	},
+	
+	successcreate: function() {
+		console.log('successcreate');
+		spinner.stop();
+				$("#spinner").hide();
+				$(".navigate").html('blurb.io');
+				$(".navigate").attr("id","new");
+				
+				_gaq.push([ '_trackPageview', "/new/created/" ]);
+				app.navigate(blurbmodel.get('blurbschema_id'), {trigger: false});
+				
+				appview.showblurb();
+	},
+
 	
 	email: function() {
 		var subject = document.title;
@@ -113,39 +143,32 @@ App.Headerview = Backbone.View.extend({
 });
 
 
-App.Newview = Backbone.View.extend({
-
-	tpl: _.template($("#newviewtpl").html()),
-	imagetpl: _.template($("#imagetpl").html()),
+App.Urlview = Backbone.View.extend({
+	
+	el: $("#url"),
+	
 	initialize: function() {
 		_.bindAll(this);
 	},
 		
 	events: {
-		'change #blurbschema_id' : 'changeid',
-		"drop #dropzone" : "drophandler",
-		'click #dropzone' : 'triggerfile',
-		'change #fileselect' : 'fileselect',
+		'change #blurbschema_id' : 'changeurl',
 	},
 	
-	onclose: function() {
-		$(this.el).undelegate('#inputfiles', 'change');
-		$(this.el).undelegate('#blurbschema', 'change');
-		
+	render: function() {	
+		this.$el.show();
+		$('#blurbschema_id').attr('placeholder', this.model.get('blurbschema_id') );
 	},
 	
-
-	render: function() {
-		this.$el.html(this.tpl( {blurbschema_id : this.model.get('blurbschema_id') } ));
-		_gaq.push(['_trackPageview', "/new/"])
-		console.log('newview render');
+	hide: function() {
+		this.$el.hide();
 	},
 	
-	
-	
-	changeid: function(url) {
+	changeurl: function(url) {
+		console.log('changed url');
 		newid = $("#blurbschema_id").val();
 		blurbmodel.set({ blurbschema_id : newid })
+		console.log(newid)
 		  blurbmodel.fetch({
 			success: function() {
 				//This mean duplicate ID
@@ -155,9 +178,83 @@ App.Newview = Backbone.View.extend({
 				//This means we're A OK
 				$('.control-group').removeClass('error');
 				$('.navigate').removeAttr("disabled");
+				
 				},		
 			})
 		
+	},
+	
+		
+})
+
+App.Texteditview = Backbone.View.extend({
+		
+		el: $("#textedit"),
+		
+		initialize: function() {
+			_.bindAll(this);
+		},
+		
+		show: function() {
+			console.log('showing textedit');
+			this.$el.show()
+			$('#redactor').redactor(redactoropts);	
+		},
+		
+		hide: function() {
+			this.$el.hide();
+		},
+		
+		settext: function() {
+			console.log('setting text to' + $('#redactor').val())
+			this.model.set({ blurbtext : $('#redactor').val() })
+		},
+		
+	
+})
+
+App.Textview = Backbone.View.extend({
+		
+		el: $("#text"),
+		
+		initialize: function() {
+			_.bindAll(this);
+		},
+
+		hide: function() {
+			this.$el.hide();
+		},
+		
+		render: function() {
+			this.$el.empty();
+			this.$el.show();
+			this.$el.append(this.model.get('blurbtext'));
+			console.log('appended' + this.model.get('blurbtext'))
+		},
+	
+})
+
+App.Dropzoneview = Backbone.View.extend({
+	
+	el: $("#files"),
+	
+	initialize: function() {
+		_.bindAll(this);
+	},
+		
+	events: {
+		"drop #dropzone" : "drophandler",
+		'click #dropzone' : 'triggerfile',
+		'change #fileselect' : 'fileselect',
+	},
+
+	show: function() {
+		console.log('showing dropzone');
+		this.$el.show()	
+	},
+	
+	hide: function() {
+		this.$el.hide();
 	},
 	
 	triggerfile: function() {
@@ -176,9 +273,8 @@ App.Newview = Backbone.View.extend({
 		
 	},
 
-	  
-  
 	drophandler: function(event) {
+		console.log('drophandler')
 		event.stopPropagation();
         event.preventDefault();
         var event = event.originalEvent;
@@ -194,6 +290,7 @@ App.Newview = Backbone.View.extend({
 	},
 	
 })
+
 
 
 
@@ -215,7 +312,6 @@ App.Imagesview = Backbone.View.extend({
     },
 	
 	addimage: function(model) {
-		console.log('adding image')
 		this.$el.show();
 		imageview = new App.Imageview({model: model});
 		this.childviews.push(imageview);
@@ -224,7 +320,7 @@ App.Imagesview = Backbone.View.extend({
 	},
 	
 	removechildren: function() {
-		//this.$el.hide();
+		this.$el.hide();
 		console.log('removechildren');
 		//need to delete children
 		_.each(this.childviews, function(childview){
@@ -256,8 +352,10 @@ App.Imageview = Backbone.View.extend({
 	
 	
 	clicked: function(e){
+        if (currentpage == 'new') {
         this.model.destroy();
         this.close();
+        }
     },
     
 });

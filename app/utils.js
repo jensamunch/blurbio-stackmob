@@ -40,8 +40,7 @@ addimage = function(f,m) {
 					ctx.drawImage(canvasCopy, 0, 0, canvas.width, canvas.height);
 					//move canvas data back to DataURL Base64 - choose quality
 					base64resized = canvas.toDataURL("image/jpeg", quality);
-					
-					console.log('resized and added');
+
 					//push to collection
 					imagecollection.add({data : base64resized});
 					
