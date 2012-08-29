@@ -13,9 +13,7 @@ App.Router = Backbone.Router.extend({
   
 	homeview: function() {		
 		console.log('router homeview')
-		
 		//which blurb is the homepage - go there
-		var homepage = 'blurbio';
 		app.navigate(homepage, {trigger: false});
 		this.blurbview(homepage);		
 	},
@@ -58,6 +56,7 @@ App.Router = Backbone.Router.extend({
 $(function() {
 	//create all the models and variables i want to be global and reuse
 	currentpage = '';
+	homepage = "blurbio";
 	blurbmodel = new App.Blurbmodel();
 	imagecollection = new App.Imagecollection();
 
