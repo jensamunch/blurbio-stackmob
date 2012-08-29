@@ -116,7 +116,6 @@ button {
 
 
 #dropzone {
-	max-width:200px;
 	border:2px dashed grey;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
@@ -131,6 +130,7 @@ button {
 	opacity: 0.8;
 	margin:0 auto;
 	margin-top:20px;
+	max-width: 600px;
 }
 
 #spinner {
