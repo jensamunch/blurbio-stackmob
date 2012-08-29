@@ -112,13 +112,6 @@ button {
 	text-shadow:0 -1px 0 rgba(000,000,000,0.4),0 1px 0 rgba(255,255,255,0.3);
 }
 
-button[disabled] {
-	color:#e1e1e1;
-	background:-moz-linear-gradient(top,#eba09b 0%,#ab0000);
-	background:-webkit-gradient(linear,left top,left bottom,from(#f0c3c0),to(#944747));
-	border:0 solid #7d0000;
-}
-
 
 #dropzone {
 	width:800px;

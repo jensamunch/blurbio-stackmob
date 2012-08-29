@@ -149,7 +149,6 @@ App.Newview = Backbone.View.extend({
 			success: function() {
 				//This mean duplicate ID
 				$('.control-group').addClass('error');
-				$('.navigate').attr('disabled', 'disabled');
 				},
 			error: function() {
 				//This means we're A OK
