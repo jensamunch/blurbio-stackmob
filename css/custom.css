@@ -5,8 +5,8 @@ html,body {
 	padding:0;
 	border:0;
 	text-align:center;
-	overflow-x:hidden;
-	overflow-y:hidden;
+	overflow-x:auto;
+	overflow-y:auto;
 }
 
 
