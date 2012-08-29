@@ -5,6 +5,8 @@ html,body {
 	padding:0;
 	border:0;
 	text-align:center;
+	overflow-x:hidden;
+	overflow-y:hidden;
 }
 
 
@@ -59,10 +61,6 @@ html,body {
 	opacity:.8;
 }
 
-#header button:hover {
-	opacity:.8;
-}
-
 #header button {
 	vertical-align:middle;
 	display:inline;
@@ -72,7 +70,7 @@ html,body {
 
 #images {
 	width:800px;
-	overflow-x:scroll;
+	overflow-x:show;
 	overflow-y:hidden;
 	text-align:center;
 	margin:0 auto;

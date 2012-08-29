@@ -5,7 +5,7 @@ App.Router = Backbone.Router.extend({
 	routes: {
 		':blurbid': 'blurbview',
 		'new/' :	'newview',
-		''	:	'homeview',
+		''	:	'newview',
 	},
 	
 	initialize: function(options) {
@@ -21,22 +21,15 @@ App.Router = Backbone.Router.extend({
 	
 	newview: function() {		
 		//reset imagecollection to avoid showing
+		console.log('reset imagecollection');
 		imagecollection.reset();
 				
 		$(".navigate").html('> > > >')
 		$(".navigate").attr("id","create");
 		
 		//get new ID which is not in use
-		
-		do
-		  {
-			  newid = makeid();
-			  blurbmodel.set({ blurbschema_id : newid })
-				  blurbmodel.fetch({
-					success: function(model) {newid = 'duplicate';}	
-					})
-		  }
-		while (newid == 'duplicate')	  
+	  newid = makeid();
+	  blurbmodel.set({ blurbschema_id : newid })  
 		newview = new App.Newview({model : blurbmodel});
 		appview.showmain(newview);
 			

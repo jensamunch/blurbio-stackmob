@@ -3,6 +3,7 @@ var App = App || {};
 
 
 Backbone.View.prototype.close = function() {
+	console.log('inside prototype close');
 	this.remove();
 	this.unbind();
 	if (this.onclose) {
@@ -44,14 +45,11 @@ App.Headerview = Backbone.View.extend({
     },
 	
 	gonew: function() {
-		app.navigate('new/', {trigger : true})
+		app.navigate('new/', { trigger : true })
 	},
 	
 	gocreate: function() {		
-		
-		$(".navigate").html('blurb.io');
-		$(".navigate").attr("id","new");
-		
+	
 		//start spinner and deactivate button
 		$("#spinner").show();
 		var target = document.getElementById('spinner');
@@ -77,6 +75,8 @@ App.Headerview = Backbone.View.extend({
 			success: function(model) {
 				spinner.stop();
 				$("#spinner").hide();
+				$(".navigate").html('blurb.io');
+				$(".navigate").attr("id","new");
 				app.navigate(blurbmodel.get('blurbschema_id'), {trigger: false});
 				appview.clearmain(newview);
 			},
@@ -88,7 +88,6 @@ App.Headerview = Backbone.View.extend({
 			}
 		});
 
-		this.render();
 	},
 	
 	email: function() {
@@ -173,11 +172,10 @@ App.Newview = Backbone.View.extend({
         var event = event.originalEvent;
         event.dataTransfer.dropEffect = 'copy';
         files = event.dataTransfer.files;
-		
 			for (var m = 0, f; f = files[m]; m++) {
 				if (m >14) {continue;}
 				if (!f.type.match('image.*')) {continue;}		
-				//add to array
+				//add to collection
 				addimage(f, m);				
 			}
 		
@@ -194,9 +192,8 @@ App.Imagesview = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this);
 		console.log('imageview init');
-		//this.model.on('change:images', this.render)
 		this.collection.on("add", this.addimage)
-		this.collection.on('reset', this.hideview);
+		this.collection.on('reset', this.removechildren);
 		this.childviews = [];
 	},
 	
@@ -204,10 +201,6 @@ App.Imagesview = Backbone.View.extend({
     	this.collection.unbind("add", this.addimage);
     	this.collection.unbind("reset", this.hideview);
     },
-	
-	addall: function(model) {
-		this.collection.each(this.addimage)
-	},
 	
 	addimage: function(model) {
 		console.log('adding image')
@@ -218,12 +211,14 @@ App.Imagesview = Backbone.View.extend({
         $(this.el).append(imageview.el);
 	},
 	
-	hideview: function() {
-		this.$el.hide();
+	removechildren: function() {
+		//this.$el.hide();
+		console.log('removechildren');
 		//need to delete children
-		_.each(this.childViews, function(childView){
-		    if (childView.close){
-	        childView.close();
+		_.each(this.childviews, function(childview){
+			console.log('removing child')
+		    if (childview.close){
+	        childview.close();
 		    	}
 		    })
 		    },

@@ -41,6 +41,7 @@ addimage = function(f,m) {
 					//move canvas data back to DataURL Base64 - choose quality
 					base64resized = canvas.toDataURL("image/jpeg", quality);
 					
+					console.log('resized and added');
 					//push to collection
 					imagecollection.add({data : base64resized});
 					
@@ -61,19 +62,19 @@ buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', '|', 'link', '|',
 spinopts = {
 	lines: 10,
 	// The number of lines to draw
-	length: 30,
+	length: 50,
 	// The length of each line
-	width: 10,
+	width: 15,
 	// The line thickness
-	radius: 40,
+	radius: 50,
 	// The radius of the inner circle
 	corners: 1,
 	// Corner roundness (0..1)
 	rotate: 0,
 	// The rotation offset
-	color: '#000',
+	color: '#e20000',
 	// #rgb or #rrggbb
-	speed: 0.5,
+	speed: 1,
 	// Rounds per second
 	trail: 60,
 	// Afterglow percentage
