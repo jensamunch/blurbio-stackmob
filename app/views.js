@@ -48,8 +48,8 @@ App.Appview = Backbone.View.extend({
 		$("#spinner").hide();
 		
 		$('body').show();
-		console.log((blurbmodel.get('blurbschema'))
-		console.log(homepage)
+		console.log(blurbmodel.get('blurbschema'));
+		console.log(homepage);
 		if (blurbmodel.get('blurbschema') == homepage ) {
 			_gaq.push([ '_trackPageview', "/home/" ]);
 		} else {
