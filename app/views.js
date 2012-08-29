@@ -200,7 +200,6 @@ App.Texteditview = Backbone.View.extend({
 		},
 		
 		settext: function() {
-			console.log('setting text to' + $('#redactor').val())
 			this.model.set({ blurbtext : $('#redactor').val() })
 		},
 		
