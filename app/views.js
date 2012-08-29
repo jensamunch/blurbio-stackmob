@@ -77,6 +77,7 @@ App.Headerview = Backbone.View.extend({
 				$("#spinner").hide();
 				$(".navigate").html('blurb.io');
 				$(".navigate").attr("id","new");
+				_gaq.push([ '_trackPageview', "/new/created/" ]);
 				app.navigate(blurbmodel.get('blurbschema_id'), {trigger: false});
 				appview.clearmain(newview);
 			},
