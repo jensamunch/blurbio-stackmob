@@ -5,7 +5,7 @@ App.Router = Backbone.Router.extend({
 	routes: {
 		':blurbid': 'blurbview',
 		'new/' :	'newview',
-		''	:	'newview',
+		''	:	'homeview',
 	},
 	
 	initialize: function(options) {
@@ -13,9 +13,11 @@ App.Router = Backbone.Router.extend({
   
 	homeview: function() {		
 		//which blurb is the homepage - go there
-		var homepage = 'blurbio';
-		app.navigate(homepage, {trigger: false});
-		this.blurbview(homepage);
+		//var homepage = 'blurbio';
+		//app.navigate(homepage, {trigger: false});
+		//this.blurbview(homepage);
+		
+		app.navigate('new/', {trigger: true});
 		
 	},
 	
