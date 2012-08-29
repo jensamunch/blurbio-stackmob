@@ -3,7 +3,6 @@ var App = App || {};
 
 
 Backbone.View.prototype.close = function() {
-	console.log('inside prototype close');
 	this.remove();
 	this.unbind();
 	if (this.onclose) {
@@ -15,7 +14,10 @@ App.Appview = Backbone.View.extend({
 
 	shownew: function() {
 		currentpage = 'new';
-		_gaq.push([ '_trackPageview', "new." ]);
+		
+		//remove things
+		textview.hide();
+		imagecollection.reset();
 		
 		$(".navigate").html('> > > >')
 		$(".navigate").attr("id","create");
@@ -24,31 +26,31 @@ App.Appview = Backbone.View.extend({
 		dropzoneview.show();
 		texteditview.show();
 		
-		//remove things
-		textview.hide();
-		imagecollection.reset();	
+		_gaq.push([ '_trackPageview', "new." ]);
 		
 	},
 	
 	showblurb: function() {
 		currentpage = 'new';
-		_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
-		
-		dropzoneview.hide();
-		urlview.hide();
-		texteditview.hide();
 		
 		$(".navigate").html('blurb.io')
 		$(".navigate").attr("id","new");
 		currentpage = 'blurb';
-		
-		blurbmodel.getimages();
+				
+		dropzoneview.hide();
+		urlview.hide();
+		texteditview.hide();
+				
 		textview.render();
 		
 		//stop spinner
 		spinner.stop();
 		$("#spinner").hide();
 		
+		$('body').show();
+
+		_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
+
 	},
 
 })
@@ -109,15 +111,8 @@ App.Headerview = Backbone.View.extend({
 	
 	successcreate: function() {
 		console.log('successcreate');
-		spinner.stop();
-				$("#spinner").hide();
-				$(".navigate").html('blurb.io');
-				$(".navigate").attr("id","new");
-				
-				_gaq.push([ '_trackPageview', "/new/created/" ]);
-				app.navigate(blurbmodel.get('blurbschema_id'), {trigger: false});
-				
-				appview.showblurb();
+		app.navigate(blurbmodel.get('blurbschema_id'), {trigger: false});				
+		appview.showblurb();
 	},
 
 	
@@ -157,7 +152,7 @@ App.Urlview = Backbone.View.extend({
 	
 	render: function() {	
 		this.$el.show();
-		$('#blurbschema_id').attr('placeholder', this.model.get('blurbschema_id') );
+		$('#blurbschema_id').attr('value', this.model.get('blurbschema_id') );
 	},
 	
 	hide: function() {
@@ -196,7 +191,6 @@ App.Texteditview = Backbone.View.extend({
 		},
 		
 		show: function() {
-			console.log('showing textedit');
 			this.$el.show()
 			$('#redactor').redactor(redactoropts);	
 		},
@@ -229,7 +223,6 @@ App.Textview = Backbone.View.extend({
 			this.$el.empty();
 			this.$el.show();
 			this.$el.append(this.model.get('blurbtext'));
-			console.log('appended' + this.model.get('blurbtext'))
 		},
 	
 })
@@ -259,7 +252,6 @@ App.Dropzoneview = Backbone.View.extend({
 	
 	triggerfile: function() {
 		$("#fileselect").click();
-		console.log('click')
 	},
 	
 	fileselect: function(event) {
@@ -314,9 +306,9 @@ App.Imagesview = Backbone.View.extend({
 	addimage: function(model) {
 		this.$el.show();
 		imageview = new App.Imageview({model: model});
-		this.childviews.push(imageview);
         imageview.render();
         $(this.el).append(imageview.el);
+		this.childviews.push(imageview);
 	},
 	
 	removechildren: function() {

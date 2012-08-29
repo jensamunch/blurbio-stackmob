@@ -1,44 +1,59 @@
 html,body {
-	width:100%;
 	height:100%;
-	margin:0;
-	padding:0;
-	border:0;
-	text-align:center;
-	overflow-x:auto;
-	overflow-y:auto;
-	min-height: 600px;
+	text-align: center;
 }
 
-#fileselect
-{position:absolute; top:-100px;}​
-
-#wrapper {
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
 	height: 100%;
-	margin-bottom: -60px;
-/* the bottom margin is the negative value of the footer's height */
+	margin: 0 auto -50px;
+	font-family: sans-serif;
+	font-size: medium;
 }
 
-#footer,#push {
-	height:50px;
-/* .push must be the same height as .footer */
-	font-family:sans-serif;
-	font-size:medium;
-	padding-top:50px;
+.push {
+	height: 25px;
+}
+
+.footer {
+	height: 25px;
+	font-family: sans-serif;
 	font-size:small;
 }
 
-#footer>a {
+.footer>a {
 	color:#000;
 	text-decoration:none;
 }
 
-#main {
+#dropzone {
+	border:2px dashed grey;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align:center;
 	font-family:sans-serif;
-	font-size:medium;
-	text-align:left;
+	font-size:larger;
+	color:#000;
 	background:#fff;
-	padding:10px;
+	opacity: 0.8;
+	margin:0 auto;
+	max-width: 800px;
+}
+
+#files, #text, #textedit, #url, #dropbox {
+	display: none;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+#text { 
+	text-align: left;
+	max-width: 800px;
+	margin:0 auto;
 }
 
 #header {
@@ -48,8 +63,7 @@ html,body {
 }
 
 #header .sharing {
-	margin-top:10px;
-	margin-bottom:10px;
+	padding-bottom:10px;
 }
 
 #newtpl {
@@ -84,13 +98,13 @@ html,body {
 
 
 #images {
-	max-width:600px;
+	max-width:800px;
 	overflow-x:show;
 	overflow-y:hidden;
 	text-align:center;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
 	margin:0 auto;
-	margin-top:10px;
-	margin-bottom:10px;
 }
 
 #images .imagescontainer {
@@ -104,7 +118,6 @@ html,body {
 #images img {
 	margin-right: 50px;
 	margin-left: 50px;
-	margin-bottom: 20px
 }
 
 button {
@@ -128,24 +141,6 @@ button {
 }
 
 
-#dropzone {
-	border:2px dashed grey;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	text-align:center;
-	font-family:sans-serif;
-	font-size:larger;
-	color:#000;
-	background:#fff;
-	opacity: 0.8;
-	margin:0 auto;
-	margin-top:20px;
-	max-width: 600px;
-}
-
 #spinner {
 position:absolute;
 left:0px;
@@ -155,3 +150,7 @@ width: 100%;
 height: 600px;
 display: none;
 }
+
+
+#fileselect
+{position:absolute; top:-100px;}​

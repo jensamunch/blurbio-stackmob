@@ -12,6 +12,8 @@ App.Router = Backbone.Router.extend({
     },
   
 	homeview: function() {		
+		console.log('router homeview')
+		
 		//which blurb is the homepage - go there
 		var homepage = 'blurbio';
 		app.navigate(homepage, {trigger: false});
@@ -19,12 +21,15 @@ App.Router = Backbone.Router.extend({
 	},
 	
 	newview: function() {		
-			blurbmodel.set(blurbmodel.defaults);
+		console.log('router newview')
+		blurbmodel.set(blurbmodel.defaults);
 		blurbmodel.set({ blurbschema_id : makeid() });
 		appview.shownew();
 	},
 	
 	blurbview: function(blurbid) {		
+		console.log('router blurbview')
+		
 		//start spinner
 		$("#spinner").show();
 		spinner.spin(spinnertarget);
@@ -37,6 +42,7 @@ App.Router = Backbone.Router.extend({
 			success: function(model) {
 				spinner.stop();
 				$("#spinner").hide();
+				blurbmodel.getimages();
 				appview.showblurb();
 				},
 			error: function(model) {
@@ -70,6 +76,5 @@ $(function() {
 	
 	app = new App.Router();
 	Backbone.history.start();
-
 })
 
