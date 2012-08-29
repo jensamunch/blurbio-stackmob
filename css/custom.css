@@ -10,6 +10,8 @@ html,body {
 	min-height: 600px;
 }
 
+#fileselect
+{position:absolute; top:-100px;}​
 
 #wrapper {
 	height: 100%;
@@ -66,7 +68,6 @@ html,body {
 	vertical-align:middle;
 	display:inline;
 }
-
 
 
 #images {

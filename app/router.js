@@ -51,17 +51,21 @@ App.Router = Backbone.Router.extend({
 		blurbmodel.fetch({
 			success: function(model) {
 				//load images
+				spinner.stop();
+				$("#spinner").hide();
+				
 				$(".navigate").html('blurb.io')
 				$(".navigate").attr("id","new");
 				
+				//add images to collection
 				images = model.get('images');
-	
 				for (var m = 0; images[m]; m++) {
 					imagecollection.add({ data : images[m] })				
 					}
 				
-				spinner.stop();
-				$("#spinner").hide();
+				//clear out newview
+				appview.clearmain(newview);
+			
 				_gaq.push([ '_trackPageview', "/blurb/#" + blurbmodel.get('blurbschema_id') ]);
 				},
 			error: function(model) {
