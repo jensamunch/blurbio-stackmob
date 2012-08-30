@@ -52,6 +52,7 @@ html,body {
 #text { 
 	margin:0 auto;
 	max-width: 800px;
+	text-align: left;
 }
 
 #header {
