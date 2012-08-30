@@ -36,7 +36,7 @@ App.Appview = Backbone.View.extend({
 		$(".navigate").html('blurb.io')
 		$(".navigate").attr("id","new");
 		currentpage = 'blurb';
-				
+		$(document).attr("title", "blurb.io BETA #" + blurbmodel.get('blurbschema_id') );		
 		dropzoneview.hide();
 		urlview.hide();
 		texteditview.hide();
@@ -240,6 +240,7 @@ App.Dropzoneview = Backbone.View.extend({
 		
 	events: {
 		"drop #dropzone" : "drophandler",
+		"dragover #dropzone" : "handledragover",
 		'click #dropzone' : 'triggerfile',
 		'change #fileselect' : 'fileselect',
 	},
@@ -267,7 +268,13 @@ App.Dropzoneview = Backbone.View.extend({
 			}
 		
 	},
-
+	
+	handledragover: function(event) {
+	    event.stopPropagation();
+	    event.preventDefault();
+	    event.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+    },
+  
 	drophandler: function(event) {
 		console.log('drophandler')
 		event.stopPropagation();
