@@ -62,7 +62,7 @@ html,body {
 }
 
 #header .sharing {
-	padding-top: 15px;
+	padding-top: 5px;
 	padding-bottom:5px;
 }
 
@@ -120,6 +120,8 @@ html,body {
 #images li img {
 	padding-bottom: 10px;
 	padding-top: 10px;
+	max-width: 500px;
+	max-height: 500px;
 }
 
 

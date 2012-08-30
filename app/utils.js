@@ -12,9 +12,9 @@ makeid = function() {
 addimage = function(f,m) {
 		//this is where the resizing comes in
 		var ratio = 1;
-		var maxWidth = 600;
-		var maxHeight = 600;
-		var quality = 0.1;
+		var maxWidth = 800;
+		var maxHeight = 800;
+		var quality = 0.8;
 		
 		var reader = new FileReader();
 		var img = new Image();
