@@ -32,8 +32,8 @@ html,body {
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	text-align:center;
 	font-family:sans-serif;
 	font-size:larger;
@@ -63,7 +63,7 @@ html,body {
 }
 
 #header .sharing {
-	padding-bottom:10px;
+	padding-bottom:5px;
 }
 
 #newtpl {
@@ -96,29 +96,32 @@ html,body {
 	display:inline;
 }
 
-
 #images {
-	max-width:800px;
-	overflow-x:show;
-	overflow-y:hidden;
-	text-align:center;
+	text-align: center;
+}
+
+#images ul {
+  max-width: 800px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+#images li {
+  display: inline-block;
+  margin-left: 100px;
+  margin-right: 100px;
+  overflow: hidden; /* without this, the layout breaks in FF too */
+}
+
+#images li img {
 	padding-bottom: 10px;
-	margin-bottom: 20px;
-	margin:0 auto;
+	padding-top: 10px;
 }
 
-#images .imagescontainer {
-	width:20000px;
-}
-
-#images .imagescontainer div {
-	float:left;
-}
-
-#images img {
-	margin-right: 100px;
-	margin-left: 100px;
-}
 
 button {
 	font-family:Arial,Helvetica,sans-serif;

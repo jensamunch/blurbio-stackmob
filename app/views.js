@@ -332,6 +332,8 @@ App.Imageview = Backbone.View.extend({
 
 	tpl: _.template($("#imagetpl").html()),
 	
+	tagName: 'li',
+	
 	initialize: function() {
 			
 	},
