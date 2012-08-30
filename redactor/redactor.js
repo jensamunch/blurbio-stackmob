@@ -159,8 +159,9 @@ var Redactor = function(element, options)
 		
 		buttonsCustom: {},
 		buttonsAdd: [],
-		buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', '|', 'link', '|',
-				'fontcolor', 'backcolor', '|', 'alignleft', 'aligncenter', 'alignright', 'justify'],
+		buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|',
+				'image', 'video', 'file', 'table', 'link', '|',
+				'fontcolor', 'backcolor', '|', 'alignleft', 'aligncenter', 'alignright', 'justify', '|', 'horizontalrule'],
 
 		airButtons: ['formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|', 'fontcolor', 'backcolor'],
 
