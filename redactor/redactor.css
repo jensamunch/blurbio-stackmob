@@ -4,6 +4,7 @@
 	max-width: 800px;
 	margin: 0 auto;
 	resize: vertical;
+	text-align: left;
 }
 
 .redactor_box, .redactor_box textarea {
