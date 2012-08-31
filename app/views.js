@@ -11,17 +11,45 @@ Backbone.View.prototype.close = function() {
 }
 
 App.Appview = Backbone.View.extend({
-
+	
+	showadmin: function() {
+		
+		console.log('showadmin')
+		
+		//housekeeping
+		currentpage = 'admin';
+		$(".navigate").html('blurb.io')
+		$(".navigate").attr("id","new");
+		
+		//remove things
+		textview.hide();
+		imagecollection.reset();
+		dropzoneview.hide();
+		urlview.hide();
+		texteditview.hide();
+		
+		//show things
+		if (typeof adminmodel == 'undefined') {usermodel = new App.Usermodel();}
+		if (typeof adminview == 'undefined') {adminview = new App.Adminview({ model : usermodel });}
+		adminview.render();
+		
+		_gaq.push([ '_trackPageview', "/admin/" ]);
+		
+	},
+	
 	shownew: function() {
+		
+		//housekeeping
 		currentpage = 'new';
+		$(".navigate").html('> > > >')
+		$(".navigate").attr("id","create");
+		$(document).attr( "title", "blurb.io BETA" );
 		
 		//remove things
 		textview.hide();
 		imagecollection.reset();
 		
-		$(".navigate").html('> > > >')
-		$(".navigate").attr("id","create");
-		
+		//show things
 		urlview.render();
 		dropzoneview.show();
 		texteditview.show();
@@ -31,23 +59,26 @@ App.Appview = Backbone.View.extend({
 	},
 	
 	showblurb: function() {
+	
+		//housekeeping
 		currentpage = 'new';
-		
 		$(".navigate").html('blurb.io')
 		$(".navigate").attr("id","new");
 		currentpage = 'blurb';
 		$(document).attr("title", "blurb.io BETA #" + blurbmodel.get('blurbschema_id') );		
+		
+		//remove things
 		dropzoneview.hide();
 		urlview.hide();
 		texteditview.hide();
-				
+		
+		//show things		
 		textview.render();
 		
 		//stop spinner
 		spinner.stop();
 		$("#spinner").hide();
 		
-		$('body').show();
 		if (blurbmodel.get('blurbschema_id') == homepage ) {
 			_gaq.push([ '_trackPageview', "/home/" ]);
 		} else {
@@ -58,6 +89,133 @@ App.Appview = Backbone.View.extend({
 	},
 
 })
+
+App.Adminview = Backbone.View.extend({
+	
+	el: $('#admin'),
+	
+	tpl: _.template($("#admintpl").html()),
+	
+	initialize: function() {
+		_.bindAll(this);
+		this.model.on('change', this.modelchange)
+	},
+	
+	events: {
+		"submit form" : "login",
+		"click #create" : "create",
+		"click #logout" : "logout",
+		"click #check" : "check",
+		"click #delete" : "deleteall",
+	},
+	
+	render: function() {
+		var html = this.tpl(this.model.toJSON());
+        this.$el.append(html);
+	},
+	
+	setall: function() {
+    	username = $('#username').val();
+		password = $('#password').val();	
+    	this.model.set({ username: username, password: password })
+		console.log(this.model)
+	},
+	
+	create: function() {
+		this.setall();
+		this.model.create({
+			success: function(model) {
+		      //Print out "Bill Watterson: cartoonist"
+		      console.log('created ' + model.get('username'));
+			    },
+		    error: function(model, response) {
+		      console.log("curses! we have failed, Hobbes!");
+		      }
+		  });	
+	},
+	
+	login: function() {
+		this.setall();
+    	this.model.login({
+			success: function(model) {
+		      //Print out "Bill Watterson: cartoonist"
+		      $('#loggedin').html(model.get('username'));
+		      console.log('logged in - ' + model.get('username'));
+			  $('#loggedin').html( model.get('username') );
+			    },
+		    error: function(model) {
+		      console.log("curses! we have failed, Hobbes!");
+		      }
+		  });
+		  
+		  return false;
+	},
+
+  	logout: function() {
+    	this.model.logout({
+			success: function(model) {
+		      //Print out "Bill Watterson: cartoonist"
+		      $('#loggedin').html('nobody');
+			    },
+		    error: function() {
+		      console.log("curses! we have failed, Hobbes!");
+		      }
+		  });
+	
+    	
+    },
+    
+    check: function() {	
+	  var string = JSON.stringify(this.model)
+	  console.log(string)
+	  console.log('logged in is: ' + this.model.isLoggedIn());
+	  
+    },
+
+	deleteall: function() {
+		console.log('starting query')
+		that = this;
+		var date=new Date();
+		var datevalue = date.valueOf();
+		
+		var stackmobQuery = new StackMob.Collection.Query();
+		stackmobQuery.lt('expirydate', datevalue);
+		
+		blurbcollection.query(stackmobQuery, {
+			success: function(collection) {
+		      console.log('query finished')
+		      collection.each(that.deleteone)
+		      }
+		    });	
+		
+	},    
+    
+    
+    deleteone: function(model) {
+	    string = JSON.stringify(model)
+		console.log('deleting' + model.get('blurbschema_id'))
+
+
+    },
+
+    
+    harmless: function() {
+	    model.destroy({
+			success: function() {
+		      //Print out "Bill Watterson: cartoonist"
+		      console.log('destroyed');
+			    },
+		    error: function() {
+		      console.log("failed");
+		      }
+		  }); 
+	    
+    },
+  
+  	
+})	
+
+
 
 App.Headerview = Backbone.View.extend({
 	

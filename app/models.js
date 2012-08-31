@@ -1,6 +1,10 @@
 var App = App || {};
 "use strict";
 
+App.Usermodel = StackMob.User.extend({
+	schemaName: 'userschema',
+})
+
 App.Blurbmodel = StackMob.Model.extend({
 	
 	schemaName: 'blurbschema',
@@ -15,7 +19,7 @@ App.Blurbmodel = StackMob.Model.extend({
 	setexpiry: function(days) {
 		var nowdate=new Date();
 		var expirydate = nowdate.setDate(nowdate.getDate()+days)
-		this.set({ expirydate : expirydate })
+		this.set({ expirydate : expirydate.valueOf() })
 	},
 	
 	setimages: function() {
@@ -33,9 +37,11 @@ App.Blurbmodel = StackMob.Model.extend({
 					imagecollection.add({ data : images[m] })				
 				}	
 	},
-	
-	
 });
+
+App.Blurbcollection = StackMob.Collection.extend({
+	model: App.Blurbmodel,
+})
 
 App.Imagemodel = Backbone.Model.extend({});
 

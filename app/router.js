@@ -5,12 +5,18 @@ App.Router = Backbone.Router.extend({
 	routes: {
 		':blurbid': 'blurbview',
 		'new/' :	'newview',
+		'admin/' : 'adminview',
 		''	:	'homeview',
 	},
 	
 	initialize: function(options) {
     },
   
+	adminview: function() {		
+		console.log('router adminview')
+		appview.showadmin();
+	},
+	
 	homeview: function() {		
 		console.log('router homeview')
 		//which blurb is the homepage - go there
@@ -58,6 +64,7 @@ $(function() {
 	currentpage = '';
 	homepage = 'blurbio';
 	blurbmodel = new App.Blurbmodel();
+	blurbcollection = new App.Blurbcollection();
 	imagecollection = new App.Imagecollection();
 
 	//create all the views

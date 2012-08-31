@@ -63,11 +63,29 @@
         <div id="text"></div>
 
         <div class="push"></div>
+        <div id="admin"></div>
     </div>
     <!-- 
     cant do it - yet
     <div class="footer">blurbs are removed after 7 days.</div>
     -->
+<script type="text/template" id="admintpl">
+<h1>Administrator Login</h1>
+<p>
+<form class="form-inline">
+  <input id="username" type="text" class="input-large" placeholder="Email">
+  <input id="password" type="password" class="input-large" placeholder="Password">
+  <button id="login" class="btn-small">Log in</button>
+</form>
+<button id="create" class="btn-small">Create</button>
+<button id="logout" class="btn-small">Log out</button>
+<button id="check" class="btn-small">Check</button>
+</p>
+<p>
+<button id="delete" class="btn-small">Delete All Expired</button>
+</p>
+</script>
+
     
     <script type="text/template" id="imagetpl">
 <img id="image" src="<%= data %>" />
@@ -84,8 +102,8 @@
 StackMob.init({
     appName: "blurb",
     clientSubdomain: "jensmunch",
-    publicKey: "9df21697-118b-4f69-a5ee-598e4f2a76cb",
-    apiVersion: 1
+    publicKey: "b8896bb5-aade-4789-95d5-e3e1b52e481d",
+    apiVersion: 0
     });
     </script><!-- 
     publicKey: "b8896bb5-aade-4789-95d5-e3e1b52e481d",
