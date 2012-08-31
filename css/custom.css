@@ -5,7 +5,6 @@ html,body {
 }
 
 .wrapper {
-	min-width: 800px;
 	font-family: sans-serif;
 	font-size: medium;
 }
@@ -16,7 +15,6 @@ html,body {
 
 .footer {
 	height: 25px;
-	min-width: 800px;
 	font-family: sans-serif;
 	font-size:small;
 }
@@ -45,8 +43,7 @@ html,body {
 
 #files, #text, #textedit, #url, #dropbox {
 	display: none;
-	margin-bottom: 10px;
-	margin-top: 10px;
+	margin: 10px;
 }
 
 #text { 
