@@ -104,7 +104,7 @@ App.Adminview = Backbone.View.extend({
 		"click #createuser" : "create",
 		"click #logoutuser" : "logout",
 		"click #checkuser" : "check",
-		"click #deleteuser" : "deleteall",
+		"click #delete" : "deleteall",
 	},
 	
 	render: function() {
@@ -121,7 +121,6 @@ App.Adminview = Backbone.View.extend({
     	username = $('#username').val();
 		password = $('#password').val();	
     	this.model.set({ username: username, password: password })
-		console.log(this.model)
 	},
 	
 	create: function() {
