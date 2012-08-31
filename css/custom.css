@@ -109,8 +109,8 @@ html,body {
 
 #images li {
   display: inline-block;
-  margin-left: 100px;
-  margin-right: 100px;
+  margin-left: 50px;
+  margin-right: 50px;
   overflow: hidden; /* without this, the layout breaks in FF too */
 }
 
