@@ -53,9 +53,9 @@ addimage = function(f,m) {
 	},
 
 redactoropts = {	
-buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|',
-				 'table', 'link', '|',
-				'fontcolor', 'backcolor', '|', 'alignleft', 'aligncenter', 'alignright', 'justify', '|', 'horizontalrule'],
+buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|',
+				 'link', '|',
+				'fontcolor', 'backcolor', '|', 'alignleft', 'aligncenter', 'alignright', 'justify'],
 }		
 
 spinopts = {
