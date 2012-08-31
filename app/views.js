@@ -26,6 +26,7 @@ App.Appview = Backbone.View.extend({
 		dropzoneview.hide();
 		urlview.hide();
 		texteditview.hide();
+		twitterview.hide();
 		
 		//show things
 		adminview.render();
@@ -46,6 +47,7 @@ App.Appview = Backbone.View.extend({
 		adminview.hide();
 		textview.hide();
 		imagecollection.reset();
+		twitterview.hide();
 		
 		//show things
 		urlview.render();
@@ -73,6 +75,7 @@ App.Appview = Backbone.View.extend({
 		
 		//show things		
 		textview.render();
+		twitterview.render();
 		
 		//stop spinner
 		spinner.stop();
@@ -217,7 +220,33 @@ App.Adminview = Backbone.View.extend({
   	
 })	
 
-
+App.Twitterview = Backbone.View.extend({
+	
+	el: $('#twitter'),
+	
+	initialize: function() {
+		_.bindAll(this);
+	},
+	
+	render: function() {
+		console.log('showing twitter')
+		this.$el.show();
+		var query = '#' + blurbmodel.get('blurbschema_id');
+		console.log(query);
+		
+		$("#twitterfeed").tweet({
+          avatar_size: 32,
+          count: 100,
+          query: query,
+          loading_text: "searching twitter..."
+        });
+	},
+	
+	hide: function() {
+		this.$el.hide();	
+	},
+		
+})		
 
 App.Headerview = Backbone.View.extend({
 	

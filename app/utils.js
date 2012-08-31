@@ -58,14 +58,15 @@ buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', '|', 'unorderedlist'
 				'fontcolor', 'backcolor', '|', 'alignleft', 'aligncenter', 'alignright', 'justify'],
 }		
 
+        
 spinopts = {
 	lines: 10,
 	// The number of lines to draw
-	length: 50,
+	length: 30,
 	// The length of each line
-	width: 15,
+	width: 10,
 	// The line thickness
-	radius: 50,
+	radius: 30,
 	// The radius of the inner circle
 	corners: 1,
 	// Corner roundness (0..1)

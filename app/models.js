@@ -32,6 +32,7 @@ App.Blurbmodel = StackMob.Model.extend({
 	},
 	
 	getimages: function() {
+		imagecollection.reset();
 		images = this.get('images');
 		for (var m = 0; images[m]; m++) {
 					imagecollection.add({ data : images[m] })				

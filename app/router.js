@@ -77,6 +77,7 @@ $(function() {
 	textview = new App.Textview({ model : blurbmodel });
 	texteditview = new App.Texteditview({ model : blurbmodel });
 	adminview = new App.Adminview({ model : usermodel })
+	twitterview = new App.Twitterview()
 	
 	//instantiate spinner
 	spinner = new Spinner(spinopts)
