@@ -66,6 +66,7 @@ $(function() {
 	blurbmodel = new App.Blurbmodel();
 	blurbcollection = new App.Blurbcollection();
 	imagecollection = new App.Imagecollection();
+	usermodel = new App.Usermodel()
 
 	//create all the views
 	appview = new App.Appview();
@@ -75,6 +76,7 @@ $(function() {
 	imagesview = new App.Imagesview({ collection : imagecollection});
 	textview = new App.Textview({ model : blurbmodel });
 	texteditview = new App.Texteditview({ model : blurbmodel });
+	adminview = new App.Adminview({ model : usermodel })
 	
 	//instantiate spinner
 	spinner = new Spinner(spinopts)

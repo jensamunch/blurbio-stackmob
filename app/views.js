@@ -13,7 +13,6 @@ Backbone.View.prototype.close = function() {
 App.Appview = Backbone.View.extend({
 	
 	showadmin: function() {
-		
 		console.log('showadmin')
 		
 		//housekeeping
@@ -29,8 +28,6 @@ App.Appview = Backbone.View.extend({
 		texteditview.hide();
 		
 		//show things
-		if (typeof adminmodel == 'undefined') {usermodel = new App.Usermodel();}
-		if (typeof adminview == 'undefined') {adminview = new App.Adminview({ model : usermodel });}
 		adminview.render();
 		
 		_gaq.push([ '_trackPageview', "/admin/" ]);
@@ -46,6 +43,7 @@ App.Appview = Backbone.View.extend({
 		$(document).attr( "title", "blurb.io BETA" );
 		
 		//remove things
+		adminview.hide();
 		textview.hide();
 		imagecollection.reset();
 		
@@ -68,6 +66,7 @@ App.Appview = Backbone.View.extend({
 		$(document).attr("title", "blurb.io BETA #" + blurbmodel.get('blurbschema_id') );		
 		
 		//remove things
+		adminview.hide();
 		dropzoneview.hide();
 		urlview.hide();
 		texteditview.hide();
@@ -98,20 +97,24 @@ App.Adminview = Backbone.View.extend({
 	
 	initialize: function() {
 		_.bindAll(this);
-		this.model.on('change', this.modelchange)
 	},
 	
 	events: {
 		"submit form" : "login",
-		"click #create" : "create",
-		"click #logout" : "logout",
-		"click #check" : "check",
-		"click #delete" : "deleteall",
+		"click #createuser" : "create",
+		"click #logoutuser" : "logout",
+		"click #checkuser" : "check",
+		"click #deleteuser" : "deleteall",
 	},
 	
 	render: function() {
 		var html = this.tpl(this.model.toJSON());
-        this.$el.append(html);
+        this.$el.html(html);
+        this.$el.show();
+	},
+	
+	hide: function() {
+		this.$el.hide();	
 	},
 	
 	setall: function() {
