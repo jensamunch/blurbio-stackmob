@@ -196,8 +196,8 @@ App.Texteditview = Backbone.View.extend({
 		
 		show: function() {
 			this.$el.show()
-			$('#redactor').redactor();
-			// redactoropts	
+			$('#redactor').redactor(redactoropts);
+			// 	
 		},
 		
 		hide: function() {

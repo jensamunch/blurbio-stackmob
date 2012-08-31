@@ -52,11 +52,11 @@ addimage = function(f,m) {
 		reader.readAsDataURL(f);
 	},
 
-redactoropts = {
-
-buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', '|', 'link', '|',
-				'fontcolor', 'backcolor', '|', 'alignleft', 'aligncenter', 'alignright', 'justify'],
-}				
+redactoropts = {	
+buttons: ['html', '|', 'formatting', '|', 'bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', 'outdent', 'indent', '|',
+				 'table', 'link', '|',
+				'fontcolor', 'backcolor', '|', 'alignleft', 'aligncenter', 'alignright', 'justify', '|', 'horizontalrule'],
+}		
 
 spinopts = {
 	lines: 10,
