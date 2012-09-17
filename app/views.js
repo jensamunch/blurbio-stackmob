@@ -141,7 +141,7 @@ App.Adminview = Backbone.View.extend({
 	
 	login: function() {
 		this.setall();
-    	this.model.login({
+    	this.model.login(true, {
 			success: function(model) {
 		      //Print out "Bill Watterson: cartoonist"
 		      $('#loggedin').html(model.get('username'));
